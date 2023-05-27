@@ -239,38 +239,4 @@ public class Stack<X> implements Comparable<Stack<X>>, Cloneable {
         sb.append("]");
         return sb.toString();
     }
-
-    // @SuppressWarnings("unchecked")
-    // public String toArrayPilhaDeFilha() {
-
-    //     if (this.estaVazio())
-    //         return "Pilha<Fila<Coordenada> is null";
-
-    //     else {
-    //         StringBuilder sb = new StringBuilder();
-    //         sb.append("Pilha de Fila [");
-    //         for (int i = this.tamanho; i >= 0; i--) {
-    //             sb.append("[");
-    //             Fila<Coordenada> filaAtual = (Fila<Coordenada>) this.elemento[i];
-    //             for (int j = 0; j < filaAtual.getTamanho(); j++) {
-    //                 try {
-    //                     Coordenada coordenadaAtual = filaAtual.peek();
-    //                     sb.append(coordenadaAtual.toString());
-    //                     if (j < filaAtual.getTamanho() - 1) {
-    //                         sb.append(", ");
-    //                     }
-    //                     filaAtual.enqueue(filaAtual.dequeue());
-    //                 } catch (Exception e) {
-    //                     e.printStackTrace();
-    //                 }
-    //             }
-    //             sb.append("]");
-    //             if (i > 0) {
-    //                 sb.append(", ");
-    //             }
-    //         }
-    //         sb.append("]");
-    //         return sb.toString();
-    //     }
-    // }
 }
