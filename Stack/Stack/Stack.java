@@ -291,6 +291,7 @@ public class Stack<X> implements Comparable<Stack<X>>, Cloneable {
         }
         return -1;
     }
+<<<<<<< HEAD
 
     // Retorna a posição baseada em 1 do elemento especificado na pilha.
     public boolean contains(Object o) {
@@ -311,4 +312,6 @@ public class Stack<X> implements Comparable<Stack<X>>, Cloneable {
         return array;
     }
 
+=======
+>>>>>>> 59f3a5784772377f4ce8f2a0c48f5b521b99d293
 }
