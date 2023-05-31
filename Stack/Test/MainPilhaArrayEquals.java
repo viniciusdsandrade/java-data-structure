@@ -32,6 +32,11 @@ public class MainPilhaArrayEquals {
         System.out.println("copyOtherStack: " + smallStack.toArray());
         System.out.println();
 
+        // ToString
+        System.out.println(stackOriginal);
+        System.out.println(otherStack);
+        System.out.println(smallStack);
+
         // test the equals method
         System.out.println("test the equals method");
         System.out.println("stackOriginal.equals(StackOriginal) ?   " + stackOriginal.equals(stackOriginal));

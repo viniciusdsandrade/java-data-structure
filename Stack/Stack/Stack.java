@@ -3,55 +3,63 @@ package Stack;
 import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.EmptyStackException;
+import java.util.NoSuchElementException;
 import java.util.StringJoiner;
-
+import java.util.Stack;
+import java.util.List;
 
 public class Stack<X> implements Comparable<Stack<X>>, Cloneable {
 
     /*
-     * boolean empty(): Verifica se a pilha está vazia.
-     * E peek(): Retorna o elemento do topo da pilha sem removê-lo.
-     * E pop(): Desempilha e retorna o elemento do topo da pilha.
-     * E push(E item): Empilha um elemento no topo da pilha.
-     * int search(Object o): Retorna a posição baseada em 1 do elemento especificado
+     * 1- boolean empty(): Verifica se a pilha está vazia.
+     * 2- E peek(): Retorna o elemento do topo da pilha sem removê-lo.
+     * 3- E pop(): Desempilha e retorna o elemento do topo da pilha.
+     * 4- E push(E item): Empilha um elemento no topo da pilha.
+     * 5- int search(Object o): Retorna a posição baseada em 1 do elemento
+     * especificado
      * na pilha.
-     * void clear(): Remove todos os elementos da pilha.
-     * int size(): Retorna o número de elementos na pilha.
-     * boolean contains(Object o): Verifica se a pilha contém o elemento
+     * 6- void clear(): Remove todos os elementos da pilha.
+     * 7- int size(): Retorna o número de elementos na pilha.
+     * 8- boolean contains(Object o): Verifica se a pilha contém o elemento
      * especificado.
-     * Object[] toArray(): Retorna um array contendo todos os elementos da pilha.
-     * Enumeration<E> elements(): Retorna um iterador sobre os elementos da pilha.
-     * boolean remove(Object o): Remove a primeira ocorrência do elemento
+     * 9- Object[] toArray(): Retorna um array contendo todos os elementos da pilha.
+     * 10- Enumeration<E> elements(): Retorna um iterador sobre os elementos da
+     * pilha.
+     * 11- boolean remove(Object o): Remove a primeira ocorrência do elemento
      * especificado da pilha, se presente.
-     * boolean removeAll(Collection<?> c): Remove todos os elementos da pilha que
+     * 12- boolean removeAll(Collection<?> c): Remove todos os elementos da pilha
+     * que
      * estão contidos na coleção especificada.
-     * boolean retainAll(Collection<?> c): Remove todos os elementos da pilha que
+     * 13- boolean retainAll(Collection<?> c): Remove todos os elementos da pilha
+     * que
      * não estão contidos na coleção especificada.
-     * Iterator<E> iterator(): Retorna um iterador sobre os elementos da pilha.
-     * ListIterator<E> listIterator(): Retorna um iterador de lista sobre os
+     * 14- Iterator<E> iterator(): Retorna um iterador sobre os elementos da pilha.
+     * 15- ListIterator<E> listIterator(): Retorna um iterador de lista sobre os
      * elementos da pilha.
-     * void add(int index, E element): Adiciona um elemento em uma posição
+     * 16- void add(int index, E element): Adiciona um elemento em uma posição
      * específica da pilha.
-     * boolean addAll(Collection<? extends E> c): Adiciona todos os elementos da
+     * 17- boolean addAll(Collection<? extends E> c): Adiciona todos os elementos da
      * coleção especificada ao final da pilha.
-     * boolean removeAllElements(): Remove todos os elementos da pilha.
-     * E elementAt(int index): Retorna o elemento na posição especificada da pilha.
-     * E firstElement(): Retorna o primeiro elemento da pilha.
-     * E lastElement(): Retorna o último elemento da pilha.
+     * 19- boolean removeAllElements(): Remove todos os elementos da pilha.
+     * 20- E elementAt(int index): Retorna o elemento na posição especificada da
+     * pilha.
+     * 21- E firstElement(): Retorna o primeiro elemento da pilha.
+     * 22- E lastElement(): Retorna o último elemento da pilha.
      * void insertElementAt(E obj, int index): Insere um elemento em uma posição
      * específica da pilha.
-     * E remove(int index): Remove o elemento na posição especificada da pilha.
-     * boolean removeElement(Object obj): Remove a primeira ocorrência do elemento
-     * especificado da pilha, se presente.
-     * void removeAllElements(): Remove todos os elementos da pilha.
-     * void setSize(int newSize): Define o tamanho da pilha.
-     * String toString(): Retorna uma representação em string da pilha.
+     * 23- E remove(int index): Remove o elemento na posição especificada da pilha.
+     * 24- boolean removeElement(Object obj): Remove a primeira ocorrência do
+     * elemento
+     * 25- especificado da pilha, se presente.
+     * 26- void removeAllElements(): Remove todos os elementos da pilha.
+     * 27- void setSize(int newSize): Define o tamanho da pilha.
+     * 28- String toString(): Retorna uma representação em string da pilha.
      */
 
     // LIFO - Last in First Out
     private X[] data;
-    private int tamanho;
-    private int capacidade;
+    private int size;
+    private int capacity;
 
     @SuppressWarnings("unchecked")
     public Stack(int capInicial) throws IllegalArgumentException {
@@ -59,83 +67,117 @@ public class Stack<X> implements Comparable<Stack<X>>, Cloneable {
         if (capInicial < 1) {
             throw new IllegalArgumentException();
         }
-        this.capacidade = capInicial;
+        this.capacity = capInicial;
         this.data = (X[]) new Object[capInicial];
-        this.tamanho = 0;
+        this.size = 0;
     }
 
+    // Empilha um elemento no topo da pilha.
     public void push(X x) throws Exception {
 
         if (x == null)
             throw new Exception("Falta o que guardar");
 
-        if (this.isFull()) {
-            this.expandirPilha(2.0f);
-        }
-        if (x instanceof Cloneable)
-            this.data[tamanho++] = (X) meuCloneDeX(x);
-        else
-            this.data[tamanho++] = (X) x;
+        if (this.isFull())
+            reziseUp();
 
+        if (x instanceof Cloneable)
+            this.data[size++] = (X) meuCloneDeX(x);
+        else
+            this.data[size++] = (X) x;
+
+        while (this.size() < this.capacity.length) {
+            reziseDown();
+        }
     }
 
+    // Retorna o elemento do topo da pilha sem removê-lo.
     public X peek() throws Exception {
 
         if (isEmpty())
             throw new EmptyStackException();
 
         X ret = null;
-        if (this.data[tamanho - 1] instanceof Cloneable)
-            ret = (X) meuCloneDeX((X) this.data[tamanho - 1]);
+        if (this.data[size - 1] instanceof Cloneable)
+            ret = (X) meuCloneDeX((X) this.data[size - 1]);
         else
-            ret = (X) this.data[tamanho - 1];
+            ret = (X) this.data[size - 1];
 
         return (X) ret;
     }
 
+    // Remove o elemento do topo da pilha.
     public X pop() {
         if (isEmpty())
-            throw new EmptyStackException();
+            throw new NoSuchElementException();
         else {
             X ret = null;
-            if (this.data[tamanho - 1] instanceof Cloneable)
-                ret = (X) meuCloneDeX((X) this.data[tamanho - 1]);
+            if (this.data[size - 1] instanceof Cloneable)
+                ret = (X) meuCloneDeX((X) this.data[size - 1]);
             else
-                ret = (X) this.data[tamanho - 1];
-            this.data[tamanho - 1] = null;
-            this.tamanho--;
+                ret = (X) this.data[size - 1];
+            this.data[size - 1] = null;
+            this.size--;
             return ret;
         }
     }
 
     @SuppressWarnings("unchecked")
-    private void expandirPilha(float porct) {
+    private void expand(float porct) {
 
-        int novaCapacidade = (int) (capacidade * Math.ceil(this.data.length * porct));
+        int newCapacity = (int) (capacity * Math.ceil(this.data.length * porct));
 
-        X[] novaPilha = (X[]) new Object[novaCapacidade];
+        X[] newStack = (X[]) new Object[newCapacity];
 
-        for (int i = 0; i < this.length(); i++) {
-            novaPilha[i] = (X) this.data[i];
+        for (int i = 0; i < this.size(); i++) {
+            newStack[i] = (X) this.data[i];
         }
 
-        this.data = (X[]) novaPilha;
-        this.capacidade = novaCapacidade;
+        this.data = (X[]) newStack;
+        this.capacity = newCapacity;
     }
 
-    public int length() {
-        return this.tamanho;
+    public void reziseUp() {
+        int newCapacity = (int) this.data.length + 1;
+
+        X[] newStack = (X[]) new Object[newCapacity];
+
+        for (int i = 0; i < this.size(); i++) {
+            newStack[i] = (X) this.data[i];
+        }
+
+        this.data = (X[]) newStack;
+        this.capacity = newCapacity;
+
+    }
+
+    public void reziseDown() {
+        int newCapacity = (int) this.data.length - 1;
+
+        X[] newStack = (X[]) new Object[newCapacity];
+
+        for (int i = 0; i < this.size(); i++) {
+            newStack[i] = (X) this.data[i];
+        }
+
+        this.data = (X[]) newStack;
+        this.capacity = newCapacity;
+
+    }
+
+    public int size() {
+        return this.size;
     }
 
     private boolean isFull() {
-        if (this.tamanho == this.data.length)
+        if (this.size == this.data.length)
             return true;
 
         return false;
     }
 
     public boolean isEmpty() {
-        if (this.tamanho == 0)
+        if (this.size == 0)
             return true;
 
         return false;
@@ -163,11 +205,11 @@ public class Stack<X> implements Comparable<Stack<X>>, Cloneable {
             throw new NullPointerException("Não é possível copiar stack Nula.");
         }
 
-        this.capacidade = pilha.capacidade;
-        this.data = (X[]) new Object[capacidade];
-        this.tamanho = 0;
+        this.capacity = pilha.capacity;
+        this.data = (X[]) new Object[capacity];
+        this.size = 0;
 
-        for (int i = 0; i < pilha.tamanho; i++) {
+        for (int i = 0; i < pilha.size; i++) {
             push((X) pilha.data[i]);
         }
     }
@@ -215,10 +257,10 @@ public class Stack<X> implements Comparable<Stack<X>>, Cloneable {
 
         Stack<?> other = (Stack<?>) obj;
 
-        if (this.tamanho != other.tamanho)
+        if (this.size != other.size)
             return false;
 
-        for (int i = 0; i < this.tamanho; i++) {
+        for (int i = 0; i < this.size; i++) {
             if (!this.data[i].equals(other.data[i]))
                 return false;
         }
@@ -230,9 +272,9 @@ public class Stack<X> implements Comparable<Stack<X>>, Cloneable {
         final int prime = 13;
         int hash = 666;
 
-        hash = hash * prime + Integer.valueOf(this.tamanho).hashCode();
+        hash = hash * prime + Integer.valueOf(this.size).hashCode();
         hash = prime * hash + Arrays.hashCode(Arrays.asList(this.data)
-                .subList(0, this.tamanho)
+                .subList(0, this.size)
                 .toArray());
 
         return hash;
@@ -249,11 +291,11 @@ public class Stack<X> implements Comparable<Stack<X>>, Cloneable {
             return 0;
         }
 
-        if (this.tamanho < other.tamanho) {
+        if (this.size < other.size) {
             return -1;
         }
 
-        if (this.tamanho > other.tamanho) {
+        if (this.size > other.size) {
             return 1;
         }
 
@@ -272,30 +314,108 @@ public class Stack<X> implements Comparable<Stack<X>>, Cloneable {
         }
     }
 
+    public String toArray() {
+        if (isEmpty()) {
+            return "[]";
+        }
+        return Arrays.toString(this.data);
+    }
+
+    // Remove todos os elementos da pilha.
+    public void clear() {
+        while (!isEmpty()) {
+            this.pop();
+        }
+    }
+
+    @SuppressWarnings("unchecked")
+    // Remove todos os elementos da pilha.
+    public void clear2() {
+        this.data = (X[]) new Object[this.capacity];
+    }
+
+    // Retorna o primeiro elemento da pilha.
+    public X firstElement() {
+        // Retorna o primeiro elemento da pilha.
+        if (this.isEmpty()) {
+            throw new EmptyStackException();
+        } else {
+            return (X) this.data[0];
+        }
+    }
+
+    // Retorna o último elemento da pilha.
+    public X lastElement() {
+        if (this.isEmpty()) {
+            throw new EmptyStackException();
+        } else {
+            return (X) this.data[this.size - 1];
+        }
+    }
+
     // Retorna o elemento na posição especificada da pilha.
-    public Object elementAt(int index) {
+    public X elementAt(int index) {
 
         if (data[index] == null) {
             return null;
         } else {
-            return data[index];
+            return (X) data[index];
         }
+    }
+
+    // Elemina todos os elementos da pilha contidos na collection
+    public boolean removeAll(Collection<?> collection) throws Exception {
+
+        if (collection == null)
+            throw new Exception("Coleção nula");
+        if (collection.isEmpty())
+            throw new Exception("Coleção vazia");
+
+        if (this.isEmpty())
+            return false;
+
+        boolean modified = false;
+        int initialSize = this.size();
+        int index = front;
+        int count = 0;
+
+        while (count < initialSize) {
+            if (collection.contains(this.data[index])) {
+                this.removeAt(index);
+                modified = true;
+            } else {
+                index = (index + 1) % this.capacity;
+            }
+            count++;
+        }
+
+    }
+
+    // Método para remover um elmento de uma determinada posição na Pilha
+    private void removeAt(int index) {
+        int i = index;
+        while (i != this.rear) {
+            this.data[i] = this.data[(i + 1) % this.capacity];
+            i = (i + 1) % this.capacity;
+        }
+        this.data[this.rear] = null;
+        this.rear = (this.rear - 1 + this.capacity) % this.capacity;
+        this.size--;
     }
 
     // Retorna a posição baseada em 1 do elemento especificado na pilha.
     public int search(Object o) {
-        for (int i = 0; i < this.tamanho; i++) {
+        for (int i = 0; i < this.size; i++) {
             if (this.data[i].equals(o)) {
                 return i + 1;
             }
         }
         return -1;
     }
-<<<<<<< HEAD
 
     // Retorna a posição baseada em 1 do elemento especificado na pilha.
     public boolean contains(Object o) {
-        for (int i = 0; i < this.tamanho; i++) {
+        for (int i = 0; i < this.size; i++) {
             if (this.data[i].equals(o)) {
                 return true;
             }
@@ -304,14 +424,14 @@ public class Stack<X> implements Comparable<Stack<X>>, Cloneable {
     }
 
     // Retorna um array contendo todos os elementos da pilha
-    public Object[] toArray() {
-        Object[] array = new Object[this.tamanho];
-        for (int i = 0; i < this.tamanho; i++) {
-            array[i] = this.data[i];
+    public <X> X[] toArray2(X[] a) {
+        if (a.length < size) {
+            return Arrays.copyOf(data, size, (Class<? extends X[]>) a.getClass());
         }
-        return array;
+        System.arraycopy(data, 0, a, 0, size);
+        if (a.length > size) {
+            a[size] = null;
+        }
+        return a;
     }
-
-=======
->>>>>>> 59f3a5784772377f4ce8f2a0c48f5b521b99d293
 }

@@ -36,15 +36,15 @@ public class MainFilaArray {
         System.out.println("\n");
 
         // Test size()
-        System.out.println("fila       Size:    " + fila.getTamanho());
-        System.out.println("outraFila  Size:    " + fila.getTamanho());
-        System.out.println("filaPequena  Size:  " + fila.getTamanho());
+        System.out.println("fila       Size:    " + fila.size());
+        System.out.println("outraFila  Size:    " + fila.size());
+        System.out.println("filaPequena  Size:  " + fila.size());
         System.out.println();
 
         // Test isEmpty()
-        System.out.println("fila       Is empty?    " + fila.estaVazio());
-        System.out.println("outraFila  Is empty?    " + outraFila.estaVazio());
-        System.out.println("filaPequena  Is empty?  " + filaPequena.estaVazio());
+        System.out.println("fila       Is empty?    " + fila.isEmpty());
+        System.out.println("outraFila  Is empty?    " + outraFila.isEmpty());
+        System.out.println("filaPequena  Is empty?  " + filaPequena.isEmpty());
         System.out.println();
 
         // Test peek()
@@ -185,9 +185,9 @@ public class MainFilaArray {
         }
 
         // Test isEmpty()
-        System.out.println("fila       Is empty?    " + fila.estaVazio());
-        System.out.println("outraFila  Is empty?    " + outraFila.estaVazio());
-        System.out.println("filaPequena  Is empty?  " + filaPequena.estaVazio());
+        System.out.println("fila       Is empty?    " + fila.isEmpty());
+        System.out.println("outraFila  Is empty?    " + outraFila.isEmpty());
+        System.out.println("filaPequena  Is empty?  " + filaPequena.isEmpty());
         System.out.println();
 
     }

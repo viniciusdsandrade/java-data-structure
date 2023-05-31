@@ -6,7 +6,7 @@ public class MainFilaArrayHashCode {
     public static void main(String[] args) throws Exception {
 
         // Create new Queue
-        Queue<Integer> fila = new Queue<Integer>(10);
+        Queue<Integer> fila = new Queue<Integer>(1);
         // Test enqueue
         fila.enqueue(1);
         fila.enqueue(2);
@@ -14,14 +14,14 @@ public class MainFilaArrayHashCode {
         fila.enqueue(4);
         fila.enqueue(5);
 
-        Queue<Integer> outraFila = new Queue<Integer>(10);
+        Queue<Integer> outraFila = new Queue<Integer>(199);
         outraFila.enqueue(1);
         outraFila.enqueue(2);
         outraFila.enqueue(3);
         outraFila.enqueue(4);
         outraFila.enqueue(5);
 
-        Queue<Integer> filaPequena = new Queue<Integer>(10);
+        Queue<Integer> filaPequena = new Queue<Integer>(1);
         filaPequena.enqueue(1);
         filaPequena.enqueue(2);
         System.out.println();
