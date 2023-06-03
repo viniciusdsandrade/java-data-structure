@@ -5,8 +5,6 @@ import java.util.Arrays;
 import java.util.EmptyStackException;
 import java.util.NoSuchElementException;
 import java.util.StringJoiner;
-import java.util.Stack;
-import java.util.List;
 
 public class Stack<X> implements Comparable<Stack<X>>, Cloneable {
 
@@ -86,7 +84,7 @@ public class Stack<X> implements Comparable<Stack<X>>, Cloneable {
         else
             this.data[size++] = (X) x;
 
-        while (this.size() < this.capacity.length) {
+        while (this.size() < this.capacity) {
             reziseDown();
         }
     }
@@ -137,6 +135,7 @@ public class Stack<X> implements Comparable<Stack<X>>, Cloneable {
         this.capacity = newCapacity;
     }
 
+    @SuppressWarnings("unchecked")
     public void reziseUp() {
         int newCapacity = (int) this.data.length + 1;
 
@@ -151,6 +150,7 @@ public class Stack<X> implements Comparable<Stack<X>>, Cloneable {
 
     }
 
+    @SuppressWarnings("unchecked")
     public void reziseDown() {
         int newCapacity = (int) this.data.length - 1;
 
@@ -363,46 +363,6 @@ public class Stack<X> implements Comparable<Stack<X>>, Cloneable {
         }
     }
 
-    // Elemina todos os elementos da pilha contidos na collection
-    public boolean removeAll(Collection<?> collection) throws Exception {
-
-        if (collection == null)
-            throw new Exception("Coleção nula");
-        if (collection.isEmpty())
-            throw new Exception("Coleção vazia");
-
-        if (this.isEmpty())
-            return false;
-
-        boolean modified = false;
-        int initialSize = this.size();
-        int index = front;
-        int count = 0;
-
-        while (count < initialSize) {
-            if (collection.contains(this.data[index])) {
-                this.removeAt(index);
-                modified = true;
-            } else {
-                index = (index + 1) % this.capacity;
-            }
-            count++;
-        }
-
-    }
-
-    // Método para remover um elmento de uma determinada posição na Pilha
-    private void removeAt(int index) {
-        int i = index;
-        while (i != this.rear) {
-            this.data[i] = this.data[(i + 1) % this.capacity];
-            i = (i + 1) % this.capacity;
-        }
-        this.data[this.rear] = null;
-        this.rear = (this.rear - 1 + this.capacity) % this.capacity;
-        this.size--;
-    }
-
     // Retorna a posição baseada em 1 do elemento especificado na pilha.
     public int search(Object o) {
         for (int i = 0; i < this.size; i++) {
@@ -424,6 +384,7 @@ public class Stack<X> implements Comparable<Stack<X>>, Cloneable {
     }
 
     // Retorna um array contendo todos os elementos da pilha
+    @SuppressWarnings("unchecked")
     public <X> X[] toArray2(X[] a) {
         if (a.length < size) {
             return Arrays.copyOf(data, size, (Class<? extends X[]>) a.getClass());
