@@ -4,7 +4,7 @@ import java.lang.reflect.Method;
 import java.util.EmptyStackException;
 import java.util.StringJoiner;
 
-public final class Queue<X> implements Comparable<Queue<X>>, Cloneable {
+public final class Queue<X> implements Cloneable {
 
     // FIFO - First in First Out
     private X[] elemento;
@@ -12,7 +12,7 @@ public final class Queue<X> implements Comparable<Queue<X>>, Cloneable {
     private int atras;
     private int tamanho;
 
-    // @SuppressWarnings("unchecked")
+    @SuppressWarnings("unchecked")
     public Queue(int capInicial) throws IllegalArgumentException {
         if (capInicial < 1) {
             throw new IllegalArgumentException();
@@ -36,28 +36,26 @@ public final class Queue<X> implements Comparable<Queue<X>>, Cloneable {
         this.tamanho++;
     }
 
-    @SuppressWarnings("unchecked")
-    public X peek() throws Exception {
+    public X peek() {
 
         if (estaVazio())
             throw new EmptyStackException();
 
-        X ret = null;
+        X ret;
         if (this.elemento[frente] instanceof Cloneable)
-            ret = meuCloneDeX((X) this.elemento[frente]);
+            ret = meuCloneDeX(this.elemento[frente]);
         else
-            ret = (X) this.elemento[frente];
+            ret = this.elemento[frente];
 
         return ret;
     }
 
-    @SuppressWarnings("unchecked")
-    public X dequeue() throws Exception {
+    public X dequeue() {
 
         if (estaVazio())
             throw new EmptyStackException();
 
-        X data = (X) elemento[frente];
+        X data = elemento[frente];
         this.frente = (frente + 1) % tamanho;
         this.tamanho--;
         return data;
@@ -71,7 +69,7 @@ public final class Queue<X> implements Comparable<Queue<X>>, Cloneable {
         X[] novoElemento = (X[]) new Object[novaCapacidade];
 
         for (int i = 0; i < this.getTamanho(); i++) {
-            novoElemento[i] = (X) elemento[(frente + i) % this.elemento.length];
+            novoElemento[i] = elemento[(frente + i) % this.elemento.length];
         }
 
         this.elemento = novoElemento;
@@ -84,20 +82,14 @@ public final class Queue<X> implements Comparable<Queue<X>>, Cloneable {
     }
 
     public boolean estaCheio() {
-        if (this.tamanho == this.elemento.length)
-            return true;
-
-        return false;
+        return this.tamanho == this.elemento.length;
     }
 
     public boolean estaVazio() {
-        if (this.tamanho == 0)
-            return true;
-
-        return false;
+        return this.tamanho == 0;
     }
 
-    public String dequeueAll() throws Exception {
+    public String dequeueAll() {
 
         if (estaVazio()) {
             return "";
@@ -125,7 +117,7 @@ public final class Queue<X> implements Comparable<Queue<X>>, Cloneable {
         this.tamanho = 0;
 
         for (int i = 0; i < copia.tamanho; i++) {
-            this.enqueue((X) copia.elemento[(copia.frente + i) % copia.elemento.length]);
+            this.enqueue(copia.elemento[(copia.frente + i) % copia.elemento.length]);
         }
     }
 
@@ -136,7 +128,7 @@ public final class Queue<X> implements Comparable<Queue<X>>, Cloneable {
 
         try {
             clone = new Queue<>(this);
-        } catch (Exception e) {
+        } catch (Exception ignored) {
         }
 
         return clone;
@@ -150,10 +142,10 @@ public final class Queue<X> implements Comparable<Queue<X>>, Cloneable {
         try {
             Class<?> classe = x.getClass();
             Class<?>[] tipoDosParms = null;
-            Method metodo = classe.getMethod("clone", tipoDosParms);
+            Method metodo = classe.getMethod("clone", (Class<?>) null);
             Object[] parms = null;
-            ret = (X) metodo.invoke(x, parms);
-        } catch (Exception erro) {
+            ret = (X) metodo.invoke(x, (Object[]) null);
+        } catch (Exception ignored) {
         }
 
         return ret;
@@ -162,14 +154,9 @@ public final class Queue<X> implements Comparable<Queue<X>>, Cloneable {
     @Override
     public boolean equals(Object obj) {
 
-        if (this == obj)
-            return true;
-
-        if (obj == null)
-            return false;
-
-        if (this.getClass() != obj.getClass())
-            return false;
+        if (this == obj) return true;
+        if (obj == null) return false;
+        if (this.getClass() != obj.getClass()) return false;
 
         Queue<?> other = (Queue<?>) obj;
 
@@ -189,13 +176,13 @@ public final class Queue<X> implements Comparable<Queue<X>>, Cloneable {
     @Override
     public int hashCode() {
 
-        final int primo = 31;
+        final int prime = 31;
         int hash = 19;
 
-        hash = hash * primo + Integer.valueOf(this.tamanho).hashCode();
+        hash *= hash + Integer.valueOf(this.tamanho).hashCode();
 
         for (int i = 0; i < this.tamanho; i++) {
-            hash = hash * primo + (this.elemento[((this.frente) + i) % this.elemento.length].hashCode());
+            hash *= prime + (this.elemento[((this.frente) + i) % this.elemento.length].hashCode());
         }
 
         if (hash < 0)
@@ -204,27 +191,7 @@ public final class Queue<X> implements Comparable<Queue<X>>, Cloneable {
         return hash;
     }
 
-    @Override
-    public int compareTo(Queue<X> other) {
-
-        if (!(other instanceof Queue)) {
-            throw new ClassCastException("A outra pilha não é uma instância de PilhaArray");
-        }
-        if (this == other) {
-            return 0;
-        }
-
-        if (this.tamanho < other.tamanho) {
-            return -1;
-        }
-
-        if (this.tamanho > other.tamanho) {
-            return 1;
-        }
-
-        return 0;
-    }
-
+  
     @Override
     public String toString() {
         if (this.estaVazio()) {

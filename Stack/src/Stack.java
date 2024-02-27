@@ -6,48 +6,32 @@ import java.util.EmptyStackException;
 import java.util.NoSuchElementException;
 import java.util.StringJoiner;
 
-public class Stack<X> implements Comparable<Stack<X>>, Cloneable {
+public class Stack<X> implements Cloneable {
 
     /*
      * 1- boolean empty(): Verifica se a pilha está vazia.
      * 2- E peek(): Retorna o elemento do topo da pilha sem removê-lo.
      * 3- E pop(): Desempilha e retorna o elemento do topo da pilha.
      * 4- E push(E item): Empilha um elemento no topo da pilha.
-     * 5- int search(Object o): Retorna a posição baseada em 1 do elemento
-     * especificado
-     * na pilha.
+     * 5- int search(Object o): Retorna a posição baseada em 1 do elemento especificado na pilha.
      * 6- void clear(): Remove todos os elementos da pilha.
      * 7- int size(): Retorna o número de elementos na pilha.
-     * 8- boolean contains(Object o): Verifica se a pilha contém o elemento
-     * especificado.
+     * 8- boolean contains(Object o): Verifica se a pilha contém o elemento especificado.
      * 9- Object[] toArray(): Retorna um array contendo todos os elementos da pilha.
-     * 10- Enumeration<E> elements(): Retorna um iterador sobre os elementos da
-     * pilha.
-     * 11- boolean remove(Object o): Remove a primeira ocorrência do elemento
-     * especificado da pilha, se presente.
-     * 12- boolean removeAll(Collection<?> c): Remove todos os elementos da pilha
-     * que
-     * estão contidos na coleção especificada.
-     * 13- boolean retainAll(Collection<?> c): Remove todos os elementos da pilha
-     * que
-     * não estão contidos na coleção especificada.
+     * 10- Enumeration<E> elements(): Retorna um iterador sobre os elementos da pilha.
+     * 11- boolean remove(Object o): Remove a primeira ocorrência do elemento especificado da pilha, se presente.
+     * 12- boolean removeAll(Collection<?> c): Remove todos os elementos da pilha que estão contidos na coleção especificada.
+     * 13- boolean retainAll(Collection<?> c): Remove todos os elementos da pilha que não estão contidos na coleção especificada.
      * 14- Iterator<E> iterator(): Retorna um iterador sobre os elementos da pilha.
-     * 15- ListIterator<E> listIterator(): Retorna um iterador de lista sobre os
-     * elementos da pilha.
-     * 16- void add(int index, E element): Adiciona um elemento em uma posição
-     * específica da pilha.
-     * 17- boolean addAll(Collection<? extends E> c): Adiciona todos os elementos da
-     * coleção especificada ao final da pilha.
+     * 15- ListIterator<E> listIterator(): Retorna um iterador de lista sobre os elementos da pilha.
+     * 16- void add(int index, E element): Adiciona um elemento em uma posição específica da pilha.
+     * 17- boolean addAll(Collection<? extends E> c): Adiciona todos os elementos da coleção especificada ao final da pilha.
      * 19- boolean removeAllElements(): Remove todos os elementos da pilha.
-     * 20- E elementAt(int index): Retorna o elemento na posição especificada da
-     * pilha.
+     * 20- E elementAt(int index): Retorna o elemento na posição especificada da pilha.
      * 21- E firstElement(): Retorna o primeiro elemento da pilha.
-     * 22- E lastElement(): Retorna o último elemento da pilha.
-     * void insertElementAt(E obj, int index): Insere um elemento em uma posição
-     * específica da pilha.
+     * 22- E lastElement(): Retorna o último elemento da pilha. void insertElementAt(E obj, int index): Insere um elemento em uma posição específica da pilha.
      * 23- E remove(int index): Remove o elemento na posição especificada da pilha.
-     * 24- boolean removeElement(Object obj): Remove a primeira ocorrência do
-     * elemento
+     * 24- boolean removeElement(Object obj): Remove a primeira ocorrência do elemento
      * 25- especificado da pilha, se presente.
      * 26- void removeAllElements(): Remove todos os elementos da pilha.
      * 27- void setSize(int newSize): Define o tamanho da pilha.
@@ -62,9 +46,8 @@ public class Stack<X> implements Comparable<Stack<X>>, Cloneable {
     @SuppressWarnings("unchecked")
     public Stack(int capInicial) throws IllegalArgumentException {
 
-        if (capInicial < 1) {
-            throw new IllegalArgumentException();
-        }
+        if (capInicial < 1) throw new IllegalArgumentException();
+
         this.capacity = capInicial;
         this.data = (X[]) new Object[capInicial];
         this.size = 0;
@@ -73,35 +56,31 @@ public class Stack<X> implements Comparable<Stack<X>>, Cloneable {
     // Empilha um elemento no topo da pilha.
     public void push(X x) throws Exception {
 
-        if (x == null)
-            throw new Exception("Falta o que guardar");
+        if (x == null) throw new Exception("Falta o que guardar");
 
-        if (this.isFull())
-            reziseUp();
+        if (this.isFull()) reziseUp();
 
         if (x instanceof Cloneable)
-            this.data[size++] = (X) meuCloneDeX(x);
+            this.data[size++] = meuCloneDeX(x);
         else
-            this.data[size++] = (X) x;
+            this.data[size++] = x;
 
-        while (this.size() < this.capacity) {
+        while (this.size() < this.capacity) 
             reziseDown();
-        }
     }
 
     // Retorna o elemento do topo da pilha sem removê-lo.
-    public X peek() throws Exception {
+    public X peek() {
 
-        if (isEmpty())
-            throw new EmptyStackException();
+        if (isEmpty()) throw new EmptyStackException();
 
-        X ret = null;
+        X ret;
         if (this.data[size - 1] instanceof Cloneable)
-            ret = (X) meuCloneDeX((X) this.data[size - 1]);
+            ret = meuCloneDeX(this.data[size - 1]);
         else
-            ret = (X) this.data[size - 1];
+            ret = this.data[size - 1];
 
-        return (X) ret;
+        return ret;
     }
 
     // Remove o elemento do topo da pilha.
@@ -109,11 +88,11 @@ public class Stack<X> implements Comparable<Stack<X>>, Cloneable {
         if (isEmpty())
             throw new NoSuchElementException();
         else {
-            X ret = null;
+            X ret;
             if (this.data[size - 1] instanceof Cloneable)
-                ret = (X) meuCloneDeX((X) this.data[size - 1]);
+                ret = meuCloneDeX(this.data[size - 1]);
             else
-                ret = (X) this.data[size - 1];
+                ret = this.data[size - 1];
             this.data[size - 1] = null;
             this.size--;
             return ret;
@@ -127,40 +106,34 @@ public class Stack<X> implements Comparable<Stack<X>>, Cloneable {
 
         X[] newStack = (X[]) new Object[newCapacity];
 
-        for (int i = 0; i < this.size(); i++) {
-            newStack[i] = (X) this.data[i];
-        }
+        if (this.size() >= 0) System.arraycopy(this.data, 0, newStack, 0, this.size());
 
-        this.data = (X[]) newStack;
+        this.data = newStack;
         this.capacity = newCapacity;
     }
 
     @SuppressWarnings("unchecked")
     public void reziseUp() {
-        int newCapacity = (int) this.data.length + 1;
+        int newCapacity = this.data.length + 1;
 
         X[] newStack = (X[]) new Object[newCapacity];
 
-        for (int i = 0; i < this.size(); i++) {
-            newStack[i] = (X) this.data[i];
-        }
+        if (this.size() >= 0) System.arraycopy(this.data, 0, newStack, 0, this.size());
 
-        this.data = (X[]) newStack;
+        this.data = newStack;
         this.capacity = newCapacity;
 
     }
 
     @SuppressWarnings("unchecked")
     public void reziseDown() {
-        int newCapacity = (int) this.data.length - 1;
+        int newCapacity = this.data.length - 1;
 
         X[] newStack = (X[]) new Object[newCapacity];
 
-        for (int i = 0; i < this.size(); i++) {
-            newStack[i] = (X) this.data[i];
-        }
+        if (this.size() >= 0) System.arraycopy(this.data, 0, newStack, 0, this.size());
 
-        this.data = (X[]) newStack;
+        this.data = newStack;
         this.capacity = newCapacity;
 
     }
@@ -170,20 +143,14 @@ public class Stack<X> implements Comparable<Stack<X>>, Cloneable {
     }
 
     private boolean isFull() {
-        if (this.size == this.data.length)
-            return true;
-
-        return false;
+        return this.size == this.data.length;
     }
 
     public boolean isEmpty() {
-        if (this.size == 0)
-            return true;
-
-        return false;
+        return this.size == 0;
     }
 
-    public String popAll() throws Exception {
+    public String popAll() {
 
         if (isEmpty()) {
             return "";
@@ -210,7 +177,7 @@ public class Stack<X> implements Comparable<Stack<X>>, Cloneable {
         this.size = 0;
 
         for (int i = 0; i < pilha.size; i++) {
-            push((X) pilha.data[i]);
+            push(pilha.data[i]);
         }
     }
 
@@ -221,7 +188,7 @@ public class Stack<X> implements Comparable<Stack<X>>, Cloneable {
 
         try {
             clone = new Stack<>(this);
-        } catch (Exception erro) {
+        } catch (Exception ignored) {
         }
 
         return clone;
@@ -235,10 +202,10 @@ public class Stack<X> implements Comparable<Stack<X>>, Cloneable {
         try {
             Class<?> classe = x.getClass();
             Class<?>[] tipoDosParms = null;
-            Method metodo = classe.getMethod("clone", tipoDosParms);
+            Method metodo = classe.getMethod("clone", (Class<?>) null);
             Object[] parms = null;
-            ret = (X) metodo.invoke(x, parms);
-        } catch (Exception erro) {
+            ret = (X) metodo.invoke(x, (Object[]) null);
+        } catch (Exception ignored) {
         }
         return ret;
     }
@@ -270,7 +237,7 @@ public class Stack<X> implements Comparable<Stack<X>>, Cloneable {
     @Override
     public int hashCode() {
         final int prime = 13;
-        int hash = 666;
+        int hash = 1;
 
         hash = hash * prime + Integer.valueOf(this.size).hashCode();
         hash = prime * hash + Arrays.hashCode(Arrays.asList(this.data)
@@ -280,27 +247,6 @@ public class Stack<X> implements Comparable<Stack<X>>, Cloneable {
         return hash;
     }
 
-    @Override
-    public int compareTo(Stack<X> other) throws ClassCastException {
-
-        if (!(other instanceof Stack)) {
-            throw new ClassCastException("A outra pilha não é uma instância de PilhaArray");
-        }
-
-        if (this == other) {
-            return 0;
-        }
-
-        if (this.size < other.size) {
-            return -1;
-        }
-
-        if (this.size > other.size) {
-            return 1;
-        }
-
-        return 0;
-    }
 
     @Override
     public String toString() {
@@ -308,7 +254,7 @@ public class Stack<X> implements Comparable<Stack<X>>, Cloneable {
             return "[]";
         }
         try {
-            return "[" + peek() + "]";
+            return "[" + this.peek() + "]";
         } catch (Exception e) {
             return "[]";
         }
@@ -340,7 +286,7 @@ public class Stack<X> implements Comparable<Stack<X>>, Cloneable {
         if (this.isEmpty()) {
             throw new EmptyStackException();
         } else {
-            return (X) this.data[0];
+            return this.data[0];
         }
     }
 
@@ -349,7 +295,7 @@ public class Stack<X> implements Comparable<Stack<X>>, Cloneable {
         if (this.isEmpty()) {
             throw new EmptyStackException();
         } else {
-            return (X) this.data[this.size - 1];
+            return this.data[this.size - 1];
         }
     }
 
@@ -359,7 +305,7 @@ public class Stack<X> implements Comparable<Stack<X>>, Cloneable {
         if (data[index] == null) {
             return null;
         } else {
-            return (X) data[index];
+            return data[index];
         }
     }
 
@@ -381,18 +327,5 @@ public class Stack<X> implements Comparable<Stack<X>>, Cloneable {
             }
         }
         return false;
-    }
-
-    // Retorna um array contendo todos os elementos da pilha
-    @SuppressWarnings("unchecked")
-    public <X> X[] toArray2(X[] a) {
-        if (a.length < size) {
-            return Arrays.copyOf(data, size, (Class<? extends X[]>) a.getClass());
-        }
-        System.arraycopy(data, 0, a, 0, size);
-        if (a.length > size) {
-            a[size] = null;
-        }
-        return a;
     }
 }
