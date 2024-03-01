@@ -1,7 +1,9 @@
 package Coordenada;
 
-public class Coordinate implements  Cloneable {
-    
+import java.util.Objects;
+
+public class Coordinate implements Cloneable {
+
     private int X;
     private int Y;
 
@@ -13,12 +15,15 @@ public class Coordinate implements  Cloneable {
     public int getX() {
         return X;
     }
+
     public int getY() {
         return Y;
     }
+
     public void setX(int X) {
         this.X = X;
     }
+
     public void setY(int Y) {
         this.Y = Y;
     }
@@ -28,18 +33,17 @@ public class Coordinate implements  Cloneable {
         this.X = other.X;
         this.Y = other.Y;
     }
-    
+
     @Override
     public int hashCode() {
-
+        final int prime = 31;
         int hash = 1;
-        int prime = 31;
 
         hash *= prime + Integer.valueOf(this.X).hashCode();
         hash *= prime + Integer.valueOf(this.Y).hashCode();
 
         if (hash < 0) hash = -hash;
-        
+
         return hash;
     }
 
@@ -52,10 +56,8 @@ public class Coordinate implements  Cloneable {
 
         Coordinate that = (Coordinate) obj;
 
-        if (this.X != that.X) return false;
-        if (this.Y != that.Y) return false;
-
-        return true;
+        return Objects.equals(this.X, that.X) &&
+                Objects.equals(this.Y, that.Y);
     }
 
     @Override

@@ -57,6 +57,7 @@ public class LinkedListDisordered<X> implements Cloneable {
             this.data = valor;
             this.next = null;
         }
+
         public Node(X valor, Node next) {
             this.data = valor;
             this.next = next;
@@ -131,7 +132,7 @@ public class LinkedListDisordered<X> implements Cloneable {
     }
 
     private Node head;
-    private final int size;
+    private int size;
 
     public LinkedListDisordered() {
         this.head = null;
@@ -144,6 +145,8 @@ public class LinkedListDisordered<X> implements Cloneable {
         Node novo = new Node(data);
         novo.next = head;
         head = novo;
+
+        size++;
     }
 
     public void removeFirst() {
@@ -151,21 +154,25 @@ public class LinkedListDisordered<X> implements Cloneable {
             throw new IllegalStateException("Lista vazia");
 
         head = head.next;
+
+        size--;
     }
 
     public void addLast(X valor) {
         if (valor == null) throw new IllegalArgumentException("Valor não pode ser nulo");
 
         Node novo = new Node(valor);
-        Node aux = head;
-        if (aux == null) {
+        if (head == null) {
             head = novo;
         } else {
+            Node aux = head;
             while (aux.next != null) {
                 aux = aux.next;
             }
             aux.next = novo;
         }
+
+        size++;
     }
 
     public void removeLast() {
@@ -181,6 +188,8 @@ public class LinkedListDisordered<X> implements Cloneable {
             }
             aux.next = null;
         }
+
+        size--;
     }
 
     public void add(X valor) {
@@ -194,6 +203,7 @@ public class LinkedListDisordered<X> implements Cloneable {
             }
             aux.next = novo;
         }
+        size++;
     }
 
     public boolean contains(X valor) {
@@ -207,8 +217,32 @@ public class LinkedListDisordered<X> implements Cloneable {
         return false;
     }
 
-    public int size() {
+    public int getSize() {
         return this.size;
+    }
+
+    public boolean isEmpty() {
+        return this.size == 0;
+    }
+
+    public void remove(X valor) {
+        if (head == null) {
+            throw new IllegalStateException("Lista vazia");
+        }
+        if (head.data.equals(valor)) {
+            head = head.next;
+            size--;
+            return;
+        }
+        Node aux = head;
+        while (aux.next != null) {
+            if (aux.next.data.equals(valor)) {
+                aux.next = aux.next.next;
+                size--;
+                return;
+            }
+            aux = aux.next;
+        }
     }
 
     public X getFirst() {
@@ -246,9 +280,28 @@ public class LinkedListDisordered<X> implements Cloneable {
         head = null;
     }
 
+    //Faça uma deepCopy
     public LinkedListDisordered(LinkedListDisordered<X> other) {
-        this.head = other.head;
-        this.size = other.size;
+        if (other == null) throw new IllegalArgumentException("Lista não pode ser nula");
+
+
+        if (other.head == null) {
+            head = null;
+            size = 0;
+            return;
+        }
+
+        Node aux = other.head;
+        Node copy = new Node(aux.data);
+        head = copy;
+
+        while (aux.next != null) {
+            copy.next = new Node(aux.next.data);
+            aux = aux.next;
+            copy = copy.next;
+        }
+
+        size = other.size;
     }
 
     @Override
