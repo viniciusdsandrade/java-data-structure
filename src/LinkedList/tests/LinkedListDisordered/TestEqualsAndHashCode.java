@@ -5,7 +5,7 @@ import LinkedList.LinkedListDisordered;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TestEquality {
+public class TestEqualsAndHashCode {
     public static void main(String[] args) {
         LinkedListDisordered<List<LinkedListDisordered<Integer>>> list1 = new LinkedListDisordered<>();
         LinkedListDisordered<List<LinkedListDisordered<Integer>>> list2 = new LinkedListDisordered<>();

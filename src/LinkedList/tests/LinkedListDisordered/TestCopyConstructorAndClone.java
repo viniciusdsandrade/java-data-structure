@@ -2,7 +2,7 @@ package LinkedList.tests.LinkedListDisordered;
 
 import LinkedList.LinkedListDisordered;
 
-public class TestCopyConstructor {
+public class TestCopyConstructorAndClone {
     public static void main(String[] args) {
         LinkedListDisordered<Integer> list = new LinkedListDisordered<>();
         list.add(1);

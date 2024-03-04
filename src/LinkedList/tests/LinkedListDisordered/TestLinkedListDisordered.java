@@ -4,51 +4,77 @@ import LinkedList.LinkedListDisordered;
 
 public class TestLinkedListDisordered {
     public static void main(String[] args) {
+        LinkedListDisordered<Object> linked_name = new LinkedListDisordered<>();
+        System.out.println(linked_name);
+        linked_name.add("dos");
+        linked_name.add("Santos");
+        System.out.println(linked_name);
 
-        LinkedListDisordered<Object> list = new LinkedListDisordered<>();
+        linked_name.addFirst("Vinícius");
+        linked_name.addLast("Andrade");
+        System.out.println(linked_name);
 
-        list.add(1);
-        list.add(2);
+        linked_name.removeFirst();
+        System.out.println("removendo first" + linked_name);
+        linked_name.removeLast();
+        System.out.println("removendo last" + linked_name);
 
-        list.add("Hello");
-        list.add("World");
+        boolean contemDos = linked_name.contains("dos");
+        System.out.println("contém ´dos´: " + contemDos);
 
-        list.add(4.5);
-        list.add(6.7);
+        boolean contemVinicius = linked_name.contains("Vinícius");
+        System.out.println("contém ´Vinícius´: " + contemVinicius);
 
-        list.add(4L);
-        list.add(6L);
+        boolean contemAndrade = linked_name.contains("Andrade");
+        System.out.println("contém ´Andrade´: " + contemAndrade);
 
-        list.add(4.5f);
-        list.add(6.7f);
+        int tamanho = linked_name.getSize();
+        System.out.println("Tamanho: " + tamanho);
 
-        list.add(4.5d);
-        list.add(6.7d);
+        boolean estaVazio = linked_name.isEmpty();
+        System.out.println("Está vazio: " + estaVazio);
 
-        list.add('a');
-        list.add('b');
+        linked_name.clear();
 
-        list.add(true);
-        list.add(false);
+        tamanho = linked_name.getSize();
+        System.out.println("Tamanho: " + tamanho);
 
-        list.add(null);
+        estaVazio = linked_name.isEmpty();
+        System.out.println("Está vazio: " + estaVazio);
 
-        LinkedListDisordered<LinkedListDisordered<Integer>> list2 = new LinkedListDisordered<>();
-        LinkedListDisordered<Integer> sublist1 = new LinkedListDisordered<>();
-        sublist1.add(1);
-        sublist1.add(2);
-        sublist1.add(3);
+        linked_name.add("First");
+        System.out.println(linked_name);
+        linked_name.add("Second");
+        System.out.println(linked_name);
+        linked_name.add("Last");
+        System.out.println(linked_name);
 
-        LinkedListDisordered<Integer> sublist2 = new LinkedListDisordered<>();
-        sublist2.add(4);
-        sublist2.add(5);
-        sublist2.add(6);
+        Object primeiro = linked_name.getFirst();
+        System.out.println("Primeiro: " + primeiro);
 
-        list2.add(sublist1);
-        list2.add(sublist2);
+        Object ultimo = linked_name.getLast();
+        System.out.println("Último: " + ultimo);
 
-        list.add(list2);
+        linked_name.clear();
+        linked_name.add(1);
+        linked_name.add(2);
+        linked_name.add(3);
+        linked_name.add(4);
+        linked_name.add(5);
+        linked_name.add(6);
+        linked_name.add(7);
+        linked_name.add(8);
+        linked_name.add(9);
 
-        System.out.println(list);
+        System.out.println(linked_name);
+
+        for (int i = 0; i < linked_name.getSize(); i++) {
+            System.out.println(linked_name.get(i));
+        }
+
+        for (int i = 1; i < 10; i++) {
+            linked_name.remove(i);
+            System.out.println(linked_name);
+        }
     }
 }

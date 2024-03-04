@@ -50,6 +50,7 @@ public class Node<X> implements Cloneable {
     }
 
     @Override
+    @SuppressWarnings("")
     public Node<X> clone() {
 
         Node<X> clone = null;
