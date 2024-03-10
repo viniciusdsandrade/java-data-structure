@@ -34,8 +34,8 @@ public class TestEqualsAndHashCode {
         System.out.println("list2: " + list2);
 
         // Testando igualdade
-        System.out.println("HashCode de list1: " + list1.hashCode());
-        System.out.println("HashCode de list2: " + list2.hashCode());
+        System.out.println("HashCode de list1:   " + list1.hashCode());
+        System.out.println("HashCode de list2:   " + list2.hashCode());
         System.out.println("list1.equals(list2): " + list1.equals(list2));
     }
 }

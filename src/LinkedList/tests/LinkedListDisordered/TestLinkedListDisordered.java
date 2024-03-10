@@ -9,6 +9,29 @@ public class TestLinkedListDisordered {
         linked_name.add("dos");
         linked_name.add("Santos");
         System.out.println(linked_name);
+        System.out.println(linked_name.get(0));
+
+        //quero testar o método reverse
+        linked_name.reverse();
+        System.out.println(linked_name);
+        linked_name.reverse();
+        System.out.println(linked_name);
+
+        //Quero testar o método rotate
+        System.out.println("before rotacio: " + linked_name);
+        linked_name.rotate(0);
+        System.out.println("Rotacionando 0: " + linked_name);
+        linked_name.rotate(1);
+        System.out.println("Rotacionando 1: " + linked_name);
+        linked_name.rotate(2);
+        System.out.println("Rotacionando 2: " + linked_name);
+        linked_name.rotate(3);
+        System.out.println("Rotacionando 3: " + linked_name);
+        linked_name.rotate(4);
+        System.out.println("Rotacionando 4: " + linked_name);
+        linked_name.rotate(5);
+        System.out.println("Rotacionando 5: " + linked_name);
+        System.out.println();
 
         linked_name.addFirst("Vinícius");
         linked_name.addLast("Andrade");

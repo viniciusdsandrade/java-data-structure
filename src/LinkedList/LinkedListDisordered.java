@@ -145,7 +145,7 @@ public class LinkedListDisordered<X> implements Cloneable {
     public void setHead(Node head) {
         this.head = head;
     }
-    
+
     public int getSize() {
         return this.size;
     }
@@ -159,40 +159,59 @@ public class LinkedListDisordered<X> implements Cloneable {
         this.size = 0;
     }
 
+    /**
+     * Adiciona um novo nó contendo o valor especificado ao final da lista encadeada.
+     *
+     * @param valor o valor a ser adicionado à lista
+     */
     public void add(X valor) {
-        Node novo = new Node(valor);
-        Node aux = head;
-        if (aux == null) {
-            head = novo;
+
+        Node novo = new Node(valor); // Cria um novo nó com o valor especificado
+
+        // Verifica se a lista está vazia
+        if (head == null) {
+            head = novo; // Se a lista estiver vazia, o novo nó se torna o primeiro nó da lista
         } else {
+            Node aux = head; // Caso contrário, percorre a lista até encontrar o último nó
             while (aux.next != null) {
-                aux = aux.getNext();
+                aux = aux.next;
             }
-            aux.next = novo;
+            aux.next = novo; // Adiciona o novo nó como próximo do último nó encontrado
         }
-        size++;
+        size++; // Incrementa o tamanho da lista
     }
 
+
+    /**
+     * Remove o primeiro nó da lista que contém o valor especificado.
+     *
+     * @param valor o valor a ser removido da lista
+     * @throws IllegalStateException se a lista estiver vazia
+     */
     public void remove(X valor) {
-        if (head == null) throw new IllegalStateException("Lista vazia");
-        
+        // Verifica se a lista está vazia
+        if (head == null)
+            throw new IllegalStateException("Lista vazia");
+
+        // Verifica se o valor a ser removido está no primeiro nó da lista
         if (head.data.equals(valor)) {
-            head = head.next;
-            size--;
+            head = head.next; // Se sim, atualiza o primeiro nó para ser o próximo nó da lista
+            size--; // Decrementa o tamanho da lista
             return;
         }
-        
-        Node aux = head;
-        
+
+        Node aux = head; // Caso contrário, percorre a lista para encontrar o nó a ser removido
         while (aux.next != null) {
+            // Verifica se o próximo nó contém o valor a ser removido
             if (aux.next.data.equals(valor)) {
-                aux.next = aux.next.next;
-                size--;
+                aux.next = aux.next.next; // Se sim, atualiza o próximo nó para apontar para o nó seguinte
+                size--; // Decrementa o tamanho da lista
                 return;
             }
             aux = aux.next;
         }
     }
+
 
     public void addFirst(X data) {
         if (data == null) throw new IllegalArgumentException("Valor não pode ser nulo");
@@ -200,7 +219,6 @@ public class LinkedListDisordered<X> implements Cloneable {
         Node novo = new Node(data);
         novo.next = head;
         head = novo;
-
         size++;
     }
 
@@ -229,7 +247,6 @@ public class LinkedListDisordered<X> implements Cloneable {
     }
 
     public void removeLast() {
-        
         if (head == null) throw new IllegalStateException("Lista vazia");
 
         if (head.next == null) {
@@ -251,7 +268,7 @@ public class LinkedListDisordered<X> implements Cloneable {
             if (aux.data.equals(valor)) {
                 return true;
             }
-            aux = aux.getNext();
+            aux = aux.next;
         }
         return false;
     }
@@ -296,9 +313,49 @@ public class LinkedListDisordered<X> implements Cloneable {
         size = 0;
     }
 
+    public void reverse() {
+        if (head == null || head.next == null) return;
+
+        Node anterior = null;
+        Node atual = head;
+        Node proximoNo;
+
+        while (atual != null) {
+            proximoNo = atual.next; // Salva o próximo nó
+            atual.next = anterior;  // Inverte o ponteiro para o nó anterior
+            anterior = atual;       // Atualiza o nó anterior para o nó atual
+            atual = proximoNo;      // Atualiza o nó atual para o próximo nó
+        }
+
+        head = anterior; // Atualiza o ponteiro da cabeça para o último nó (que era o primeiro nó)
+    }
+
+    public void rotate(int passos) {
+        if (head == null || passos == 0) return; //se a lista estiver vazia ou se passos for 0, não há nada a fazer
+
+        passos = passos % size; //
+
+        if (passos < 0) passos += size; // Converte passos negativos em equivalentes positivos
+        if (passos == 0) return;
+
+        Node atual = head;
+        for (int i = 0; i < size - passos - 1; i++) {
+            atual = atual.next; // Avança 'size - passos - 1' nós a partir da cabeça
+        }
+
+        Node novaCabeca = atual.next; // O novo início é o próximo nó
+        atual.next = null; // O nó atual se torna o novo final
+        Node cauda = novaCabeca;
+        while (cauda.next != null) {
+            cauda = cauda.next; // Encontra o final da lista
+        }
+
+        cauda.next = head; // Conecta o final ao início antigo
+        head = novaCabeca; // Atualiza a cabeça
+    }
+
     @SuppressWarnings("unchecked")
     public LinkedListDisordered(LinkedListDisordered<X> other) {
-
         if (other == null) throw new IllegalArgumentException("Lista não pode ser nula");
 
         if (other.head == null) {
@@ -313,12 +370,13 @@ public class LinkedListDisordered<X> implements Cloneable {
 
         while (aux.next != null) {
             aux = aux.next;
-            copy.next = new Node((X) verifyAndCopy(aux.next.data));
+            copy.next = new Node((X) verifyAndCopy(aux.data));
             copy = copy.next;
         }
 
         size = other.size;
     }
+
 
     @Override
     public Object clone() {
@@ -357,16 +415,21 @@ public class LinkedListDisordered<X> implements Cloneable {
         if (obj == null) return false;
         if (this.getClass() != obj.getClass()) return false;
 
-        Node aux1 = this.head;
-        Node aux2 = ((LinkedListDisordered<X>) obj).head;
+        LinkedListDisordered<X> other = (LinkedListDisordered<X>) obj;
 
-        while (aux1 != null && aux2 != null) {
-            if (!Objects.equals(aux1.data, aux2.data)) return false;
-            aux1 = aux1.next;
-            aux2 = aux2.next;
+        if (this.size != other.size) return false;
+
+        Node thisNode = this.head;
+        Node otherNode = other.head;
+
+        while (thisNode != null && otherNode != null) {
+            if (!Objects.equals(thisNode.data, otherNode.data)) return false;
+            thisNode = thisNode.next;
+            otherNode = otherNode.next;
         }
 
-        return Objects.equals(aux1, aux2);
+        return thisNode == null &&
+                otherNode == null;
     }
 
     @Override
