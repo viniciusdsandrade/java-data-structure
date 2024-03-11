@@ -9,7 +9,6 @@ public class TestLinkedListDisordered {
         linked_name.add("dos");
         linked_name.add("Santos");
         System.out.println(linked_name);
-        System.out.println(linked_name.get(0));
 
         //quero testar o método reverse
         linked_name.reverse();

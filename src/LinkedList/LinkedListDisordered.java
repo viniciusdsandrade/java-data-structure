@@ -154,6 +154,7 @@ public class LinkedListDisordered<X> implements Cloneable {
         this.size = size;
     }
 
+
     public LinkedListDisordered() {
         this.head = null;
         this.size = 0;
@@ -336,7 +337,6 @@ public class LinkedListDisordered<X> implements Cloneable {
         passos = passos % size; //
 
         if (passos < 0) passos += size; // Converte passos negativos em equivalentes positivos
-        if (passos == 0) return;
 
         Node atual = head;
         for (int i = 0; i < size - passos - 1; i++) {
