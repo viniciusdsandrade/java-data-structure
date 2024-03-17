@@ -10,6 +10,7 @@ public class TestCopyConstructorAndClone {
         // Teste de cópia vazia
         LinkedListDisordered<Integer> emptyList = new LinkedListDisordered<>();
         LinkedListDisordered<Integer> emptyListCopyConstructor = new LinkedListDisordered<>(emptyList);
+        @SuppressWarnings("unchecked")
         LinkedListDisordered<Integer> emptyListClone = (LinkedListDisordered<Integer>) emptyList.clone();
         System.out.println("Teste de cópia vazia:");
         System.out.println("Lista original vazia:                           " + emptyList);
@@ -60,9 +61,11 @@ public class TestCopyConstructorAndClone {
         listListList.add(list4);
 
         LinkedListDisordered<List<LinkedListDisordered<Integer>>> listListCopyConstructor = new LinkedListDisordered<>(listList);
+        @SuppressWarnings("unchecked")
         LinkedListDisordered<List<LinkedListDisordered<Integer>>> listListClone = (LinkedListDisordered<List<LinkedListDisordered<Integer>>>) listList.clone();
 
         LinkedListDisordered<LinkedListDisordered<List<Integer>>> listListListCopyConstructor = new LinkedListDisordered<>(listListList);
+        @SuppressWarnings("unchecked")
         LinkedListDisordered<LinkedListDisordered<List<Integer>>> listListListClone = (LinkedListDisordered<LinkedListDisordered<List<Integer>>>) listListList.clone();
 
 

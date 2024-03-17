@@ -44,6 +44,7 @@ extends LinkedList
 41 - <T> T[] toArray(T[] a) Returns an array containing all the elements in this list in proper sequences (from first to a last element); the runtime type of the returned array is that of the specified array.
  */
 
+import java.util.Comparator;
 import java.util.Objects;
 
 import static ShallowOrDeepCopy.ShallowOrDeepCopy.verifyAndCopy;
@@ -69,16 +70,8 @@ public class LinkedListDisordered<X> implements Cloneable {
             return data;
         }
 
-        public void setData(X data) {
-            this.data = data;
-        }
-
         public Node getNext() {
             return next;
-        }
-
-        public void setNext(Node next) {
-            this.next = next;
         }
 
         @SuppressWarnings("unchecked")
@@ -142,29 +135,13 @@ public class LinkedListDisordered<X> implements Cloneable {
         return head;
     }
 
-    public void setHead(Node head) {
-        this.head = head;
-    }
-
     public int getSize() {
         return this.size;
     }
 
-    public void setSize(int size) {
-        this.size = size;
-    }
-
-
     public LinkedListDisordered() {
-        this.head = null;
-        this.size = 0;
     }
 
-    /**
-     * Adiciona um novo nó contendo o valor especificado ao final da lista encadeada.
-     *
-     * @param valor o valor a ser adicionado à lista
-     */
     public void add(X valor) {
 
         Node novo = new Node(valor); // Cria um novo nó com o valor especificado
@@ -182,13 +159,32 @@ public class LinkedListDisordered<X> implements Cloneable {
         size++; // Incrementa o tamanho da lista
     }
 
+    public void addFirst(X data) {
+        if (data == null) throw new IllegalArgumentException("Valor não pode ser nulo");
 
-    /**
-     * Remove o primeiro nó da lista que contém o valor especificado.
-     *
-     * @param valor o valor a ser removido da lista
-     * @throws IllegalStateException se a lista estiver vazia
-     */
+        Node novo = new Node(data);
+        novo.next = head;
+        head = novo;
+        size++;
+    }
+
+    public void addLast(X valor) {
+        if (valor == null) throw new IllegalArgumentException("Valor não pode ser nulo");
+
+        Node novo = new Node(valor);
+        if (head == null) {
+            head = novo;
+        } else {
+            Node aux = head;
+            while (aux.next != null) {
+                aux = aux.next;
+            }
+            aux.next = novo;
+        }
+
+        size++;
+    }
+
     public void remove(X valor) {
         // Verifica se a lista está vazia
         if (head == null)
@@ -213,38 +209,11 @@ public class LinkedListDisordered<X> implements Cloneable {
         }
     }
 
-
-    public void addFirst(X data) {
-        if (data == null) throw new IllegalArgumentException("Valor não pode ser nulo");
-
-        Node novo = new Node(data);
-        novo.next = head;
-        head = novo;
-        size++;
-    }
-
     public void removeFirst() {
         if (head == null) throw new IllegalStateException("Lista vazia");
 
         head = head.next;
         size--;
-    }
-
-    public void addLast(X valor) {
-        if (valor == null) throw new IllegalArgumentException("Valor não pode ser nulo");
-
-        Node novo = new Node(valor);
-        if (head == null) {
-            head = novo;
-        } else {
-            Node aux = head;
-            while (aux.next != null) {
-                aux = aux.next;
-            }
-            aux.next = novo;
-        }
-
-        size++;
     }
 
     public void removeLast() {
@@ -332,26 +301,99 @@ public class LinkedListDisordered<X> implements Cloneable {
     }
 
     public void rotate(int passos) {
-        if (head == null || passos == 0) return; //se a lista estiver vazia ou se passos for 0, não há nada a fazer
 
-        passos = passos % size; //
+        if (head == null || head.next == null) return;
 
-        if (passos < 0) passos += size; // Converte passos negativos em equivalentes positivos
+        passos = passos % size;
+
+        if (passos < 0) passos = size + passos;
+
+        if (passos == 0) return;
+
+        Node aux = head;
+        for (int i = 0; i < size - passos - 1; i++) {
+            aux = aux.next;
+        }
+
+        Node novoHead = aux.next;
+        aux.next = null;
+
+        aux = novoHead;
+        while (aux.next != null) {
+            aux = aux.next;
+        }
+
+        aux.next = head;
+        head = novoHead;
+    }
+
+    public void sort(Comparator<X> comparator) {
+        if (head == null || head.next == null) return;
+
+        Node current = head;
+        Node index;
+        X temp;
+
+        while (current != null) {
+            index = current.next;
+
+            while (index != null) {
+                if (comparator.compare(current.data, index.data) > 0) {
+                    temp = current.data;
+                    current.data = index.data;
+                    index.data = temp;
+                }
+                index = index.next;
+            }
+            current = current.next;
+        }
+    }
+
+    @SuppressWarnings("unchecked")
+    public void sort() {
+        if (head == null || head.next == null) return;
 
         Node atual = head;
-        for (int i = 0; i < size - passos - 1; i++) {
-            atual = atual.next; // Avança 'size - passos - 1' nós a partir da cabeça
-        }
+        Node indice;
+        X temp;
 
-        Node novaCabeca = atual.next; // O novo início é o próximo nó
-        atual.next = null; // O nó atual se torna o novo final
-        Node cauda = novaCabeca;
-        while (cauda.next != null) {
-            cauda = cauda.next; // Encontra o final da lista
-        }
+        while (atual != null) {
+            indice = atual.next;
 
-        cauda.next = head; // Conecta o final ao início antigo
-        head = novaCabeca; // Atualiza a cabeça
+            while (indice != null) {
+                if (((Comparable<X>) atual.data).compareTo(indice.data) > 0) {
+                    temp = atual.data;
+                    atual.data = indice.data;
+                    indice.data = temp;
+                }
+                indice = indice.next;
+            }
+            atual = atual.next;
+        }
+    }
+
+    public void shuffle() {
+        if (head == null || head.next == null) return;
+
+        Node atual = head;
+        Node indice;
+        X temp;
+        int indiceAleatorio;
+
+        while (atual != null) {
+            indice = atual.next;
+
+            while (indice != null) {
+                indiceAleatorio = (int) (Math.random() * 1000) % 2;
+                if (indiceAleatorio == 0) {
+                    temp = atual.data;
+                    atual.data = indice.data;
+                    indice.data = temp;
+                }
+                indice = indice.next;
+            }
+            atual = atual.next;
+        }
     }
 
     @SuppressWarnings("unchecked")
@@ -376,7 +418,6 @@ public class LinkedListDisordered<X> implements Cloneable {
 
         size = other.size;
     }
-
 
     @Override
     public Object clone() {

@@ -2,6 +2,8 @@ package Node;
 
 import java.util.Objects;
 
+import static ShallowOrDeepCopy.ShallowOrDeepCopy.verifyAndCopy;
+
 public class Node<X> implements Cloneable {
 
     public X data;
@@ -44,19 +46,22 @@ public class Node<X> implements Cloneable {
         this.next = next;
     }
 
+    @SuppressWarnings("unchecked")
     public Node(Node<X> no) {
-        this.data = no.data;
-        this.next = no.next;
+
+        if (no == null) throw new IllegalArgumentException("Nó não pode ser nulo");
+
+        this.data = (X) verifyAndCopy(no.data);
+        this.next = (Node<X>)verifyAndCopy(no.next);
     }
 
     @Override
-    @SuppressWarnings("")
     public Node<X> clone() {
 
         Node<X> clone = null;
 
         try {
-            clone = new Node<X>(this.data, this.next);
+            clone = new Node<X>(this);
         } catch (Exception ignored) {
         }
 
