@@ -140,6 +140,8 @@ public class LinkedListDisordered<X> implements Cloneable {
     }
 
     public LinkedListDisordered() {
+        head = null;
+        size = 0;
     }
 
     public void add(X valor) {
@@ -185,6 +187,35 @@ public class LinkedListDisordered<X> implements Cloneable {
         size++;
     }
 
+    public void addAt(X valor, int index) {
+
+        if (valor == null)
+            throw new IllegalArgumentException("Valor não pode ser nulo");
+
+        if (index < 0 || index > getSize())
+            throw new IndexOutOfBoundsException("Index out of bounds");
+
+        if (index == 0) {
+            addFirst(valor);
+            return;
+        }
+
+        if (index == getSize()) {
+            addLast(valor);
+            return;
+        }
+
+        Node novo = new Node(valor);
+        Node aux = head;
+
+        for (int i = 0; i < index - 1; i++)
+            aux = aux.next;
+
+        novo.next = aux.next;
+        aux.next = novo;
+        size++;
+    }
+
     public void remove(X valor) {
         // Verifica se a lista está vazia
         if (head == null)
@@ -223,12 +254,33 @@ public class LinkedListDisordered<X> implements Cloneable {
             head = null;
         } else {
             Node aux = head;
-            while (aux.next.next != null) {
+            while (aux.next.next != null)
                 aux = aux.next;
-            }
+
             aux.next = null;
         }
 
+        size--;
+    }
+
+    public void removeAt(int index) {
+        if (index < 0 || index >= this.size)
+            throw new IndexOutOfBoundsException("Index out of bounds");
+
+        if (index == 0) {
+            removeFirst();
+            return;
+        }
+        if (index == size - 1) {
+            removeLast();
+            return;
+        }
+        
+        Node aux = head;
+        for (int i = 0; i < index - 1; i++) 
+            aux = aux.next;
+        
+        aux.next = aux.next.next;
         size--;
     }
 
@@ -247,35 +299,37 @@ public class LinkedListDisordered<X> implements Cloneable {
         return this.size == 0;
     }
 
+    @SuppressWarnings("unchecked")
     public X get(int index) {
         if (index < 0 || index >= this.size)
             throw new IndexOutOfBoundsException("Index out of bounds");
 
         Node aux = head;
-        for (int i = 0; i < index; i++) {
-            aux = aux.next;
-        }
 
-        return aux.data;
+        for (int i = 0; i < index; i++)
+            aux = aux.next;
+
+        return (X) verifyAndCopy(aux.data);
     }
 
+    @SuppressWarnings("unchecked")
     public X getFirst() {
         if (head == null)
             throw new IllegalStateException("Lista vazia");
 
-        return head.data;
+        return (X) verifyAndCopy(head.data);
     }
 
+    @SuppressWarnings("unchecked")
     public X getLast() {
         if (head == null)
             throw new IllegalStateException("Lista vazia");
 
-        Node aux = head;
-        while (aux.next != null) {
-            aux = aux.next;
-        }
+        Node atual = head;
+        while (atual.next != null)
+            atual = atual.next;
 
-        return aux.data;
+        return (X) verifyAndCopy(atual.data);
     }
 
     public void clear() {

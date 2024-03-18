@@ -9,6 +9,36 @@ import java.util.List;
 public class TestLinkedListDisordered {
     public static void main(String[] args) {
 
+        LinkedListDisordered<Object> coisas = new LinkedListDisordered<>();
+        coisas.addAt(1, 0);
+        coisas.addAt(2, 1);
+        coisas.addAt(3, 2);
+
+        System.out.println("coisas:   " + coisas);
+
+        coisas.addAt(0, 0);
+        System.out.println("depois de adicionar no início: " + coisas);
+        System.out.println("tamanho:  " + coisas.getSize());
+
+        coisas.addAt(4, 4);
+        System.out.println("depois de adicionar no final:   " + coisas);
+        System.out.println("tamanho:  " + coisas.getSize());
+
+        Integer last = (Integer) coisas.getLast();
+        System.out.println("último:   " + last);
+
+        Integer algum = (Integer) coisas.get(1);
+        System.out.println("algum:    " + algum);
+
+        coisas.removeFirst();
+        System.out.println("depois de remover o primeiro: " + coisas);
+
+        coisas.removeLast();
+        System.out.println("depois de remover o último:   " + coisas);
+
+        coisas.removeAt(0);
+        System.out.println("depois de remover o algum:    " + coisas);
+
         LinkedListDisordered<Integer> numbers = new LinkedListDisordered<>();
         numbers.add(9);
         numbers.add(8);
