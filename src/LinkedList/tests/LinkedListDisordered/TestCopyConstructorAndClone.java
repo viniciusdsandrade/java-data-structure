@@ -34,31 +34,31 @@ public class TestCopyConstructorAndClone {
         LinkedListDisordered<Integer> list1 = new LinkedListDisordered<>();
         List<Integer> list2 = new LinkedList<>();
 
-        list1.add(1);
-        list1.add(2);
-        list1.add(3);
+        list1.addLast(1);
+        list1.addLast(2);
+        list1.addLast(3);
 
-        list2.add(3);
-        list2.add(2);
-        list2.add(1);
+        list2.addLast(3);
+        list2.addLast(2);
+        list2.addLast(1);
 
         List<LinkedListDisordered<Integer>> list3 = new LinkedList<>();
-        list3.add(list1);
-        list3.add(list1);
-        list3.add(list1);
+        list3.addLast(list1);
+        list3.addLast(list1);
+        list3.addLast(list1);
 
         LinkedListDisordered<List<Integer>> list4 = new LinkedListDisordered<>();
-        list4.add(list2);
-        list4.add(list2);
-        list4.add(list2);
+        list4.addLast(list2);
+        list4.addLast(list2);
+        list4.addLast(list2);
 
-        listList.add(list3);
-        listList.add(list3);
-        listList.add(list3);
+        listList.addLast(list3);
+        listList.addLast(list3);
+        listList.addLast(list3);
 
-        listListList.add(list4);
-        listListList.add(list4);
-        listListList.add(list4);
+        listListList.addLast(list4);
+        listListList.addLast(list4);
+        listListList.addLast(list4);
 
         LinkedListDisordered<List<LinkedListDisordered<Integer>>> listListCopyConstructor = new LinkedListDisordered<>(listList);
         @SuppressWarnings("unchecked")

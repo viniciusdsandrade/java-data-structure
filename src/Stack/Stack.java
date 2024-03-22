@@ -1,18 +1,16 @@
 package Stack;
 
-import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.EmptyStackException;
 import java.util.NoSuchElementException;
-import java.util.StringJoiner;
 
 import static ShallowOrDeepCopy.ShallowOrDeepCopy.verifyAndCopy;
 
 /*
  * 1 - boolean empty(): Verifica se a pilha está vazia.
  * 2 - E peek(): Retorna o elemento do topo da pilha sem removê-lo.
- * 3 - void pop(): Desempilha e retorna o elemento do topo da pilha.
- * 4 - void push(E item): Empilha um elemento no topo da pilha.
+ * 3 - E pop(): Desempilha e retorna o elemento do topo da pilha.
+ * 4 - E push(E item): Empilha um elemento no topo da pilha.
  * 5 - int search(Object o): Retorna a posição baseada em 1 do elemento especificado na pilha.
  * 6 - void clear(): Remove todos os elementos da pilha.
  * 7 - int size(): Retorna o número de elementos na pilha.
@@ -38,12 +36,18 @@ import static ShallowOrDeepCopy.ShallowOrDeepCopy.verifyAndCopy;
  * 28 - String toString(): Retorna uma representação em string da pilha.
  */
 
+// LIFO - last-in-first-out
 public class Stack<X> implements Cloneable {
 
-    // LIFO - Last in First Out
     private X[] data;
     private int size;
     private int capacity;
+
+    @SuppressWarnings("unchecked")
+    public Stack() {
+        this.capacity = 10;
+        this.data = (X[]) new Object[capacity];
+    }
 
     @SuppressWarnings("unchecked")
     public Stack(int capInicial) throws IllegalArgumentException {
@@ -56,93 +60,73 @@ public class Stack<X> implements Cloneable {
     }
 
     public void push(X x) {
+        if (x == null) throw new IllegalArgumentException("Não é possível adicionar elemento nulo.");
 
-        if (x == null) throw new IllegalArgumentException("Não é possível empilhar null.");
+        if (isFull()) resizeUp();
 
-        if (this.isFull()) reziseUp();
+        this.data[this.size++] = x;
 
-        if (x instanceof Cloneable)
-            this.data[size++] = meuCloneDeX(x);
-        else
-            this.data[size++] = x;
-
-        while (this.size() < this.capacity)
-            reziseDown();
+        while (this.size < this.capacity)
+            resizeDown();
     }
 
-    // Retorna o elemento do topo da pilha sem removê-lo.
+    @SuppressWarnings("unchecked")
     public X peek() {
 
         if (isEmpty()) throw new EmptyStackException();
 
         X ret;
-        if (this.data[size - 1] instanceof Cloneable)
-            ret = meuCloneDeX(this.data[size - 1]);
-        else
-            ret = this.data[size - 1];
+        ret = (X) verifyAndCopy(this.data[this.size - 1]);
 
         return ret;
     }
 
-    // Remove o elemento do topo da pilha.
+    @SuppressWarnings("unchecked")
     public X pop() {
-        if (isEmpty())
-            throw new NoSuchElementException();
-        else {
-            X ret;
-            if (this.data[size - 1] instanceof Cloneable)
-                ret = meuCloneDeX(this.data[size - 1]);
-            else
-                ret = this.data[size - 1];
-            this.data[size - 1] = null;
-            this.size--;
-            return ret;
-        }
+
+        if (isEmpty()) throw new EmptyStackException();
+
+        X ret;
+        ret = (X) verifyAndCopy(this.data[this.size - 1]);
+
+        this.data[this.size - 1] = null;
+        this.size--;
+
+        while (this.size < this.capacity) resizeDown();
+
+        return ret;
     }
 
     @SuppressWarnings("unchecked")
-    private void expand(float porct) {
-
-        int newCapacity = (int) (capacity * Math.ceil(this.data.length * porct));
-
-        X[] newStack = (X[]) new Object[newCapacity];
-
-        for (int i = 0; i < this.size(); i++)
-            newStack[i] = (X) verifyAndCopy(this.data[i]);
-
-        this.data = (X[]) verifyAndCopy(newStack);
-        this.capacity = (int) verifyAndCopy(newCapacity);
-    }
-
-    @SuppressWarnings("unchecked")
-    public void reziseUp() {
+    public void resizeUp() {
         int newCapacity = this.data.length + 1;
+        X[] newData = (X[]) new Object[newCapacity];
 
-        X[] newStack = (X[]) new Object[newCapacity];
+        for (int i = 0; i < this.size; i++)
+            newData[i] = (X) verifyAndCopy(this.data[i]);
 
-        if (this.size() >= 0)
-            for (int i = 0; i < this.size(); i++)
-                newStack[i] = (X) verifyAndCopy(this.data[i]);
-
-        this.data = (X[]) verifyAndCopy(newStack);
-        this.capacity = (int) verifyAndCopy(newCapacity);
+        this.data = newData;
+        this.capacity = newCapacity;
     }
 
     @SuppressWarnings("unchecked")
-    public void reziseDown() {
+    public void resizeDown() {
         int newCapacity = this.data.length - 1;
+        X[] newData = (X[]) new Object[newCapacity];
 
-        X[] newStack = (X[]) new Object[newCapacity];
+        for (int i = 0; i < this.size; i++)
+            newData[i] = (X) verifyAndCopy(this.data[i]);
 
-        for (int i = 0; i < this.size(); i++)
-            newStack[i] = (X) verifyAndCopy(this.data[i]);
-
-        this.data = (X[]) verifyAndCopy(newStack);
-        this.capacity = (int) verifyAndCopy(newCapacity);
+        this.data = newData;
+        this.capacity = newCapacity;
     }
 
-    public int size() {
-        return this.size;
+    public int getSize() {
+        return size;
+    }
+
+    public int getCapacity() {
+        return capacity;
     }
 
     private boolean isFull() {
@@ -153,19 +137,71 @@ public class Stack<X> implements Cloneable {
         return this.size == 0;
     }
 
-    public String popAll() {
+    public void clear() {
+        for (int i = 0; i < this.size; i++)
+            this.data[i] = null;
 
-        if (isEmpty()) {
-            return "";
+        this.size = 0;
+    }
+
+    public X firstElement() {
+
+        if (isEmpty()) throw new EmptyStackException();
+
+        return this.data[0];
+    }
+
+    public X lastElement() {
+
+        if (isEmpty()) throw new EmptyStackException();
+
+        return this.data[this.size - 1];
+    }
+
+    public X elementAt(int index) {
+
+        if (data[index] == null) throw new NoSuchElementException();
+
+        return this.data[index];
+    }
+
+    public int search(Object o) {
+
+        if (o == null) throw new NullPointerException();
+
+        for (int i = 0; i < this.size; i++) {
+            if (this.data[i].equals(o))
+                return i + 1;
         }
 
-        StringJoiner removidos = new StringJoiner(", ");
-        while (!isEmpty()) {
-            X data = pop();
-            removidos.add(data.toString());
+        return -1;
+    }
+
+    public boolean contains(Object o) {
+
+        if (o == null) throw new NullPointerException();
+
+        for (int i = 0; i < this.size; i++) {
+            if (this.data[i].equals(o))
+                return true;
         }
 
-        return removidos.toString();
+        return false;
+    }
+
+    public boolean remove(Object o) {
+
+        if (o == null) throw new NullPointerException();
+
+        for (int i = 0; i < this.size; i++) {
+            if (this.data[i].equals(o)) {
+                this.data[i] = null;
+                this.size--;
+                return true;
+            }
+        }
+
+        return false;
     }
 
     @SuppressWarnings("unchecked")
@@ -192,22 +228,6 @@ public class Stack<X> implements Cloneable {
         }
 
         return clone;
-    }
-
-    @SuppressWarnings("unchecked")
-    public X meuCloneDeX(X x) {
-
-        X ret = null;
-
-        try {
-            Class<?> classe = x.getClass();
-            Class<?>[] tipoDosParms = null;
-            Method metodo = classe.getMethod("clone", (Class<?>) null);
-            Object[] parms = null;
-            ret = (X) metodo.invoke(x, (Object[]) null);
-        } catch (Exception ignored) {
-        }
-        return ret;
     }
 
     @Override
@@ -240,71 +260,24 @@ public class Stack<X> implements Cloneable {
         return hash;
     }
 
+    public Object[] toArrayObject() {
+        return Arrays.copyOf(this.data, this.size);
+    }
+
+    public String toArray() {
+        if (isEmpty()) return "[]";
+
+        return Arrays.toString(this.data);
+    }
+
     @Override
     public String toString() {
-        if (isEmpty()) {
-            return "[]";
-        }
+        if (isEmpty()) return "[]";
+
         try {
             return "[" + this.peek() + "]";
         } catch (Exception e) {
             return "[]";
         }
-    }
-
-    public String toArray() {
-        if (isEmpty()) {
-            return "[]";
-        }
-        return Arrays.toString(this.data);
-    }
-
-    public void clear() {
-        while (!isEmpty()) {
-            this.pop();
-        }
-    }
-
-    public X firstElement() {
-        if (this.isEmpty()) {
-            throw new EmptyStackException();
-        } else {
-            return this.data[0];
-        }
-    }
-
-    public X lastElement() {
-        if (this.isEmpty()) {
-            throw new EmptyStackException();
-        } else {
-            return this.data[this.size - 1];
-        }
-    }
-
-    public X elementAt(int index) {
-
-        if (data[index] == null) {
-            return null;
-        } else {
-            return data[index];
-        }
-    }
-
-    public int search(Object o) {
-        for (int i = 0; i < this.size; i++) {
-            if (this.data[i].equals(o)) {
-                return i + 1;
-            }
-        }
-        return -1;
-    }
-
-    public boolean contains(Object o) {
-        for (int i = 0; i < this.size; i++) {
-            if (this.data[i].equals(o)) {
-                return true;
-            }
-        }
-        return false;
     }
 }

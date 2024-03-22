@@ -40,16 +40,16 @@ public class TestLinkedListDisordered {
         System.out.println("depois de remover o algum:    " + coisas);
 
         LinkedListDisordered<Integer> numbers = new LinkedListDisordered<>();
-        numbers.add(9);
-        numbers.add(8);
-        numbers.add(7);
-        numbers.add(6);
-        numbers.add(5);
-        numbers.add(4);
-        numbers.add(3);
-        numbers.add(2);
-        numbers.add(1);
-        numbers.add(0);
+        numbers.addLast(9);
+        numbers.addLast(8);
+        numbers.addLast(7);
+        numbers.addLast(6);
+        numbers.addLast(5);
+        numbers.addLast(4);
+        numbers.addLast(3);
+        numbers.addLast(2);
+        numbers.addLast(1);
+        numbers.addLast(0);
 
         System.out.println("antes de ordenar:     " + numbers);
         numbers.sort();
@@ -58,53 +58,53 @@ public class TestLinkedListDisordered {
         System.out.println("depois de embaralhar: " + numbers);
 
         LinkedListDisordered<Character> characters = new LinkedListDisordered<>();
-        characters.add('g');
-        characters.add('f');
-        characters.add('e');
-        characters.add('d');
-        characters.add('c');
-        characters.add('b');
-        characters.add('a');
+        characters.addLast('g');
+        characters.addLast('f');
+        characters.addLast('e');
+        characters.addLast('d');
+        characters.addLast('c');
+        characters.addLast('b');
+        characters.addLast('a');
 
         System.out.println("antes de ordenar:  " + characters);
         characters.sort();
         System.out.println("depois de ordenar: " + characters);
 
         LinkedListDisordered<String> strings = new LinkedListDisordered<>();
-        strings.add("Vinícius");
-        strings.add("Silvana");
-        strings.add("Siloede");
-        strings.add("Arthur");
+        strings.addLast("Vinícius");
+        strings.addLast("Silvana");
+        strings.addLast("Siloede");
+        strings.addLast("Arthur");
 
         System.out.println("antes de ordenar:  " + strings);
         strings.sort();
         System.out.println("depois de ordenar: " + strings);
 
         LinkedListDisordered<Float> floats = new LinkedListDisordered<>();
-        floats.add(9.0f);
-        floats.add(8.0f);
-        floats.add(7.0f);
-        floats.add(6.0f);
-        floats.add(5.0f);
-        floats.add(4.0f);
-        floats.add(3.0f);
-        floats.add(2.0f);
-        floats.add(1.0f);
+        floats.addLast(9.0f);
+        floats.addLast(8.0f);
+        floats.addLast(7.0f);
+        floats.addLast(6.0f);
+        floats.addLast(5.0f);
+        floats.addLast(4.0f);
+        floats.addLast(3.0f);
+        floats.addLast(2.0f);
+        floats.addLast(1.0f);
 
         System.out.println("antes de ordenar:  " + floats);
         floats.sort();
         System.out.println("depois de ordenar: " + floats);
 
         LinkedListDisordered<Double> doubles = new LinkedListDisordered<>();
-        doubles.add(9.0);
-        doubles.add(8.0);
-        doubles.add(7.0);
-        doubles.add(6.0);
-        doubles.add(5.0);
-        doubles.add(4.0);
-        doubles.add(3.0);
-        doubles.add(2.0);
-        doubles.add(1.0);
+        doubles.addLast(9.0);
+        doubles.addLast(8.0);
+        doubles.addLast(7.0);
+        doubles.addLast(6.0);
+        doubles.addLast(5.0);
+        doubles.addLast(4.0);
+        doubles.addLast(3.0);
+        doubles.addLast(2.0);
+        doubles.addLast(1.0);
 
         System.out.println("antes de ordenar:  " + doubles);
         doubles.sort();
@@ -114,35 +114,35 @@ public class TestLinkedListDisordered {
         LinkedListDisordered<List<Integer>> list = new LinkedListDisordered<>();
 
         List<Integer> lista1 = new ArrayList<>();
-        lista1.add(1);
-        lista1.add(2);
-        lista1.add(3);
+        lista1.addLast(1);
+        lista1.addLast(2);
+        lista1.addLast(3);
 
         List<Integer> lista2 = new ArrayList<>();
-        lista2.add(3);
-        lista2.add(2);
-        lista2.add(1);
+        lista2.addLast(3);
+        lista2.addLast(2);
+        lista2.addLast(1);
 
         List<Integer> lista3 = new ArrayList<>();
-        lista3.add(2);
-        lista3.add(3);
-        lista3.add(1);
+        lista3.addLast(2);
+        lista3.addLast(3);
+        lista3.addLast(1);
 
         List<Integer> lista4 = new ArrayList<>();
-        lista4.add(2);
-        lista4.add(1);
-        lista4.add(3);
+        lista4.addLast(2);
+        lista4.addLast(1);
+        lista4.addLast(3);
 
         List<Integer> lista5 = new ArrayList<>();
-        lista5.add(1);
-        lista5.add(3);
-        lista5.add(2);
+        lista5.addLast(1);
+        lista5.addLast(3);
+        lista5.addLast(2);
 
-        list.add(lista3);
-        list.add(lista2);
-        list.add(lista4);
-        list.add(lista1);
-        list.add(lista5);
+        list.addLast(lista3);
+        list.addLast(lista2);
+        list.addLast(lista4);
+        list.addLast(lista1);
+        list.addLast(lista5);
 
         System.out.println("antes de ordenar:  " + list);
         list.sort(Comparator.comparing(Object::toString)); // Ordena com base na representação de string dos objetos
@@ -150,7 +150,7 @@ public class TestLinkedListDisordered {
         list.shuffle(); // Embaralha com base na representação de string dos objetos
         System.out.println("depois de embaralhar: " + list);
 
-        for (int i = 0; i < numbers.getSize(); i++) {
+        for (int i = 0; i < numbers.getTamanho(); i++) {
             System.out.println(numbers.get(i));
         }
 
@@ -161,8 +161,8 @@ public class TestLinkedListDisordered {
 
         LinkedListDisordered<String> name = new LinkedListDisordered<>();
         System.out.println(name);
-        name.add("dos");
-        name.add("Santos");
+        name.addLast("dos");
+        name.addLast("Santos");
         System.out.println(name);
 
         //quero testar o método reverse
@@ -208,7 +208,7 @@ public class TestLinkedListDisordered {
         boolean contemAndrade = name.contains("Andrade");
         System.out.println("contém ´Andrade´: " + contemAndrade);
 
-        int tamanho = name.getSize();
+        int tamanho = name.getTamanho();
         System.out.println("Tamanho: " + tamanho);
 
         boolean estaVazio = name.isEmpty();
@@ -216,7 +216,7 @@ public class TestLinkedListDisordered {
 
         name.clear();
 
-        tamanho = name.getSize();
+        tamanho = name.getTamanho();
         System.out.println("Tamanho: " + tamanho);
 
         estaVazio = name.isEmpty();
@@ -227,7 +227,7 @@ public class TestLinkedListDisordered {
         System.out.println(name);
 
         System.out.println("adicionando no inicio: Second");
-        name.add("Second");
+        name.addLast("Second");
         System.out.println(name);
 
         System.out.println("adicionando no final: Last");
@@ -241,6 +241,5 @@ public class TestLinkedListDisordered {
         System.out.println("Último: " + ultimo);
 
         name.clear();
-
     }
 }

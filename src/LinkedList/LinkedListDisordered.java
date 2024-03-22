@@ -53,33 +53,36 @@ public class LinkedListDisordered<X> implements Cloneable {
 
     public class Node implements Cloneable {
 
-        public X data;
-        public Node next;
+        public X elemento;
+        public Node proximo;
+
+        public Node() {
+        }
 
         public Node(X valor) {
-            this.data = valor;
-            this.next = null;
+            this.elemento = valor;
+            this.proximo = null;
         }
 
-        public Node(X valor, Node next) {
-            this.data = valor;
-            this.next = next;
+        public Node(X valor, Node proximo) {
+            this.elemento = valor;
+            this.proximo = proximo;
         }
 
-        public X getData() {
-            return data;
+        public X getElemento() {
+            return elemento;
         }
 
-        public Node getNext() {
-            return next;
+        public Node getProximo() {
+            return proximo;
         }
 
         @SuppressWarnings("unchecked")
-        public Node(Node other) throws Exception {
-            if (other == null) throw new Exception("Nó não pode ser nulo");
+        public Node(Node modelo) throws Exception {
+            if (modelo == null) throw new Exception("Nó não pode ser nulo");
 
-            this.data = (X) verifyAndCopy(other.data);
-            this.next = (Node) verifyAndCopy(other.next);
+            this.elemento = (X) verifyAndCopy(modelo.elemento);
+            this.proximo = (Node) verifyAndCopy(modelo.proximo);
         }
 
         @Override
@@ -99,7 +102,7 @@ public class LinkedListDisordered<X> implements Cloneable {
             final int prime = 31;
             int hash = 1;
 
-            hash *= prime + ((this.data == null) ? 0 : this.data.hashCode());
+            hash *= prime + ((this.elemento == null) ? 0 : this.elemento.hashCode());
 
             if (hash < 0) hash = -hash;
 
@@ -116,361 +119,317 @@ public class LinkedListDisordered<X> implements Cloneable {
 
             Node other = (Node) obj;
 
-            return Objects.equals(this.data, other.data);
+            return Objects.equals(this.elemento, other.elemento);
         }
 
         @Override
         public String toString() {
-            if (this.next != null)
-                return "Node{data=" + this.data + ", next=" + this.next.data + "}";
+            if (this.proximo != null)
+                return "Node{data=" + this.elemento + ", next=" + this.proximo.elemento + "}";
             else
-                return "Node{data=" + this.data + ", next=null}";
+                return "Node{data=" + this.elemento + ", next=null}";
         }
     }
 
-    private Node head;
-    private int size;
-
-    public Node getHead() {
-        return head;
-    }
-
-    public int getSize() {
-        return this.size;
-    }
+    private Node primeiro;
+    private int tamanho;
 
     public LinkedListDisordered() {
-        head = null;
-        size = 0;
     }
 
-    public void add(X valor) {
+    public void addFirst(X elemento) {
+        if (elemento == null) throw new IllegalArgumentException("Valor não pode ser nulo");
 
-        Node novo = new Node(valor); // Cria um novo nó com o valor especificado
+        // Cria um novo nó com o elemento fornecido
+        Node novo = new Node(elemento);
 
-        // Verifica se a lista está vazia
-        if (head == null) {
-            head = novo; // Se a lista estiver vazia, o novo nó se torna o primeiro nó da lista
+        novo.proximo = primeiro;  // Define o próximo nó do novo nó como o atual primeiro nó da lista
+        primeiro = novo;// Atualiza o primeiro nó da lista para ser o novo nó
+
+        tamanho++;
+    }
+
+    public void addLast(X elemento) {
+        if (elemento == null) throw new IllegalArgumentException("Valor não pode ser nulo");
+
+        Node novo = new Node(elemento);
+
+        // Se a lista estiver vazia, define o novo nó como o primeiro nó da lista
+        if (primeiro == null) {
+            primeiro = novo;
         } else {
-            Node aux = head; // Caso contrário, percorre a lista até encontrar o último nó
-            while (aux.next != null) {
-                aux = aux.next;
-            }
-            aux.next = novo; // Adiciona o novo nó como próximo do último nó encontrado
+            Node aux = primeiro; // Se a lista não estiver vazia, encontra o último nó e adiciona o novo nó após ele
+            while (aux.proximo != null)
+                aux = aux.proximo;
+            aux.proximo = novo;
         }
-        size++; // Incrementa o tamanho da lista
+        tamanho++;
     }
 
-    public void addFirst(X data) {
-        if (data == null) throw new IllegalArgumentException("Valor não pode ser nulo");
+    public void remove(X elemento) {
+        if (primeiro == null) throw new IllegalStateException("Lista vazia");
 
-        Node novo = new Node(data);
-        novo.next = head;
-        head = novo;
-        size++;
-    }
-
-    public void addLast(X valor) {
-        if (valor == null) throw new IllegalArgumentException("Valor não pode ser nulo");
-
-        Node novo = new Node(valor);
-        if (head == null) {
-            head = novo;
-        } else {
-            Node aux = head;
-            while (aux.next != null) {
-                aux = aux.next;
-            }
-            aux.next = novo;
-        }
-
-        size++;
-    }
-
-    public void addAt(X valor, int index) {
-
-        if (valor == null)
-            throw new IllegalArgumentException("Valor não pode ser nulo");
-
-        if (index < 0 || index > getSize())
-            throw new IndexOutOfBoundsException("Index out of bounds");
-
-        if (index == 0) {
-            addFirst(valor);
+        // Verifica se o elemento a ser removido está no primeiro nó da lista
+        if (primeiro.elemento.equals(elemento)) {
+            primeiro = primeiro.proximo; // Se sim, atualiza o primeiro nó para ser o próximo nó da lista
+            tamanho--;
             return;
         }
 
-        if (index == getSize()) {
-            addLast(valor);
-            return;
-        }
-
-        Node novo = new Node(valor);
-        Node aux = head;
-
-        for (int i = 0; i < index - 1; i++)
-            aux = aux.next;
-
-        novo.next = aux.next;
-        aux.next = novo;
-        size++;
-    }
-
-    public void remove(X valor) {
-        // Verifica se a lista está vazia
-        if (head == null)
-            throw new IllegalStateException("Lista vazia");
-
-        // Verifica se o valor a ser removido está no primeiro nó da lista
-        if (head.data.equals(valor)) {
-            head = head.next; // Se sim, atualiza o primeiro nó para ser o próximo nó da lista
-            size--; // Decrementa o tamanho da lista
-            return;
-        }
-
-        Node aux = head; // Caso contrário, percorre a lista para encontrar o nó a ser removido
-        while (aux.next != null) {
-            // Verifica se o próximo nó contém o valor a ser removido
-            if (aux.next.data.equals(valor)) {
-                aux.next = aux.next.next; // Se sim, atualiza o próximo nó para apontar para o nó seguinte
-                size--; // Decrementa o tamanho da lista
+        // Caso contrário, percorre a lista para encontrar o nó a ser removido
+        Node aux = primeiro;
+        while (aux.proximo != null) {
+            // Verifica se o próximo nó contém o elemento a ser removido
+            if (aux.proximo.elemento.equals(elemento)) {
+                aux.proximo = aux.proximo.proximo; // Se sim, atualiza o próximo nó para apontar para o nó seguinte
+                tamanho--; // Decrementa o tamanho da lista
                 return;
             }
-            aux = aux.next;
+            aux = aux.proximo; // Move para o próximo nó na lista
         }
     }
 
     public void removeFirst() {
-        if (head == null) throw new IllegalStateException("Lista vazia");
+        if (primeiro == null) throw new IllegalStateException("Lista vazia");
 
-        head = head.next;
-        size--;
+        // Atualiza o primeiro nó para ser o próximo nó da lista
+        primeiro = primeiro.proximo;
+
+        tamanho--;
     }
 
     public void removeLast() {
-        if (head == null) throw new IllegalStateException("Lista vazia");
+        if (primeiro == null) throw new IllegalStateException("Lista vazia");
 
-        if (head.next == null) {
-            head = null;
+        // Verifica se há apenas um nó na lista
+        if (primeiro.proximo == null) {
+            primeiro = null; // Se sim, define o primeiro nó como nulo
         } else {
-            Node aux = head;
-            while (aux.next.next != null)
-                aux = aux.next;
-
-            aux.next = null;
+            // Se houver mais de um nó na lista, encontra o penúltimo nó
+            Node aux = primeiro;
+            while (aux.proximo.proximo != null) {
+                aux = aux.proximo;
+            }
+            aux.proximo = null; // Define o próximo nó do penúltimo como nulo, removendo o último nó
         }
 
-        size--;
+        tamanho--;
     }
 
-    public void removeAt(int index) {
-        if (index < 0 || index >= this.size)
-            throw new IndexOutOfBoundsException("Index out of bounds");
-
-        if (index == 0) {
-            removeFirst();
-            return;
-        }
-        if (index == size - 1) {
-            removeLast();
-            return;
-        }
-        
-        Node aux = head;
-        for (int i = 0; i < index - 1; i++) 
-            aux = aux.next;
-        
-        aux.next = aux.next.next;
-        size--;
-    }
 
     public boolean contains(X valor) {
-        Node aux = head;
+        Node aux = primeiro;
+
+        // Percorre a lista enquanto houver nós
         while (aux != null) {
-            if (aux.data.equals(valor)) {
-                return true;
-            }
-            aux = aux.next;
+            // Verifica se o elemento do nó atual é igual ao valor procurado
+            if (aux.elemento.equals(valor))
+                return true; // Se sim, retorna verdadeiro
+
+            aux = aux.proximo; // Move para o próximo nó na lista
         }
+
         return false;
     }
 
     public boolean isEmpty() {
-        return this.size == 0;
+        return this.tamanho == 0;
     }
 
-    @SuppressWarnings("unchecked")
     public X get(int index) {
-        if (index < 0 || index >= this.size)
-            throw new IndexOutOfBoundsException("Index out of bounds");
+        if (index < 0 || index >= this.tamanho) throw new IndexOutOfBoundsException("Index out of bounds");
 
-        Node aux = head;
+        // Inicia a busca a partir do primeiro nó
+        Node aux = primeiro;
 
+        // Percorre a lista até o índice especificado
         for (int i = 0; i < index; i++)
-            aux = aux.next;
+            aux = aux.proximo;
 
-        return (X) verifyAndCopy(aux.data);
+        return aux.elemento; // Retorna o elemento do nó encontrado
     }
 
-    @SuppressWarnings("unchecked")
     public X getFirst() {
-        if (head == null)
-            throw new IllegalStateException("Lista vazia");
+        if (primeiro == null) throw new IllegalStateException("Lista vazia");
 
-        return (X) verifyAndCopy(head.data);
+        return primeiro.elemento; // Retorna o elemento do primeiro nó da lista
     }
 
-    @SuppressWarnings("unchecked")
     public X getLast() {
-        if (head == null)
+        if (primeiro == null)
             throw new IllegalStateException("Lista vazia");
 
-        Node atual = head;
-        while (atual.next != null)
-            atual = atual.next;
+        Node aux = primeiro; // Inicia a busca pelo último nó a partir do primeiro nó
 
-        return (X) verifyAndCopy(atual.data);
+        // Percorre a lista até encontrar o último nó
+        while (aux.proximo != null)
+            aux = aux.proximo;
+
+        return aux.elemento; // Retorna o elemento do último nó encontrado
     }
 
     public void clear() {
-        head = null;
-        size = 0;
+        primeiro = null;
+        tamanho = 0;
     }
 
     public void reverse() {
-        if (head == null || head.next == null) return;
+        if (primeiro == null || primeiro.proximo == null) return;
 
-        Node anterior = null;
-        Node atual = head;
-        Node proximoNo;
+        // Inicializa os nós para a reversão
+        Node anterior = null; // Nó anterior é inicializado como nulo
+        Node atual = primeiro; // O nó atual é inicializado com o primeiro nó da lista
+        Node proximoNo; // Variável temporária para armazenar o próximo nó
 
+        // Percorre a lista, invertendo os ponteiros dos nós
         while (atual != null) {
-            proximoNo = atual.next; // Salva o próximo nó
-            atual.next = anterior;  // Inverte o ponteiro para o nó anterior
+            proximoNo = atual.proximo; // Salva o próximo nó
+            atual.proximo = anterior;  // Inverte o ponteiro para o nó anterior
             anterior = atual;       // Atualiza o nó anterior para o nó atual
             atual = proximoNo;      // Atualiza o nó atual para o próximo nó
         }
 
-        head = anterior; // Atualiza o ponteiro da cabeça para o último nó (que era o primeiro nó)
+        primeiro = anterior; // Atualiza o ponteiro da cabeça para o último nó (que era o primeiro nó)
     }
 
     public void rotate(int passos) {
 
-        if (head == null || head.next == null) return;
+        if (primeiro == null || primeiro.proximo == null)
+            return;// Verifica se a lista está vazia ou contém apenas um elemento, se sim, não há necessidade de fazer rotação
 
-        passos = passos % size;
+        passos = passos % tamanho; // Calcula o número de passos necessários com base no tamanho da lista
+        if (passos < 0)
+            passos = tamanho + passos; // Se o número de passos for negativo, calcula o número de passos no sentido inverso
+        if (passos == 0) return; // Se o número de passos for 0, não há necessidade de fazer rotação
 
-        if (passos < 0) passos = size + passos;
+        Node aux = primeiro; // Inicializa um nó auxiliar para percorrer a lista até a posição antes dos nós a serem rotacionados
+        for (int i = 0; i < tamanho - passos - 1; i++)
+            aux = aux.proximo;
 
-        if (passos == 0) return;
+        Node novoHead = aux.proximo; // Salva o novo nó de cabeça (novoHead) após os passos especificados
+        aux.proximo = null; // Remove a conexão entre os nós antigos e o novoHead para criar duas listas independentes
+        aux = novoHead; // Move aux para o último nó da segunda parte da lista original
 
-        Node aux = head;
-        for (int i = 0; i < size - passos - 1; i++) {
-            aux = aux.next;
-        }
+        while (aux.proximo != null)
+            aux = aux.proximo;
 
-        Node novoHead = aux.next;
-        aux.next = null;
-
-        aux = novoHead;
-        while (aux.next != null) {
-            aux = aux.next;
-        }
-
-        aux.next = head;
-        head = novoHead;
+        aux.proximo = primeiro; // Conecta o último nó da segunda parte da lista original ao primeiro nó da primeira parte
+        primeiro = novoHead; // Atualiza o primeiro nó da lista para ser o novoHead, realizando assim a rotação
     }
 
-    public void sort(Comparator<X> comparator) {
-        if (head == null || head.next == null) return;
+    public void sort(Comparator<X> comparador) {
+        if (primeiro == null || primeiro.proximo == null) return;
 
-        Node current = head;
-        Node index;
-        X temp;
+        Node current = primeiro; // Inicializa o nó atual como o primeiro nó da lista
+        Node index; // Nó para percorrer a lista a partir do nó atual
+        X temp; // Variável temporária para trocar elementos durante a ordenação
 
+        // Percorre a lista para realizar a ordenação
         while (current != null) {
-            index = current.next;
+            index = current.proximo; // Define o nó índice para começar a busca pelo próximo nó
 
+            // Percorre a lista a partir do próximo nó do nó atual
             while (index != null) {
-                if (comparator.compare(current.data, index.data) > 0) {
-                    temp = current.data;
-                    current.data = index.data;
-                    index.data = temp;
+                // Compara os elementos dos nós atual e índice usando o comparador fornecido
+                if (comparador.compare(current.elemento, index.elemento) > 0) {
+                    // Se o elemento do nó atual for maior do que o elemento do nó índice, troca os elementos
+                    temp = current.elemento;
+                    current.elemento = index.elemento;
+                    index.elemento = temp;
                 }
-                index = index.next;
+                index = index.proximo; // Move para o próximo nó na lista
             }
-            current = current.next;
+            current = current.proximo; // Move para o próximo nó na lista
         }
     }
 
     @SuppressWarnings("unchecked")
     public void sort() {
-        if (head == null || head.next == null) return;
+        // Verifica se a lista está vazia ou contém apenas um elemento, se sim, não há necessidade de ordenação
+        if (primeiro == null || primeiro.proximo == null) return;
 
-        Node atual = head;
-        Node indice;
-        X temp;
+        Node atual = primeiro; // Inicializa o nó atual como o primeiro nó da lista
+        Node indice; // Nó para percorrer a lista a partir do nó atual
+        X temp; // Variável temporária para trocar elementos durante a ordenação
 
+        // Percorre a lista para realizar a ordenação
         while (atual != null) {
-            indice = atual.next;
+            indice = atual.proximo; // Define o nó índice para começar a busca pelo próximo nó
 
+            // Percorre a lista a partir do próximo nó do nó atual
             while (indice != null) {
-                if (((Comparable<X>) atual.data).compareTo(indice.data) > 0) {
-                    temp = atual.data;
-                    atual.data = indice.data;
-                    indice.data = temp;
+                // Compara os elementos dos nós atual e índice usando compareTo
+                if (((Comparable<X>) atual.elemento).compareTo(indice.elemento) > 0) {
+                    // Se o elemento do nó atual for maior do que o elemento do nó índice, troca os elementos
+                    temp = atual.elemento;
+                    atual.elemento = indice.elemento;
+                    indice.elemento = temp;
                 }
-                indice = indice.next;
+                indice = indice.proximo; // Move para o próximo nó na lista
             }
-            atual = atual.next;
+            atual = atual.proximo; // Move para o próximo nó na lista
         }
     }
 
     public void shuffle() {
-        if (head == null || head.next == null) return;
+        if (primeiro == null || primeiro.proximo == null) return;
 
-        Node atual = head;
-        Node indice;
-        X temp;
-        int indiceAleatorio;
+        Node atual = primeiro; // Inicializa o nó atual como o primeiro nó da lista
+        Node indice;// Nó para percorrer a lista a partir do nó atual
+        X temp; // Variável temporária para trocar elementos durante o embaralhamento
 
+        int indiceAleatorio; // Variável para armazenar um índice aleatório (0 ou 1)
+
+        // Percorre a lista para realizar o embaralhamento
         while (atual != null) {
-            indice = atual.next;
+            indice = atual.proximo;// Define o nó índice para começar a busca pelo próximo nó
 
+            // Percorre a lista a partir do próximo nó do nó atual
             while (indice != null) {
-                indiceAleatorio = (int) (Math.random() * 1000) % 2;
+                indiceAleatorio = (int) (Math.random() * 1000) % 2; // Gera um índice aleatório (0 ou 1)
+
+                // Se o índice aleatório for 0, troca os elementos entre o nó atual e o nó índice
                 if (indiceAleatorio == 0) {
-                    temp = atual.data;
-                    atual.data = indice.data;
-                    indice.data = temp;
+                    temp = atual.elemento;
+                    atual.elemento = indice.elemento;
+                    indice.elemento = temp;
                 }
-                indice = indice.next;
+
+                indice = indice.proximo; // Move para o próximo nó na lista
             }
-            atual = atual.next;
+            atual = atual.proximo; // Move para o próximo nó na lista
         }
+    }
+
+    public Node getPrimeiro() {
+        return primeiro;
+    }
+
+    public int getTamanho() {
+        return this.tamanho;
     }
 
     @SuppressWarnings("unchecked")
     public LinkedListDisordered(LinkedListDisordered<X> other) {
         if (other == null) throw new IllegalArgumentException("Lista não pode ser nula");
 
-        if (other.head == null) {
-            this.head = null;
-            this.size = 0;
+        if (other.primeiro == null) {
+            this.primeiro = null;
+            this.tamanho = 0;
             return;
         }
 
-        Node aux = other.head;
-        Node copy = new Node((X) verifyAndCopy(aux.data));
-        head = copy;
+        Node aux = other.primeiro;
+        Node copy = new Node((X) verifyAndCopy(aux.elemento));
+        primeiro = copy;
 
-        while (aux.next != null) {
-            aux = aux.next;
-            copy.next = new Node((X) verifyAndCopy(aux.data));
-            copy = copy.next;
+        while (aux.proximo != null) {
+            aux = aux.proximo;
+            copy.proximo = new Node((X) verifyAndCopy(aux.elemento));
+            copy = copy.proximo;
         }
 
-        size = other.size;
+        tamanho = other.tamanho;
     }
 
     @Override
@@ -490,11 +449,11 @@ public class LinkedListDisordered<X> implements Cloneable {
         final int prime = 31;
         int hash = 1;
 
-        Node aux = this.head;
+        Node aux = this.primeiro;
 
         while (aux != null) {
-            hash *= prime + ((aux.data == null) ? 0 : aux.data.hashCode());
-            aux = aux.next;
+            hash *= prime + ((aux.elemento == null) ? 0 : aux.elemento.hashCode());
+            aux = aux.proximo;
         }
 
         if (hash < 0) hash = -hash;
@@ -512,15 +471,15 @@ public class LinkedListDisordered<X> implements Cloneable {
 
         LinkedListDisordered<X> other = (LinkedListDisordered<X>) obj;
 
-        if (this.size != other.size) return false;
+        if (this.tamanho != other.tamanho) return false;
 
-        Node thisNode = this.head;
-        Node otherNode = other.head;
+        Node thisNode = this.primeiro;
+        Node otherNode = other.primeiro;
 
         while (thisNode != null && otherNode != null) {
-            if (!Objects.equals(thisNode.data, otherNode.data)) return false;
-            thisNode = thisNode.next;
-            otherNode = otherNode.next;
+            if (!Objects.equals(thisNode.elemento, otherNode.elemento)) return false;
+            thisNode = thisNode.proximo;
+            otherNode = otherNode.proximo;
         }
 
         return thisNode == null &&
@@ -531,13 +490,12 @@ public class LinkedListDisordered<X> implements Cloneable {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("[");
-        Node aux = head;
+        Node aux = primeiro;
         while (aux != null) {
-            sb.append(aux.data);
-            if (aux.next != null) {
+            sb.append(aux.elemento);
+            if (aux.proximo != null)
                 sb.append(" -> ");
-            }
-            aux = aux.next;
+            aux = aux.proximo;
         }
         sb.append("]");
         return sb.toString();
