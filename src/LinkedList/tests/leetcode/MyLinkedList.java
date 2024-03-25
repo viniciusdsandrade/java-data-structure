@@ -33,7 +33,7 @@ package LinkedList.tests.leetcode;
 
 import java.util.ArrayList;
 
-class MyLinkedList {
+public class MyLinkedList {
 
     private ArrayList<Integer> list;
 

@@ -469,21 +469,21 @@ public class LinkedListDisordered<X> implements Cloneable {
         if (obj == null) return false;
         if (this.getClass() != obj.getClass()) return false;
 
-        LinkedListDisordered<X> other = (LinkedListDisordered<X>) obj;
+        LinkedListDisordered<X> that = (LinkedListDisordered<X>) obj;
 
-        if (this.tamanho != other.tamanho) return false;
+        if (this.tamanho != that.tamanho) return false;
 
         Node thisNode = this.primeiro;
-        Node otherNode = other.primeiro;
+        Node thatNode = that.primeiro;
 
-        while (thisNode != null && otherNode != null) {
-            if (!Objects.equals(thisNode.elemento, otherNode.elemento)) return false;
+        while (thisNode != null && thatNode != null) {
+            if (!Objects.equals(thisNode.elemento, thatNode.elemento)) return false;
             thisNode = thisNode.proximo;
-            otherNode = otherNode.proximo;
+            thatNode = thatNode.proximo;
         }
 
         return thisNode == null &&
-                otherNode == null;
+                thatNode == null;
     }
 
     @Override
