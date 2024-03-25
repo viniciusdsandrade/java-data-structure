@@ -1,4 +1,5 @@
 package LinkedList;
+
 /*
 extends LinkedList
 1 - void add (int index, E element) Inserts the specified element at the specified position in this list.
@@ -59,13 +60,13 @@ public class LinkedListDisordered<X> implements Cloneable {
         public Node() {
         }
 
-        public Node(X valor) {
-            this.elemento = valor;
+        public Node(X elemento) {
+            this.elemento = elemento;
             this.proximo = null;
         }
 
-        public Node(X valor, Node proximo) {
-            this.elemento = valor;
+        public Node(X elemento, Node proximo) {
+            this.elemento = elemento;
             this.proximo = proximo;
         }
 
@@ -124,10 +125,10 @@ public class LinkedListDisordered<X> implements Cloneable {
 
         @Override
         public String toString() {
-            if (this.proximo != null)
-                return "Node{data=" + this.elemento + ", next=" + this.proximo.elemento + "}";
+            if (proximo != null)
+                return elemento + " -> " + proximo.elemento;
             else
-                return "Node{data=" + this.elemento + ", next=null}";
+                return elemento.toString();
         }
     }
 
@@ -135,16 +136,18 @@ public class LinkedListDisordered<X> implements Cloneable {
     private int tamanho;
 
     public LinkedListDisordered() {
+        this.primeiro = null;
+        this.tamanho = 0;
     }
 
     public void addFirst(X elemento) {
         if (elemento == null) throw new IllegalArgumentException("Valor não pode ser nulo");
 
-        // Cria um novo nó com o elemento fornecido
-        Node novo = new Node(elemento);
+        // Cria um nó com o elemento fornecido
+        Node no = new Node(elemento);
 
-        novo.proximo = primeiro;  // Define o próximo nó do novo nó como o atual primeiro nó da lista
-        primeiro = novo;// Atualiza o primeiro nó da lista para ser o novo nó
+        no.proximo = primeiro;  // Define o próximo nó do no nó como o atual primeiro nó da lista
+        primeiro = no;// Atualiza o primeiro nó da lista para ser o no nó
 
         tamanho++;
     }
@@ -152,48 +155,54 @@ public class LinkedListDisordered<X> implements Cloneable {
     public void addLast(X elemento) {
         if (elemento == null) throw new IllegalArgumentException("Valor não pode ser nulo");
 
-        Node novo = new Node(elemento);
+        Node no = new Node(elemento);
 
-        // Se a lista estiver vazia, define o novo nó como o primeiro nó da lista
+        // Se a lista estiver vazia, define o no nó como o primeiro nó da lista
         if (primeiro == null) {
-            primeiro = novo;
-        } else {
-            Node aux = primeiro; // Se a lista não estiver vazia, encontra o último nó e adiciona o novo nó após ele
-            while (aux.proximo != null)
-                aux = aux.proximo;
-            aux.proximo = novo;
-        }
-        tamanho++;
-    }
-
-    public void remove(X elemento) {
-        if (primeiro == null) throw new IllegalStateException("Lista vazia");
-
-        // Verifica se o elemento a ser removido está no primeiro nó da lista
-        if (primeiro.elemento.equals(elemento)) {
-            primeiro = primeiro.proximo; // Se sim, atualiza o primeiro nó para ser o próximo nó da lista
-            tamanho--;
+            primeiro = no;
             return;
         }
 
-        // Caso contrário, percorre a lista para encontrar o nó a ser removido
-        Node aux = primeiro;
-        while (aux.proximo != null) {
-            // Verifica se o próximo nó contém o elemento a ser removido
-            if (aux.proximo.elemento.equals(elemento)) {
-                aux.proximo = aux.proximo.proximo; // Se sim, atualiza o próximo nó para apontar para o nó seguinte
-                tamanho--; // Decrementa o tamanho da lista
-                return;
-            }
-            aux = aux.proximo; // Move para o próximo nó na lista
+        Node aux = primeiro; // Se a lista não estiver vazia, encontra o último nó e adiciona o no nó após ele
+
+        while (aux.proximo != null)
+            aux = aux.proximo;
+
+        aux.proximo = no;
+
+        tamanho++;
+    }
+
+    public void addAt(X elemento, int indice) {
+        if (elemento == null) throw new IllegalArgumentException("Valor não pode ser nulo");
+        if (indice < 0 || indice > tamanho) throw new IndexOutOfBoundsException("Index out of bounds");
+
+        if (indice == 0) {
+            addFirst(elemento);
+            return;
         }
+
+        if (indice == tamanho) {
+            addLast(elemento);
+            return;
+        }
+
+        Node novo = new Node(elemento);
+        Node aux = primeiro;
+
+        for (int i = 0; i < indice - 1; i++)
+            aux = aux.proximo;
+
+        novo.proximo = aux.proximo;
+        aux.proximo = novo;
+
+        tamanho++;
     }
 
     public void removeFirst() {
         if (primeiro == null) throw new IllegalStateException("Lista vazia");
 
-        // Atualiza o primeiro nó para ser o próximo nó da lista
-        primeiro = primeiro.proximo;
+        primeiro = primeiro.proximo;// Atualiza o primeiro nó para ser o próximo nó da lista
 
         tamanho--;
     }
@@ -204,26 +213,49 @@ public class LinkedListDisordered<X> implements Cloneable {
         // Verifica se há apenas um nó na lista
         if (primeiro.proximo == null) {
             primeiro = null; // Se sim, define o primeiro nó como nulo
-        } else {
-            // Se houver mais de um nó na lista, encontra o penúltimo nó
-            Node aux = primeiro;
-            while (aux.proximo.proximo != null) {
-                aux = aux.proximo;
-            }
-            aux.proximo = null; // Define o próximo nó do penúltimo como nulo, removendo o último nó
+            return;
         }
+
+        // Se houver mais de um nó na lista, encontra o penúltimo nó
+        Node aux = primeiro;
+        while (aux.proximo.proximo != null)
+            aux = aux.proximo;
+
+        aux.proximo = null; // Define o próximo nó do penúltimo como nulo, removendo o último nó
 
         tamanho--;
     }
 
+    public void removeAt(int indice) {
 
-    public boolean contains(X valor) {
+        if (primeiro == null) throw new IllegalStateException("Lista vazia");
+        if (indice < 0 || indice >= tamanho) throw new IndexOutOfBoundsException("Index out of bounds");
+
+        if (indice == 0) {
+            removeFirst();
+            return;
+        }
+        if (indice == tamanho - 1) {
+            removeLast();
+            return;
+        }
+
+        Node aux = primeiro;
+
+        for (int i = 0; i < indice - 1; i++)
+            aux = aux.proximo;
+
+        aux.proximo = aux.proximo.proximo;
+        tamanho--;
+    }
+
+    public boolean contains(X elemento) {
         Node aux = primeiro;
 
         // Percorre a lista enquanto houver nós
         while (aux != null) {
-            // Verifica se o elemento do nó atual é igual ao valor procurado
-            if (aux.elemento.equals(valor))
+            // Verifica se o elemento do nó atual é igual ao elemento procurado
+            if (aux.elemento.equals(elemento))
                 return true; // Se sim, retorna verdadeiro
 
             aux = aux.proximo; // Move para o próximo nó na lista
@@ -236,14 +268,14 @@ public class LinkedListDisordered<X> implements Cloneable {
         return this.tamanho == 0;
     }
 
-    public X get(int index) {
-        if (index < 0 || index >= this.tamanho) throw new IndexOutOfBoundsException("Index out of bounds");
+    public X getAt(int indice) {
+        if (indice < 0 || indice >= this.tamanho) throw new IndexOutOfBoundsException("Index out of bounds");
 
         // Inicia a busca a partir do primeiro nó
         Node aux = primeiro;
 
         // Percorre a lista até o índice especificado
-        for (int i = 0; i < index; i++)
+        for (int i = 0; i < indice; i++)
             aux = aux.proximo;
 
         return aux.elemento; // Retorna o elemento do nó encontrado
@@ -410,26 +442,26 @@ public class LinkedListDisordered<X> implements Cloneable {
     }
 
     @SuppressWarnings("unchecked")
-    public LinkedListDisordered(LinkedListDisordered<X> other) {
-        if (other == null) throw new IllegalArgumentException("Lista não pode ser nula");
+    public LinkedListDisordered(LinkedListDisordered<X> modelo) {
+        if (modelo == null) throw new IllegalArgumentException("Lista não pode ser nula");
 
-        if (other.primeiro == null) {
+        if (modelo.primeiro == null) {
             this.primeiro = null;
             this.tamanho = 0;
             return;
         }
 
-        Node aux = other.primeiro;
-        Node copy = new Node((X) verifyAndCopy(aux.elemento));
-        primeiro = copy;
+        Node auxiliar = modelo.primeiro;
+        Node copia = new Node((X) verifyAndCopy(auxiliar.elemento));
+        this.primeiro = copia;
 
-        while (aux.proximo != null) {
-            aux = aux.proximo;
-            copy.proximo = new Node((X) verifyAndCopy(aux.elemento));
-            copy = copy.proximo;
+        while (auxiliar.proximo != null) {
+            auxiliar = auxiliar.proximo;
+            copia.proximo = new Node((X) verifyAndCopy(auxiliar));
+            copia = copia.proximo;
         }
 
-        tamanho = other.tamanho;
+        this.tamanho = (int) verifyAndCopy(modelo.tamanho);
     }
 
     @Override
@@ -452,7 +484,7 @@ public class LinkedListDisordered<X> implements Cloneable {
         Node aux = this.primeiro;
 
         while (aux != null) {
-            hash *= prime + ((aux.elemento == null) ? 0 : aux.elemento.hashCode());
+            hash *= prime + aux.elemento.hashCode();
             aux = aux.proximo;
         }
 
@@ -477,7 +509,8 @@ public class LinkedListDisordered<X> implements Cloneable {
         Node thatNode = that.primeiro;
 
         while (thisNode != null && thatNode != null) {
-            if (!Objects.equals(thisNode.elemento, thatNode.elemento)) return false;
+            if (!Objects.equals(thisNode.elemento, thatNode.elemento))
+                return false;
             thisNode = thisNode.proximo;
             thatNode = thatNode.proximo;
         }
@@ -488,16 +521,15 @@ public class LinkedListDisordered<X> implements Cloneable {
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("[");
+        String result = "[";
         Node aux = primeiro;
         while (aux != null) {
-            sb.append(aux.elemento);
+            result += aux.elemento;
             if (aux.proximo != null)
-                sb.append(" -> ");
+                result += " -> ";
             aux = aux.proximo;
         }
-        sb.append("]");
-        return sb.toString();
+        result += "]";
+        return result;
     }
 }

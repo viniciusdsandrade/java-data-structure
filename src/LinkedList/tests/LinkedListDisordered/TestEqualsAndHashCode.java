@@ -1,40 +1,50 @@
 package LinkedList.tests.LinkedListDisordered;
 
 import LinkedList.LinkedListDisordered;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class TestEqualsAndHashCode {
     public static void main(String[] args) {
-        LinkedListDisordered<List<LinkedListDisordered<Integer>>> list1 = new LinkedListDisordered<>();
-        LinkedListDisordered<List<LinkedListDisordered<Integer>>> list2 = new LinkedListDisordered<>();
+        LinkedListDisordered<List<LinkedListDisordered<List<Integer>>>> list1 = new LinkedListDisordered<>();
+        LinkedListDisordered<List<LinkedListDisordered<List<Integer>>>> list2 = new LinkedListDisordered<>();
 
-        // Adicionando elementos a list1
-        List<LinkedListDisordered<Integer>> sublist1 = new ArrayList<>();
-        LinkedListDisordered<Integer> sublist1_1 = new LinkedListDisordered<>();
-        sublist1_1.addLast(1);
-        sublist1_1.addLast(2);
-        sublist1_1.addLast(3);
-        sublist1_1.addLast(4);
-        sublist1.addLast(sublist1_1);
-        list1.addLast(sublist1);
+        List<Integer> listInt1 = new ArrayList<>();
+        listInt1.add(1);
+        listInt1.add(2);
+        listInt1.add(3);
+        listInt1.add(4);
 
-        // Adicionando elementos a list2
-        List<LinkedListDisordered<Integer>> sublist2 = new ArrayList<>();
-        LinkedListDisordered<Integer> sublist2_1 = new LinkedListDisordered<>();
-        sublist2_1.addLast(1);
-        sublist2_1.addLast(2);
-        sublist2_1.addLast(3);
-        sublist2_1.addLast(4);
-        sublist2.addLast(sublist2_1);
-        list2.addLast(sublist2);
+        List<Integer> listInt2 = new ArrayList<>();
+        listInt2.add(5);
+        listInt2.add(6);
+        listInt2.add(7);
+        listInt2.add(8);
+
+        LinkedListDisordered<List<Integer>> listIntList1 = new LinkedListDisordered<>();
+        listIntList1.addLast(listInt1);
+        
+        LinkedListDisordered<List<Integer>> listIntList2 = new LinkedListDisordered<>();
+        listIntList2.addLast(listInt2);
+
+        List<LinkedListDisordered<List<Integer>>> listIntListList1 = new ArrayList<>();
+        listIntListList1.add(listIntList1);
+        listIntListList1.add(listIntList2);
+
+        List<LinkedListDisordered<List<Integer>>> listIntListList2 = new ArrayList<>();
+        listIntListList2.add(listIntList2);
+        listIntListList2.add(listIntList1);
+        
+        list1.addLast(listIntListList2);
+        list2.addLast(listIntListList1);
 
         System.out.println("list1: " + list1);
         System.out.println("list2: " + list2);
 
-        // Testando igualdade
-        System.out.println("HashCode de list1:   " + list1.hashCode());
-        System.out.println("HashCode de list2:   " + list2.hashCode());
+        System.out.println("list1.hashCode(): " + list1.hashCode());
+        System.out.println("list2.hashCode(): " + list2.hashCode());
+
         System.out.println("list1.equals(list2): " + list1.equals(list2));
     }
 }

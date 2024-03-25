@@ -8,7 +8,7 @@ import java.util.List;
 
 public class TestLinkedListDisordered {
     public static void main(String[] args) {
-
+        
         LinkedListDisordered<Object> coisas = new LinkedListDisordered<>();
         coisas.addAt(1, 0);
         coisas.addAt(2, 1);
@@ -18,16 +18,16 @@ public class TestLinkedListDisordered {
 
         coisas.addAt(0, 0);
         System.out.println("depois de adicionar no início: " + coisas);
-        System.out.println("tamanho:  " + coisas.getSize());
+        System.out.println("tamanho:  " + coisas.getTamanho());
 
         coisas.addAt(4, 4);
         System.out.println("depois de adicionar no final:   " + coisas);
-        System.out.println("tamanho:  " + coisas.getSize());
+        System.out.println("tamanho:  " + coisas.getTamanho());
 
         Integer last = (Integer) coisas.getLast();
         System.out.println("último:   " + last);
 
-        Integer algum = (Integer) coisas.get(1);
+        Integer algum = (Integer) coisas.getAt(1);
         System.out.println("algum:    " + algum);
 
         coisas.removeFirst();
@@ -151,13 +151,9 @@ public class TestLinkedListDisordered {
         System.out.println("depois de embaralhar: " + list);
 
         for (int i = 0; i < numbers.getTamanho(); i++) {
-            System.out.println(numbers.get(i));
+            System.out.println(numbers.getAt(i));
         }
 
-        for (int i = 1; i < 10; i++) {
-            numbers.remove(i);
-            System.out.println(numbers);
-        }
 
         LinkedListDisordered<String> name = new LinkedListDisordered<>();
         System.out.println(name);
