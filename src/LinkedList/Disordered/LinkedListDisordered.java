@@ -271,7 +271,7 @@ public class LinkedListDisordered<X> implements Cloneable {
         return this.tamanho == 0;
     }
 
-    public X getAt(int indice) {
+    public X get(int indice) {
         if (indice < 0 || indice >= this.tamanho) throw new IndexOutOfBoundsException("Index out of bounds");
 
         // Inicia a busca a partir do primeiro nó

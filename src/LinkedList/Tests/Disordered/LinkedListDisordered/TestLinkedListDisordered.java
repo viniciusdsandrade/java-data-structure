@@ -1,4 +1,4 @@
-package LinkedList.Tests.LinkedListDisordered;
+package LinkedList.Tests.Disordered.LinkedListDisordered;
 
 import LinkedList.Disordered.LinkedListDisordered;
 
@@ -45,7 +45,7 @@ public class TestLinkedListDisordered {
         Integer last = (Integer) coisas.getLast();
         System.out.println("último:   " + last);
 
-        Integer algum = (Integer) coisas.getAt(1);
+        Integer algum = (Integer) coisas.get(1);
         System.out.println("algum:    " + algum);
 
         coisas.removeFirst();
@@ -169,7 +169,7 @@ public class TestLinkedListDisordered {
         System.out.println("depois de embaralhar: " + list);
 
         for (int i = 0; i < numbers.getTamanho(); i++) {
-            System.out.println(numbers.getAt(i));
+            System.out.println(numbers.get(i));
         }
 
 

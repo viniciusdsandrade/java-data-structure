@@ -1,4 +1,4 @@
-package LinkedList.Tests.LinkedListDisordered;
+package LinkedList.Tests.Disordered.LinkedListDisordered;
 
 import LinkedList.Disordered.LinkedListDisordered;
 
