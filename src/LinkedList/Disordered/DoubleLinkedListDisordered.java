@@ -1,5 +1,7 @@
 package LinkedList.Disordered;
 
+import static ShallowOrDeepCopy.ShallowOrDeepCopy.verifyAndCopy;
+
 public class DoubleLinkedListDisordered<X> implements Cloneable {
 
     public class Node implements Cloneable {
@@ -9,43 +11,60 @@ public class DoubleLinkedListDisordered<X> implements Cloneable {
 
         public Node() {
         }
-
         public Node(X elemento) {
             this.elemento = elemento;
             this.proximo = null;
             this.anterior = null;
         }
+        public X getElemento() {
+            return elemento;
+        }
+        public Node getProximo() {
+            return proximo;
+        }
+        public Node getAnterior() {
+            return anterior;
+        }
 
-        public Node(X elemento, Node proximo, Node anterior) {
-            this.elemento = elemento;
-            this.proximo = proximo;
-            this.anterior = anterior;
+        @SuppressWarnings("unchecked")
+        public Node(Node modelo) {
+            if (modelo == null) throw new IllegalArgumentException("Modelo ausente");
+
+            this.elemento = (X) verifyAndCopy(modelo.elemento);
+            this.proximo = (Node) verifyAndCopy(modelo.proximo);
+            this.anterior = (Node) verifyAndCopy(modelo.anterior);
         }
 
         @Override
         public Object clone() {
+            Node clone = null;
+
             try {
-                return super.clone();
-            } catch (CloneNotSupportedException e) {
-                return null;
+                clone = new Node(this);
+            } catch (Exception ignored) {
             }
+            
+            return clone;
         }
     }
 
     public Node primeiro;
     public Node ultimo;
+    private int tamanho;
 
     public DoubleLinkedListDisordered() {
         primeiro = null;
         ultimo = null;
+        tamanho = 0;
     }
-
     public Node getPrimeiro() {
         return primeiro;
     }
-
     public Node getUltimo() {
         return ultimo;
+    }
+    public int getTamanho() {
+        return tamanho;
     }
 
     public void add(X elemento) {
@@ -58,6 +77,7 @@ public class DoubleLinkedListDisordered<X> implements Cloneable {
             novo.anterior = ultimo;
         }
         ultimo = novo;
+        tamanho++;
     }
 
     @Override
@@ -73,6 +93,7 @@ public class DoubleLinkedListDisordered<X> implements Cloneable {
         return clone;
     }
 
+    @SuppressWarnings("unchecked")
     public DoubleLinkedListDisordered(DoubleLinkedListDisordered<X> modelo) {
         if (modelo == null) throw new IllegalArgumentException("Modelo ausente");
 
@@ -81,7 +102,7 @@ public class DoubleLinkedListDisordered<X> implements Cloneable {
 
         while (atual != null) {
             novo = new Node();
-            novo.elemento = atual.elemento;
+            novo.elemento = (X) verifyAndCopy(atual.elemento);
             novo.anterior = ultimo;
             if (ultimo != null) {
                 ultimo.proximo = novo;
@@ -91,6 +112,8 @@ public class DoubleLinkedListDisordered<X> implements Cloneable {
             ultimo = novo;
             atual = atual.proximo;
         }
+
+        this.tamanho = (int) verifyAndCopy(modelo.tamanho);
     }
 
     @Override

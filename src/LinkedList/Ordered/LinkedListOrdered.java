@@ -8,22 +8,18 @@ import static ShallowOrDeepCopy.ShallowOrDeepCopy.verifyAndCopy;
 public class LinkedListOrdered<X extends Comparable<X>> implements Cloneable, Comparable<LinkedListOrdered<X>> {
 
     public class Node implements Cloneable {
-
         public X elemento;
         public Node proximo;
 
         public Node() {
         }
-
         public Node(X elemento) {
             this.elemento = elemento;
             this.proximo = null;
         }
-
         public X getElemento() {
             return elemento;
         }
-
         public Node getProximo() {
             return proximo;
         }
@@ -81,6 +77,20 @@ public class LinkedListOrdered<X extends Comparable<X>> implements Cloneable, Co
                 return elemento.toString();
         }
     }
+    
+    private Node primeiro;
+    private int tamanho;
+    
+    public LinkedListOrdered() {
+        primeiro = null;
+        tamanho = 0;
+    }
+    public Node getPrimeiro() {
+        return primeiro;
+    }
+    public int getTamanho() {
+        return tamanho;
+    }
 
     public void add(X element) throws Exception {
         // TODO: implement this method
@@ -104,7 +114,6 @@ public class LinkedListOrdered<X extends Comparable<X>> implements Cloneable, Co
         if (modelo == null) throw new IllegalArgumentException("Modelo nulo");
 
         // TODO: implement this method
-
     }
 
     @Override
@@ -129,7 +138,6 @@ public class LinkedListOrdered<X extends Comparable<X>> implements Cloneable, Co
         return false;
         // TODO: implement this method
     }
-
 
     @Override
     public int compareTo(LinkedListOrdered<X> o) {

@@ -8,6 +8,12 @@ public class LinkedListCircularDisordered<X> implements Cloneable {
 
         public Node() {
         }
+        public X getElemento() {
+            return elemento;
+        }
+        public Node getProximo() {
+            return proximo;
+        }
 
         public Node(X elemento) {
             this.elemento = elemento;
@@ -22,23 +28,28 @@ public class LinkedListCircularDisordered<X> implements Cloneable {
         @Override
         public Object clone() {
             return null;
+            
+            // TODO: Implementar o método clone
         }
     }
 
     public Node primeiro;
     public Node ultimo;
+    public int tamanho;
 
     public LinkedListCircularDisordered() {
         primeiro = null;
         ultimo = null;
+        tamanho = 0;
     }
-
     public Node getPrimeiro() {
         return primeiro;
     }
-
     public Node getUltimo() {
         return ultimo;
+    }
+    public int getTamanho() {
+        return tamanho;
     }
 
     public void add(X elemento) {
@@ -54,6 +65,7 @@ public class LinkedListCircularDisordered<X> implements Cloneable {
         ultimo.proximo = novo;
         ultimo = novo;
         ultimo.proximo = primeiro;
+        tamanho++;
     }
 
     @Override
@@ -79,12 +91,10 @@ public class LinkedListCircularDisordered<X> implements Cloneable {
         result.append("]");
         return result.toString();
     }
-
-
-
-
+    
     @Override
     public Object clone() {
         return null;
+        // TODO: Implementar o método clone
     }
 }

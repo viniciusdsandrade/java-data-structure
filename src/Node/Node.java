@@ -6,44 +6,30 @@ import static ShallowOrDeepCopy.ShallowOrDeepCopy.verifyAndCopy;
 
 public class Node<X> implements Cloneable {
 
-    public X data;
-    public Node<X> next;
+    public X elemento;
+    public Node<X> proximo;
 
-    public Node(X data) {
+    public X getElemento() {
+        return elemento;
+    }
+    public Node<X> getProximo() {
+        return proximo;
+    }
+    public Node(X elemento) {
 
-        if (data == null)
+        if (elemento == null)
             throw new IllegalArgumentException("Valor não pode ser nulo");
 
-        this.data = data;
-        this.next = null;
+        this.elemento = elemento;
+        this.proximo = null;
     }
-
-    public Node(X valor, Node<X> next) {
+    public Node(X valor, Node<X> proximo) {
 
         if (valor == null)
             throw new IllegalArgumentException("Valor não pode ser nulo");
 
-        this.data = valor;
-        this.next = next;
-    }
-
-    public X getData() {
-        return this.data;
-    }
-
-    public Node<X> getNext() {
-        return this.next;
-    }
-
-    public void setData(X valor) {
-        if (valor == null)
-            throw new IllegalArgumentException("Valor não pode ser nulo");
-
-        this.data = valor;
-    }
-
-    public void setNext(Node<X> next) {
-        this.next = next;
+        this.elemento = valor;
+        this.proximo = proximo;
     }
 
     @SuppressWarnings("unchecked")
@@ -51,8 +37,8 @@ public class Node<X> implements Cloneable {
 
         if (no == null) throw new IllegalArgumentException("Nó não pode ser nulo");
 
-        this.data = (X) verifyAndCopy(no.data);
-        this.next = (Node<X>)verifyAndCopy(no.next);
+        this.elemento = (X) verifyAndCopy(no.elemento);
+        this.proximo = (Node<X>)verifyAndCopy(no.proximo);
     }
 
     @Override
@@ -73,8 +59,8 @@ public class Node<X> implements Cloneable {
         final int prime = 31;
         int hash = 1;
 
-        hash *= prime + ((this.data == null) ? 0 : this.data.hashCode());
-        hash *= prime + ((this.next == null) ? 0 : this.next.hashCode());
+        hash *= prime + ((this.elemento == null) ? 0 : this.elemento.hashCode());
+        hash *= prime + ((this.proximo == null) ? 0 : this.proximo.hashCode());
 
         if (hash < 0) hash = -hash;
 
@@ -90,12 +76,12 @@ public class Node<X> implements Cloneable {
 
         Node<?> no = (Node<?>) (obj);
 
-        return Objects.equals(this.data, no.data) &&
-                Objects.equals(this.next, no.next);
+        return Objects.equals(this.elemento, no.elemento) &&
+                Objects.equals(this.proximo, no.proximo);
     }
 
     @Override
     public String toString() {
-        return this.data.toString();
+        return this.elemento.toString();
     }
 }
