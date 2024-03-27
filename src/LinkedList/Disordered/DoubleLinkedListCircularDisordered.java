@@ -86,6 +86,7 @@ public class DoubleLinkedListCircularDisordered<X> implements Cloneable {
     public DoubleLinkedListCircularDisordered() {
         primeiro = null;
         ultimo = null;
+        tamanho = 0;
     }
     public Node getPrimeiro() {
         return primeiro;
@@ -97,8 +98,12 @@ public class DoubleLinkedListCircularDisordered<X> implements Cloneable {
         return this.tamanho;
     }
 
+    @SuppressWarnings("unchecked")
     public void addLast(X elemento) {
-        Node novo = new Node(elemento);
+
+        if (elemento == null) throw new IllegalArgumentException("Elemento não pode ser nulo.");
+
+        Node novo = new Node((X) verifyAndCopy(elemento));
 
         if (primeiro == null) {
             primeiro = novo;
@@ -115,46 +120,58 @@ public class DoubleLinkedListCircularDisordered<X> implements Cloneable {
         tamanho++;
     }
 
+    @SuppressWarnings("unchecked")
     public void addFirst(X elemento) {
-        Node novo = new Node(elemento);
+
+        if (elemento == null) throw new IllegalArgumentException("Elemento não pode ser nulo.");
+
+        Node novo = new Node((X) verifyAndCopy(elemento));
 
         if (primeiro == null) {
             primeiro = novo;
             novo.proximo = novo; // O novo nó aponta para si mesmo
             novo.anterior = novo; // O novo nó aponta para si mesmo
             ultimo = novo;
-        } else {
-            novo.proximo = primeiro;
-            novo.anterior = ultimo;
-            primeiro.anterior = novo;
-            ultimo.proximo = novo;
-            primeiro = novo;
+            return;
         }
+
+        novo.proximo = primeiro;
+        novo.anterior = ultimo;
+        primeiro.anterior = novo;
+        ultimo.proximo = novo;
+        primeiro = novo;
 
         tamanho++;
     }
 
-    public void addAt(int indice, X elemento) {
-        if (indice < 0) throw new IllegalArgumentException("Índice não pode ser negativo.");
+    @SuppressWarnings("unchecked")
+    public void addAt(X elemento, int indice) {
+
+        if (elemento == null)
+            throw new IllegalArgumentException("Elemento não pode ser nulo.");
+
+        if (indice < 0 || indice > tamanho)
+            throw new IndexOutOfBoundsException("Índice fora dos limites da lista.");
 
         if (indice == 0) {
             addFirst(elemento);
             return;
         }
 
-        Node temp = primeiro;
-        for (int i = 0; i < indice - 1; i++) {
-            if (temp == null) throw new IllegalArgumentException("Índice fora dos limites da lista.");
-            temp = temp.proximo;
+        if (indice == tamanho) {
+            addLast(elemento);
+            return;
         }
 
-        if (temp == null) throw new IllegalArgumentException("Índice fora dos limites da lista.");
+        Node novo = new Node((X) verifyAndCopy(elemento));
+        Node temp = primeiro;
+        for (int i = 0; i < indice; i++)
+            temp = temp.proximo;
 
-        Node novo = new Node(elemento);
-        novo.proximo = temp.proximo;
-        novo.anterior = temp;
-        temp.proximo.anterior = novo;
-        temp.proximo = novo;
+        novo.proximo = temp;
+        novo.anterior = temp.anterior;
+        temp.anterior.proximo = novo;
+        temp.anterior = novo;
 
         tamanho++;
     }
@@ -192,38 +209,36 @@ public class DoubleLinkedListCircularDisordered<X> implements Cloneable {
     }
 
     public void removeAt(int indice) {
-        if (indice < 0) throw new IllegalArgumentException("Índice não pode ser negativo.");
+        if (indice < 0 || indice > tamanho) throw new IndexOutOfBoundsException("Índice fora dos limites da lista.");
 
         if (indice == 0) {
             removeFirst();
             return;
         }
 
-        Node temp = primeiro;
-        for (int i = 0; i < indice; i++) {
-            if (temp == null) throw new IllegalArgumentException("Índice fora dos limites da lista.");
-            temp = temp.proximo;
+        if (indice == tamanho - 1) {
+            removeLast();
+            return;
         }
 
-        if (temp == null) throw new IllegalArgumentException("Índice fora dos limites da lista.");
+        Node temp = primeiro;
+        for (int i = 0; i < indice; i++)
+            temp = temp.proximo;
 
         temp.anterior.proximo = temp.proximo;
         temp.proximo.anterior = temp.anterior;
+        
 
         tamanho--;
     }
 
     public X get(int indice) {
-        if (indice < 0) throw new IllegalArgumentException("Índice não pode ser negativo.");
+        if (indice < 0 || indice >= tamanho) throw new IndexOutOfBoundsException("Índice fora dos limites da lista.");
 
         Node temp = primeiro;
-        for (int i = 0; i < indice; i++) {
-            if (temp == null) throw new IllegalArgumentException("Índice fora dos limites da lista.");
+        for (int i = 0; i < indice; i++) 
             temp = temp.proximo;
-        }
-
-        if (temp == null) throw new IllegalArgumentException("Índice fora dos limites da lista.");
-
+        
         return temp.elemento;
     }
 
@@ -260,6 +275,37 @@ public class DoubleLinkedListCircularDisordered<X> implements Cloneable {
         ultimo = null;
         tamanho = 0;
     }
+    
+    public void reverse() {
+        if (primeiro == null) return;
+
+        Node temp = primeiro;
+        do {
+            Node aux = temp.proximo;
+            temp.proximo = temp.anterior;
+            temp.anterior = aux;
+            temp = temp.anterior;
+        } while (temp != primeiro);
+
+        Node aux = primeiro;
+        primeiro = ultimo;
+        ultimo = aux;
+    }
+    
+    public void rotate(int passos) {
+        if (primeiro == null) return;
+
+        if (passos < 0) {
+            passos = tamanho + passos % tamanho;
+        }
+
+        for (int i = 0; i < passos; i++) {
+            Node aux = primeiro;
+            primeiro = primeiro.proximo;
+            ultimo = ultimo.proximo;
+        }
+    }
+    
 
     @SuppressWarnings("unchecked")
     public DoubleLinkedListCircularDisordered(DoubleLinkedListCircularDisordered<X> modelo) {

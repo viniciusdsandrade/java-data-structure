@@ -4,7 +4,7 @@ import java.util.Objects;
 
 import static ShallowOrDeepCopy.ShallowOrDeepCopy.verifyAndCopy;
 
-public class DoubleLinkedListOrdered<X extends Comparable<X>> implements Cloneable, Comparable<DoubleLinkedListOrdered<X>> {
+public class DoubleLinkedListOrdered<X extends Comparable<X>> implements Cloneable {
 
     public class Node implements Cloneable {
         public X elemento;
@@ -114,11 +114,5 @@ public class DoubleLinkedListOrdered<X extends Comparable<X>> implements Cloneab
         } catch (Exception ignored) {
         }
         return clone;
-    }
-
-
-    @Override
-    public int compareTo(DoubleLinkedListOrdered<X> o) {
-        return 0;
     }
 }

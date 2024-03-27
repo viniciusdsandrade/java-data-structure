@@ -4,7 +4,7 @@ import java.util.Objects;
 
 import static ShallowOrDeepCopy.ShallowOrDeepCopy.verifyAndCopy;
 
-public class LinkedListCircularOrdered<X extends Comparable<X>> implements Cloneable, Comparable<LinkedListCircularOrdered<X>> {
+public class LinkedListCircularOrdered<X extends Comparable<X>> implements Cloneable {
     
     public class Node implements Cloneable {
         public X elemento;
@@ -104,12 +104,5 @@ public class LinkedListCircularOrdered<X extends Comparable<X>> implements Clone
         }
 
         return clone;
-    }
-    
-    @Override
-    public int compareTo(LinkedListCircularOrdered<X> o) {
-        return 0;
-
-        // Todo: Implement this method
     }
 }

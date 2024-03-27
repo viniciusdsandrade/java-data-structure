@@ -4,7 +4,7 @@ import java.util.Objects;
 
 import static ShallowOrDeepCopy.ShallowOrDeepCopy.verifyAndCopy;
 
-public class DoubleLinkedListCircularOrdered<X extends Comparable<X>> implements Cloneable, Comparable<DoubleLinkedListCircularOrdered<X>> {
+public class DoubleLinkedListCircularOrdered<X extends Comparable<X>> implements Cloneable {
 
     public class Node implements Cloneable {
         public X elemento;
@@ -13,20 +13,23 @@ public class DoubleLinkedListCircularOrdered<X extends Comparable<X>> implements
 
         public Node() {
         }
-        public X getElemento() {
-            return elemento;
-        }
-        public Node getProximo() {
-            return proximo;
-        }
-        public Node getAnterior() {
-            return anterior;
-        }
 
         public Node(X elemento) {
             this.elemento = elemento;
             this.proximo = null;
             this.anterior = null;
+        }
+
+        public X getElemento() {
+            return elemento;
+        }
+
+        public Node getProximo() {
+            return proximo;
+        }
+
+        public Node getAnterior() {
+            return anterior;
         }
 
         @SuppressWarnings("unchecked")
@@ -81,7 +84,7 @@ public class DoubleLinkedListCircularOrdered<X extends Comparable<X>> implements
     public Node primeiro;
     public Node ultimo;
     public int tamanho;
-    
+
     public DoubleLinkedListCircularOrdered() {
         this.primeiro = null;
         this.ultimo = null;
@@ -97,15 +100,54 @@ public class DoubleLinkedListCircularOrdered<X extends Comparable<X>> implements
         return tamanho;
     }
 
-    @Override
-    public int compareTo(DoubleLinkedListCircularOrdered<X> o) {
-        return 0;
-        // TODO: Implement this method
-    }
+    //Tinho que adicionar os elementos ja de maneira ordenada
+    public void add(X elemento) {
+        Node novo = new Node(elemento);
 
+        if (this.tamanho == 0) {
+            this.primeiro = novo;
+            this.ultimo = novo;
+            return;
+        }
+
+        Node atual = this.primeiro;
+        Node anterior = null;
+        while (atual != null && atual.elemento.compareTo(elemento) < 0) {
+            anterior = atual;
+            atual = atual.proximo;
+        }
+
+        if (anterior == null) {
+            novo.proximo = this.primeiro;
+            this.primeiro.anterior = novo;
+            this.primeiro = novo;
+        } else if (atual == null) {
+            this.ultimo.proximo = novo;
+            novo.anterior = this.ultimo;
+            this.ultimo = novo;
+        } else {
+            anterior.proximo = novo;
+            novo.anterior = anterior;
+            novo.proximo = atual;
+            atual.anterior = novo;
+        }
+        tamanho++;
+    }
+    
+    @SuppressWarnings("unchecked")
     public DoubleLinkedListCircularOrdered(DoubleLinkedListCircularOrdered<X> modelo) throws Exception {
         if (modelo == null) throw new Exception("Modelo ausente");
-        // TODO: Implement this method
+
+        Node atual = modelo.primeiro;
+        while (atual != null && atual != modelo.ultimo) {
+            this.add((X) verifyAndCopy(atual.elemento));
+            atual = atual.proximo;
+        }
+
+        if (atual != null)
+            this.add((X) verifyAndCopy(atual.elemento));
+
+        this.tamanho = (int) verifyAndCopy(modelo.tamanho);
     }
 
     @Override
@@ -116,5 +158,19 @@ public class DoubleLinkedListCircularOrdered<X extends Comparable<X>> implements
         } catch (Exception ignored) {
         }
         return clone;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder result = new StringBuilder("[");
+        Node atual = primeiro;
+        while (atual != null) {
+            result.append(atual.elemento);
+            if (atual.proximo != null)
+                result.append(" -> ");
+            atual = atual.proximo;
+        }
+        result.append("]");
+        return result.toString();
     }
 }

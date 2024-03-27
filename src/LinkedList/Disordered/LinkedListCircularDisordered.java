@@ -14,12 +14,10 @@ public class LinkedListCircularDisordered<X> implements Cloneable {
         public Node getProximo() {
             return proximo;
         }
-
         public Node(X elemento) {
             this.elemento = elemento;
             this.proximo = null;
         }
-
         public Node(X elemento, Node proximo) {
             this.elemento = elemento;
             this.proximo = proximo;

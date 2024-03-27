@@ -11,17 +11,21 @@ public class DoubleLinkedListDisordered<X> implements Cloneable {
 
         public Node() {
         }
+
         public Node(X elemento) {
             this.elemento = elemento;
             this.proximo = null;
             this.anterior = null;
         }
+
         public X getElemento() {
             return elemento;
         }
+
         public Node getProximo() {
             return proximo;
         }
+
         public Node getAnterior() {
             return anterior;
         }
@@ -43,7 +47,7 @@ public class DoubleLinkedListDisordered<X> implements Cloneable {
                 clone = new Node(this);
             } catch (Exception ignored) {
             }
-            
+
             return clone;
         }
     }
@@ -57,12 +61,15 @@ public class DoubleLinkedListDisordered<X> implements Cloneable {
         ultimo = null;
         tamanho = 0;
     }
+
     public Node getPrimeiro() {
         return primeiro;
     }
+
     public Node getUltimo() {
         return ultimo;
     }
+
     public int getTamanho() {
         return tamanho;
     }
@@ -72,10 +79,11 @@ public class DoubleLinkedListDisordered<X> implements Cloneable {
 
         if (primeiro == null) {
             primeiro = novo;
-        } else {
-            ultimo.proximo = novo;
-            novo.anterior = ultimo;
+            return;
         }
+        
+        ultimo.proximo = novo;
+        novo.anterior = ultimo;
         ultimo = novo;
         tamanho++;
     }

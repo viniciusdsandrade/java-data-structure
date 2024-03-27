@@ -4,6 +4,42 @@ import LinkedList.Disordered.DoubleLinkedListCircularDisordered;
 
 public class TestDoubleLinkedListCircularDisordered {
     public static void main(String[] args) {
+
+
+        DoubleLinkedListCircularDisordered<Integer> numeros = new DoubleLinkedListCircularDisordered<>();
+        numeros.addFirst(1);
+        numeros.addFirst(2);
+        numeros.addFirst(3);
+        numeros.addFirst(4);
+        numeros.addFirst(5);
+
+        System.out.println("Lista:          " + numeros);
+        System.out.println("Lista ordenada: " + numeros);
+
+        DoubleLinkedListCircularDisordered<Character> chars = new DoubleLinkedListCircularDisordered<>();
+
+        chars.addLast('n');
+        chars.addLast('i');
+        chars.addLast('c');
+        chars.addLast('i');
+        chars.addLast('u');
+        chars.addLast('s');
+        //System.out.println(chars);
+        chars.addFirst('v');
+        System.out.println(chars);
+        chars.addAt('i', 1);
+        System.out.println(chars);
+
+        chars.rotate(3);
+        System.out.println("rotate(3):  " + chars);
+
+        chars.rotate(-3);
+        System.out.println("rotate(-3): " + chars);
+
+        chars.reverse();
+        System.out.println("reverse():  " + chars);
+
+
         DoubleLinkedListCircularDisordered<Integer> list = new DoubleLinkedListCircularDisordered<>();
 
         // Adicionando elementos

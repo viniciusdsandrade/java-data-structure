@@ -10,21 +10,17 @@ public class NodeBilateral<X> implements Cloneable {
 
     public NodeBilateral() {
     }
-
     public NodeBilateral(X elemento) {
         this.elemento = elemento;
         this.proximo = null;
         this.anterior = null;
     }
-
     public X getElemento() {
         return elemento;
     }
-
     public NodeBilateral<X> getProximo() {
         return proximo;
     }
-
     public NodeBilateral<X> getAnterior() {
         return anterior;
     }

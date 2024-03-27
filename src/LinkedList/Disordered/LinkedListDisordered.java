@@ -80,14 +80,16 @@ public class LinkedListDisordered<X> implements Cloneable {
 
     private Node primeiro;
     private int tamanho;
-    
+
     public LinkedListDisordered() {
         this.primeiro = null;
         this.tamanho = 0;
     }
+
     public Node getPrimeiro() {
         return primeiro;
     }
+
     public int getTamanho() {
         return this.tamanho;
     }
@@ -141,7 +143,7 @@ public class LinkedListDisordered<X> implements Cloneable {
             addLast(elemento);
             return;
         }
-                
+
         Node novo = new Node((X) verifyAndCopy(elemento));
         Node aux = primeiro;
 
@@ -183,20 +185,19 @@ public class LinkedListDisordered<X> implements Cloneable {
 
     public void removeAt(int indice) {
 
-        if (primeiro == null) throw new IllegalStateException("Lista vazia");
         if (indice < 0 || indice > tamanho) throw new IndexOutOfBoundsException("Index out of bounds");
 
         if (indice == 0) {
             removeFirst();
             return;
         }
+
         if (indice == tamanho) {
             removeLast();
             return;
         }
 
         Node aux = primeiro;
-
         for (int i = 0; i < indice - 1; i++)
             aux = aux.proximo;
 
@@ -387,8 +388,6 @@ public class LinkedListDisordered<X> implements Cloneable {
             atual = atual.proximo; // Move para o próximo nó na lista
         }
     }
-
-
 
     @SuppressWarnings("unchecked")
     public LinkedListDisordered(LinkedListDisordered<X> modelo) {
