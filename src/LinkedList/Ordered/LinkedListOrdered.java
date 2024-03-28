@@ -1,6 +1,5 @@
 package LinkedList.Ordered;
 
-
 import java.util.Objects;
 
 import static ShallowOrDeepCopy.ShallowOrDeepCopy.verifyAndCopy;

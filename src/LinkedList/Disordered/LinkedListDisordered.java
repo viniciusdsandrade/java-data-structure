@@ -156,6 +156,38 @@ public class LinkedListDisordered<X> implements Cloneable {
         tamanho++;
     }
 
+    public X get(int indice) {
+        if (indice < 0 || indice >= this.tamanho) throw new IndexOutOfBoundsException("Index out of bounds");
+
+        // Inicia a busca a partir do primeiro nó
+        Node aux = primeiro;
+
+        // Percorre a lista até o índice especificado
+        for (int i = 0; i < indice; i++)
+            aux = aux.proximo;
+
+        return aux.elemento; // Retorna o elemento do nó encontrado
+    }
+
+    public X getFirst() {
+        if (primeiro == null) throw new IllegalStateException("Lista vazia");
+
+        return primeiro.elemento; // Retorna o elemento do primeiro nó da lista
+    }
+
+    public X getLast() {
+        if (primeiro == null)
+            throw new IllegalStateException("Lista vazia");
+
+        Node aux = primeiro; // Inicia a busca pelo último nó a partir do primeiro nó
+
+        // Percorre a lista até encontrar o último nó
+        while (aux.proximo != null)
+            aux = aux.proximo;
+
+        return aux.elemento; // Retorna o elemento do último nó encontrado
+    }
+
     public void removeFirst() {
         if (primeiro == null) throw new IllegalStateException("Lista vazia");
 
@@ -222,38 +254,6 @@ public class LinkedListDisordered<X> implements Cloneable {
 
     public boolean isEmpty() {
         return this.tamanho == 0;
-    }
-
-    public X get(int indice) {
-        if (indice < 0 || indice >= this.tamanho) throw new IndexOutOfBoundsException("Index out of bounds");
-
-        // Inicia a busca a partir do primeiro nó
-        Node aux = primeiro;
-
-        // Percorre a lista até o índice especificado
-        for (int i = 0; i < indice; i++)
-            aux = aux.proximo;
-
-        return aux.elemento; // Retorna o elemento do nó encontrado
-    }
-
-    public X getFirst() {
-        if (primeiro == null) throw new IllegalStateException("Lista vazia");
-
-        return primeiro.elemento; // Retorna o elemento do primeiro nó da lista
-    }
-
-    public X getLast() {
-        if (primeiro == null)
-            throw new IllegalStateException("Lista vazia");
-
-        Node aux = primeiro; // Inicia a busca pelo último nó a partir do primeiro nó
-
-        // Percorre a lista até encontrar o último nó
-        while (aux.proximo != null)
-            aux = aux.proximo;
-
-        return aux.elemento; // Retorna o elemento do último nó encontrado
     }
 
     public void clear() {
@@ -425,23 +425,6 @@ public class LinkedListDisordered<X> implements Cloneable {
     }
 
     @Override
-    public int hashCode() {
-        final int prime = 31;
-        int hash = 1;
-
-        Node aux = this.primeiro;
-
-        while (aux != null) {
-            hash *= prime + aux.elemento.hashCode();
-            aux = aux.proximo;
-        }
-
-        if (hash < 0) hash = -hash;
-
-        return hash;
-    }
-
-    @Override
     @SuppressWarnings("unchecked")
     public boolean equals(Object obj) {
 
@@ -468,6 +451,23 @@ public class LinkedListDisordered<X> implements Cloneable {
     }
 
     @Override
+    public int hashCode() {
+        final int prime = 31;
+        int hash = 1;
+
+        Node aux = this.primeiro;
+
+        while (aux != null) {
+            hash *= prime + aux.elemento.hashCode();
+            aux = aux.proximo;
+        }
+
+        if (hash < 0) hash = -hash;
+
+        return hash;
+    }
+
+    @Override
     public String toString() {
         StringBuilder result = new StringBuilder("[");
         Node aux = primeiro;
@@ -480,6 +480,7 @@ public class LinkedListDisordered<X> implements Cloneable {
         result.append("]");
         return result.toString();
     }
+
     /*
     extends LinkedList
     1 - void add (int index, E element) Inserts the specified element at the specified position in this list.

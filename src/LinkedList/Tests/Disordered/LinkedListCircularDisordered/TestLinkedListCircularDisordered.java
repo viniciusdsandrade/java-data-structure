@@ -7,8 +7,9 @@ public class TestLinkedListCircularDisordered {
 
         LinkedListCircularDisordered<Integer> list = new LinkedListCircularDisordered<>();
 
-        list.add(1);
-        list.add(2);
+        list.addLast(1);
+        list.addLast(2);
+        list.addLast(3);
 
         int primeiro = list.primeiro.elemento;
         int ultimo = list.ultimo.elemento;
@@ -19,6 +20,9 @@ public class TestLinkedListCircularDisordered {
         int proximoDoProximoDoPrimeiro = list.primeiro.proximo.proximo.elemento;
         int proximoDoProximoDoUltimo = list.ultimo.proximo.proximo.elemento;
 
+        int proximoDoProximoDoProximoDoPrimeiro = list.primeiro.proximo.proximo.proximo.elemento;
+        int proximoDoProximoDoProximoDoUltimo = list.ultimo.proximo.proximo.proximo.elemento;
+
 
         System.out.println("primeiro: " + primeiro);
         System.out.println("ultimo: " + ultimo);
@@ -26,6 +30,8 @@ public class TestLinkedListCircularDisordered {
         System.out.println("proximoDoUltimo:  " + proximoDoUltimo);
         System.out.println("proximoDoProximoDoPrimeiro: " + proximoDoProximoDoPrimeiro);
         System.out.println("proximoDoProximoDoUltimo:  " + proximoDoProximoDoUltimo);
+        System.out.println("proximoDoProximoDoProximoDoPrimeiro: " + proximoDoProximoDoProximoDoPrimeiro);
+        System.out.println("proximoDoProximoDoProximoDoUltimo:  " + proximoDoProximoDoProximoDoUltimo);
 
         System.out.println(list);
     }
