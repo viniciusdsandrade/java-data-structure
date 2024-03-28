@@ -1,4 +1,6 @@
 package LinkedList.Ordered;
+import LinkedList.Disordered.LinkedListCircularDisordered;
+
 import java.util.Objects;
 
 import static ShallowOrDeepCopy.ShallowOrDeepCopy.verifyAndCopy;
@@ -305,11 +307,10 @@ public class LinkedListCircularOrdered<X extends Comparable<X>> implements Clone
         final int prime = 31;
         int hash = 1;
 
-        Node aux = this.primeiro;
-
-        while (aux != null) {
-            hash *= prime + aux.elemento.hashCode();
-            aux = aux.proximo;
+        Node auxiliar = primeiro;
+        for (int i = 0; i < tamanho; i++) {
+            hash *= prime + (auxiliar.elemento == null ? 0 : auxiliar.elemento.hashCode());
+            auxiliar = auxiliar.proximo;
         }
 
         if (hash < 0) hash = -hash;

@@ -325,14 +325,11 @@ public class LinkedListCircularDisordered<X> implements Cloneable {
 
     @Override
     public Object clone() {
-
         LinkedListCircularDisordered<X> clone = null;
-
         try {
             clone = new LinkedListCircularDisordered<>(this);
         } catch (Exception ignored) {
         }
-
         return clone;
     }
 
@@ -364,11 +361,10 @@ public class LinkedListCircularDisordered<X> implements Cloneable {
         final int prime = 31;
         int hash = 1;
 
-        Node aux = this.primeiro;
-
-        while (aux != null) {
-            hash *= prime + aux.elemento.hashCode();
-            aux = aux.proximo;
+        Node auxiliar = primeiro;
+        for (int i = 0; i < tamanho; i++) {
+            hash *= prime + (auxiliar.elemento == null ? 0 : auxiliar.elemento.hashCode());
+            auxiliar = auxiliar.proximo;
         }
 
         if (hash < 0) hash = -hash;

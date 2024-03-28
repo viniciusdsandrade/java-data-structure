@@ -371,15 +371,10 @@ public class DoubleLinkedListCircularDisordered<X> implements Cloneable {
         final int prime = 31;
         int hash = 1;
 
-        // Incorpora os hashes dos primeiros e últimos nós
-        hash *= prime + (this.primeiro == null ? 0 : this.primeiro.hashCode());
-        hash *= prime + (this.ultimo == null ? 0 : this.ultimo.hashCode());
-
-        // Percorre a lista para calcular o hashCode dos elementos
-        Node temp = primeiro;
-        while (temp != null && temp != ultimo) {
-            hash *= prime + (temp.elemento == null ? 0 : temp.elemento.hashCode());
-            temp = temp.proximo;
+        Node auxiliar = primeiro;
+        for (int i = 0; i < tamanho; i++) {
+            hash *= prime + (auxiliar.elemento == null ? 0 : auxiliar.elemento.hashCode());
+            auxiliar = auxiliar.proximo;
         }
 
         if (hash < 0) hash = -hash;

@@ -1,4 +1,4 @@
-package LinkedList.Tests.Ordered.DoubleLinkedListOrdered;
+package LinkedList.Tests.Disordered.DoubleLinkedListDisordered;
 
 public class TestCloneAndCopyConstructor {
     public static void main(String[] args) {

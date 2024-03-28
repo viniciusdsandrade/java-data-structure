@@ -3,7 +3,6 @@ package LinkedList.Tests.Ordered.LinkedListCircularOrdered;
 import LinkedList.Ordered.LinkedListCircularOrdered;
 
 public class TestLinkedListCircularOrdered {
-
     public static void main(String[] args) {
 
         LinkedListCircularOrdered<Integer> list = new LinkedListCircularOrdered<>();
