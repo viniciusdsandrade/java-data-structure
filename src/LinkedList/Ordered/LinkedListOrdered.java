@@ -24,8 +24,8 @@ public class LinkedListOrdered<X extends Comparable<X>> implements Cloneable {
         }
 
         @SuppressWarnings("unchecked")
-        public Node(Node modelo) throws Exception {
-            if (modelo == null) throw new Exception("Nó não pode ser nulo");
+        public Node(Node modelo) {
+            if (modelo == null) throw new IllegalArgumentException("Nó não pode ser nulo");
 
             this.elemento = (X) verifyAndCopy(modelo.elemento);
             this.proximo = (Node) verifyAndCopy(modelo.proximo);
@@ -34,25 +34,11 @@ public class LinkedListOrdered<X extends Comparable<X>> implements Cloneable {
         @Override
         public Object clone() {
             Node clone = null;
-
             try {
                 clone = new Node(this);
             } catch (Exception ignored) {
             }
-
             return clone;
-        }
-
-        @Override
-        public int hashCode() {
-            final int prime = 31;
-            int hash = 1;
-
-            hash *= prime + ((this.elemento == null) ? 0 : this.elemento.hashCode());
-
-            if (hash < 0) hash = -hash;
-
-            return hash;
         }
 
         @Override
@@ -66,6 +52,18 @@ public class LinkedListOrdered<X extends Comparable<X>> implements Cloneable {
             Node other = (Node) obj;
 
             return Objects.equals(this.elemento, other.elemento);
+        }
+
+        @Override
+        public int hashCode() {
+            final int prime = 31;
+            int hash = 1;
+
+            hash *= prime + ((this.elemento == null) ? 0 : this.elemento.hashCode());
+
+            if (hash < 0) hash = -hash;
+
+            return hash;
         }
 
         @Override
@@ -84,17 +82,15 @@ public class LinkedListOrdered<X extends Comparable<X>> implements Cloneable {
         primeiro = null;
         tamanho = 0;
     }
-
     public Node getPrimeiro() {
         return primeiro;
     }
-
     public int getTamanho() {
         return tamanho;
     }
 
     @SuppressWarnings("unchecked")
-    public void add(X elemento) throws Exception {
+    public void add(X elemento)  {
         if (elemento == null) throw new IllegalArgumentException("Elemento nulo");
 
         Node novo = new Node((X) verifyAndCopy(elemento));
@@ -215,6 +211,22 @@ public class LinkedListOrdered<X extends Comparable<X>> implements Cloneable {
         return false;
     }
 
+    public int indexOf(X elemento) {
+        if (elemento == null) return -1;
+
+        Node atual = primeiro;
+        int indice = 0;
+
+        while (atual != null) {
+            if (atual.elemento.equals(elemento)) return indice;
+
+            atual = atual.proximo;
+            indice++;
+        }
+
+        return -1;
+    }
+
     public boolean isEmpty() {
         return primeiro == null;
     }
@@ -225,7 +237,7 @@ public class LinkedListOrdered<X extends Comparable<X>> implements Cloneable {
     }
 
     @SuppressWarnings("unchecked")
-    public LinkedListOrdered(LinkedListOrdered<X> modelo) throws Exception {
+    public LinkedListOrdered(LinkedListOrdered<X> modelo) {
         if (modelo == null) throw new IllegalArgumentException("Modelo nulo");
 
         if (modelo.primeiro == null) {
@@ -242,36 +254,17 @@ public class LinkedListOrdered<X extends Comparable<X>> implements Cloneable {
 
     @Override
     public Object clone() {
-
         LinkedListOrdered<X> clone = null;
-
         try {
             clone = new LinkedListOrdered<>(this);
         } catch (Exception ignored) {
         }
-
         return clone;
-    }
-
-    @Override
-    public int hashCode() {
-        final int prime = 31;
-        int hash = 1;
-
-        hash *= prime + this.tamanho;
-
-        for (Node atual = primeiro; atual != null; atual = atual.proximo)
-            hash *= prime + ((atual.elemento == null) ? 0 : atual.elemento.hashCode());
-
-        if (hash < 0) hash = -hash;
-
-        return hash;
     }
 
     @Override
     @SuppressWarnings("unchecked")
     public boolean equals(Object obj) {
-
         if (this == obj) return true;
         if (obj == null) return false;
         if (this.getClass() != obj.getClass()) return false;
@@ -291,8 +284,23 @@ public class LinkedListOrdered<X extends Comparable<X>> implements Cloneable {
             thatNode = thatNode.proximo;
         }
 
-        return thisNode == null && 
+        return thisNode == null &&
                 thatNode == null;
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int hash = 1;
+
+        hash *= prime + this.tamanho;
+
+        for (Node atual = primeiro; atual != null; atual = atual.proximo)
+            hash *= prime + ((atual.elemento == null) ? 0 : atual.elemento.hashCode());
+
+        if (hash < 0) hash = -hash;
+
+        return hash;
     }
 
     @Override

@@ -1,5 +1,7 @@
 package LinkedList.Disordered;
 
+import java.util.Objects;
+
 import static ShallowOrDeepCopy.ShallowOrDeepCopy.verifyAndCopy;
 
 public class DoubleLinkedListDisordered<X> implements Cloneable {
@@ -11,21 +13,17 @@ public class DoubleLinkedListDisordered<X> implements Cloneable {
 
         public Node() {
         }
-
         public Node(X elemento) {
             this.elemento = elemento;
             this.proximo = null;
             this.anterior = null;
         }
-
         public X getElemento() {
             return elemento;
         }
-
         public Node getProximo() {
             return proximo;
         }
-
         public Node getAnterior() {
             return anterior;
         }
@@ -42,13 +40,43 @@ public class DoubleLinkedListDisordered<X> implements Cloneable {
         @Override
         public Object clone() {
             Node clone = null;
-
             try {
                 clone = new Node(this);
             } catch (Exception ignored) {
             }
-
             return clone;
+        }
+
+        @Override
+        @SuppressWarnings("unchecked")
+        public boolean equals(Object obj) {
+            if (obj == null) return false;
+            if (this == obj) return true;
+            if (this.getClass() != obj.getClass()) return false;
+
+            Node no = (Node) obj;
+
+            return Objects.equals(this.elemento, no.elemento);
+        }
+
+        @Override
+        public int hashCode() {
+            final int prime = 31;
+            int hash = 1;
+
+            hash *= prime + (this.elemento == null ? 0 : this.elemento.hashCode());
+
+            if (hash < 0) hash = -hash;
+
+            return hash;
+        }
+
+        @Override
+        public String toString() {
+            if (proximo != null)
+                return elemento + " -> " + proximo.elemento;
+            else
+                return elemento.toString();
         }
     }
 
@@ -59,17 +87,18 @@ public class DoubleLinkedListDisordered<X> implements Cloneable {
         primeiro = null;
         tamanho = 0;
     }
-
     public Node getPrimeiro() {
         return primeiro;
     }
-
     public int getTamanho() {
         return tamanho;
     }
 
+    @SuppressWarnings("unchecked")
     public void addLast(X elemento) {
-        Node novo = new Node(elemento);
+        if (elemento == null) throw new IllegalArgumentException("Elemento ausente");
+
+        Node novo = new Node((X) verifyAndCopy(elemento));
         Node temp = primeiro;
         Node anterior = null;
 
@@ -88,8 +117,11 @@ public class DoubleLinkedListDisordered<X> implements Cloneable {
         tamanho++;
     }
 
+    @SuppressWarnings("unchecked")
     public void addFirst(X elemento) {
-        Node novo = new Node(elemento);
+        if (elemento == null) throw new IllegalArgumentException("Elemento ausente");
+
+        Node novo = new Node((X) verifyAndCopy(elemento));
         Node temp = primeiro;
         Node anterior = null;
 
@@ -108,24 +140,26 @@ public class DoubleLinkedListDisordered<X> implements Cloneable {
         tamanho++;
     }
 
-    public void addAt(int index, X elemento) {
-        if (index < 0 || index > tamanho) throw new IllegalArgumentException("Índice inválido");
+    @SuppressWarnings("unchecked")
+    public void addAt(X elemento, int indice) {
+        if (elemento == null) throw new IllegalArgumentException("Elemento ausente");
+        if (indice < 0 || indice > tamanho) throw new IllegalArgumentException("Índice inválido");
 
-        if (index == 0) {
+        if (indice == 0) {
             addFirst(elemento);
             return;
         }
 
-        if (index == tamanho) {
+        if (indice == tamanho) {
             addLast(elemento);
             return;
         }
 
-        Node novo = new Node(elemento);
+        Node novo = new Node((X) verifyAndCopy(elemento));
         Node temp = primeiro;
         Node anterior = null;
 
-        for (int i = 0; i < index; i++) {
+        for (int i = 0; i < indice; i++) {
             anterior = temp;
             temp = temp.proximo;
         }
@@ -151,6 +185,7 @@ public class DoubleLinkedListDisordered<X> implements Cloneable {
 
     public X getFirst() {
         if (primeiro == null) return null;
+
         return primeiro.elemento;
     }
 
@@ -158,9 +193,8 @@ public class DoubleLinkedListDisordered<X> implements Cloneable {
         if (primeiro == null) return null;
 
         Node temp = primeiro;
-        while (temp.proximo != null) {
+        while (temp.proximo != null)
             temp = temp.proximo;
-        }
 
         return temp.elemento;
     }
@@ -226,6 +260,18 @@ public class DoubleLinkedListDisordered<X> implements Cloneable {
         tamanho--;
     }
 
+    public boolean contains(X elemento) {
+        Node temp = primeiro;
+
+        while (temp != null) {
+            if (temp.elemento.equals(elemento))
+                return true;
+            temp = temp.proximo;
+        }
+
+        return false;
+    }
+
     public int indexOf(X elemento) {
         Node temp = primeiro;
         int index = 0;
@@ -240,9 +286,21 @@ public class DoubleLinkedListDisordered<X> implements Cloneable {
         return -1;
     }
 
+    public boolean isEmpty() {
+        return tamanho == 0;
+    }
+
     public void clear() {
         primeiro = null;
         tamanho = 0;
+    }
+
+    @SuppressWarnings("unchecked")
+    public DoubleLinkedListDisordered(DoubleLinkedListDisordered<X> modelo) {
+        if (modelo == null) throw new IllegalArgumentException("Modelo ausente");
+
+        this.tamanho = (int) verifyAndCopy(modelo.tamanho);
+        this.primeiro = (Node) verifyAndCopy(modelo.primeiro);
     }
 
     @Override
@@ -255,14 +313,6 @@ public class DoubleLinkedListDisordered<X> implements Cloneable {
         return clone;
     }
 
-    @SuppressWarnings("unchecked")
-    public DoubleLinkedListDisordered(DoubleLinkedListDisordered<X> modelo) {
-        if (modelo == null) throw new IllegalArgumentException("Modelo ausente");
-
-        this.tamanho = (int) verifyAndCopy(modelo.tamanho);
-        this.primeiro = (Node) verifyAndCopy(modelo.primeiro);
-    }
-
     @Override
     @SuppressWarnings("unchecked")
     public boolean equals(Object obj) {
@@ -270,12 +320,12 @@ public class DoubleLinkedListDisordered<X> implements Cloneable {
         if (this == obj) return true;
         if (this.getClass() != obj.getClass()) return false;
 
-        DoubleLinkedListDisordered<X> lista = (DoubleLinkedListDisordered<X>) obj;
+        DoubleLinkedListDisordered<X> that = (DoubleLinkedListDisordered<X>) obj;
 
-        if (this.tamanho != lista.tamanho) return false;
+        if (this.tamanho != that.tamanho) return false;
 
         Node tempThis = this.primeiro;
-        Node tempLista = lista.primeiro;
+        Node tempLista = that.primeiro;
 
         while (tempThis != null) {
             if (!tempThis.elemento.equals(tempLista.elemento))
@@ -288,6 +338,7 @@ public class DoubleLinkedListDisordered<X> implements Cloneable {
         return true;
     }
 
+    @Override
     public int hashCode() {
         final int prime = 31;
         int hash = 1;
@@ -298,7 +349,7 @@ public class DoubleLinkedListDisordered<X> implements Cloneable {
             temp = temp.proximo;
         }
 
-        if (hash < 0) hash = hash * -1;
+        if (hash < 0) hash = -hash;
 
         return hash;
     }

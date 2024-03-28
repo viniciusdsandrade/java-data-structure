@@ -13,28 +13,24 @@ public class DoubleLinkedListOrdered<X extends Comparable<X>> implements Cloneab
 
         public Node() {
         }
-
         public Node(X elemento) {
             this.elemento = elemento;
             this.proximo = null;
             this.anterior = null;
         }
-
         public X getElemento() {
             return elemento;
         }
-
         public Node getProximo() {
             return proximo;
         }
-
         public Node getAnterior() {
             return anterior;
         }
 
         @SuppressWarnings("unchecked")
-        public Node(Node modelo) throws Exception {
-            if (modelo == null) throw new Exception("Modelo não pode ser nulo.");
+        public Node(Node modelo) {
+            if (modelo == null) throw new IllegalArgumentException("Modelo não pode ser nulo.");
 
             this.elemento = (X) verifyAndCopy(modelo.elemento);
             this.proximo = (Node) verifyAndCopy(modelo.proximo);
@@ -52,6 +48,18 @@ public class DoubleLinkedListOrdered<X extends Comparable<X>> implements Cloneab
         }
 
         @Override
+        @SuppressWarnings("unchecked")
+        public boolean equals(Object obj) {
+            if (this == obj) return true;
+            if (obj == null) return false;
+            if (this.getClass() != obj.getClass()) return false;
+
+            Node other = (Node) obj;
+
+            return Objects.equals(this.elemento, other.elemento);
+        }
+
+        @Override
         public int hashCode() {
             final int prime = 31;
             int hash = 1;
@@ -64,26 +72,16 @@ public class DoubleLinkedListOrdered<X extends Comparable<X>> implements Cloneab
         }
 
         @Override
-        @SuppressWarnings("unchecked")
-        public boolean equals(Object obj) {
-
-            if (this == obj) return true;
-            if (obj == null) return false;
-            if (this.getClass() != obj.getClass()) return false;
-
-            Node other = (Node) obj;
-
-            return Objects.equals(this.elemento, other.elemento);
-        }
-
-        @Override
         public String toString() {
-            return this.elemento.toString();
+            if (proximo != null)
+                return elemento + " -> " + proximo.elemento;
+            else
+                return elemento.toString();
         }
     }
 
     public Node primeiro;
-    private int tamanho;
+    public int tamanho;
 
     public DoubleLinkedListOrdered() {
         this.primeiro = null;
@@ -96,8 +94,11 @@ public class DoubleLinkedListOrdered<X extends Comparable<X>> implements Cloneab
         return tamanho;
     }
 
+    @SuppressWarnings("unchecked")
     public void add(X elemento) {
-        Node novo = new Node(elemento);
+        if (elemento == null) throw new IllegalArgumentException("Elemento ausente.");
+
+        Node novo = new Node((X) verifyAndCopy(elemento));
         Node temp = primeiro;
         Node anterior = null;
 
@@ -197,6 +198,20 @@ public class DoubleLinkedListOrdered<X extends Comparable<X>> implements Cloneab
         tamanho--;
     }
 
+    public boolean contains(X elemento) {
+        Node temp = primeiro;
+
+        while (temp != null) {
+            if (temp.elemento.equals(elemento)) {
+                return true;
+            }
+
+            temp = temp.proximo;
+        }
+
+        return false;
+    }
+
     public int indexOf(X elemento) {
         Node temp = primeiro;
         int index = 0;
@@ -213,14 +228,18 @@ public class DoubleLinkedListOrdered<X extends Comparable<X>> implements Cloneab
         return -1;
     }
 
+    public boolean isEmpty() {
+        return tamanho == 0;
+    }
+
     public void clear() {
         primeiro = null;
         tamanho = 0;
     }
 
     @SuppressWarnings("unchecked")
-    public DoubleLinkedListOrdered(DoubleLinkedListOrdered<X> modelo) throws Exception {
-        if (modelo == null) throw new Exception("Modelo ausente.");
+    public DoubleLinkedListOrdered(DoubleLinkedListOrdered<X> modelo)  {
+        if (modelo == null) throw new IllegalArgumentException("Modelo ausente.");
 
         this.tamanho = (int) verifyAndCopy(modelo.tamanho);
         this.primeiro = (Node) verifyAndCopy(modelo.primeiro);
@@ -234,6 +253,45 @@ public class DoubleLinkedListOrdered<X extends Comparable<X>> implements Cloneab
         } catch (Exception ignored) {
         }
         return clone;
+    }
+
+    @Override
+    @SuppressWarnings("unchecked")
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null) return false;
+        if (this.getClass() != obj.getClass()) return false;
+
+        DoubleLinkedListOrdered<X> that = (DoubleLinkedListOrdered<X>) obj;
+
+        if (this.tamanho != that.tamanho) return false;
+
+        Node temp1 = this.primeiro;
+        Node temp2 = that.primeiro;
+
+        while (temp1 != null) {
+            if (!temp1.equals(temp2)) return false;
+            temp1 = temp1.proximo;
+            temp2 = temp2.proximo;
+        }
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int hash = 1;
+
+        Node temp = this.primeiro;
+        while (temp != null) {
+            hash *= prime + (temp.elemento == null ? 0 : temp.elemento.hashCode());
+            temp = temp.proximo;
+        }
+
+        if (hash < 0) hash = -hash;
+
+        return hash;
     }
 
     @Override

@@ -25,8 +25,8 @@ public class LinkedListDisordered<X> implements Cloneable {
         }
 
         @SuppressWarnings("unchecked")
-        public Node(Node modelo) throws Exception {
-            if (modelo == null) throw new Exception("Nó não pode ser nulo");
+        public Node(Node modelo)  {
+            if (modelo == null) throw new IllegalArgumentException("Nó não pode ser nulo");
 
             this.elemento = (X) verifyAndCopy(modelo.elemento);
             this.proximo = (Node) verifyAndCopy(modelo.proximo);
@@ -35,25 +35,11 @@ public class LinkedListDisordered<X> implements Cloneable {
         @Override
         public Object clone() {
             Node clone = null;
-
             try {
                 clone = new Node(this);
             } catch (Exception ignored) {
             }
-
             return clone;
-        }
-
-        @Override
-        public int hashCode() {
-            final int prime = 31;
-            int hash = 1;
-
-            hash *= prime + ((this.elemento == null) ? 0 : this.elemento.hashCode());
-
-            if (hash < 0) hash = -hash;
-
-            return hash;
         }
 
         @Override
@@ -70,6 +56,18 @@ public class LinkedListDisordered<X> implements Cloneable {
         }
 
         @Override
+        public int hashCode() {
+            final int prime = 31;
+            int hash = 1;
+
+            hash *= prime + ((this.elemento == null) ? 0 : this.elemento.hashCode());
+
+            if (hash < 0) hash = -hash;
+
+            return hash;
+        }
+
+        @Override
         public String toString() {
             if (proximo != null)
                 return elemento + " -> " + proximo.elemento;
@@ -78,18 +76,16 @@ public class LinkedListDisordered<X> implements Cloneable {
         }
     }
 
-    private Node primeiro;
-    private int tamanho;
+    public Node primeiro;
+    public int tamanho;
 
     public LinkedListDisordered() {
         this.primeiro = null;
         this.tamanho = 0;
     }
-
     public Node getPrimeiro() {
         return primeiro;
     }
-
     public int getTamanho() {
         return this.tamanho;
     }
@@ -170,14 +166,13 @@ public class LinkedListDisordered<X> implements Cloneable {
     }
 
     public X getFirst() {
-        if (primeiro == null) throw new IllegalStateException("Lista vazia");
+        if (primeiro == null) return null;
 
         return primeiro.elemento; // Retorna o elemento do primeiro nó da lista
     }
 
     public X getLast() {
-        if (primeiro == null)
-            throw new IllegalStateException("Lista vazia");
+        if (primeiro == null) return null;
 
         Node aux = primeiro; // Inicia a busca pelo último nó a partir do primeiro nó
 
@@ -252,6 +247,23 @@ public class LinkedListDisordered<X> implements Cloneable {
         return false;
     }
 
+    public int indexOf(X elemento) {
+        Node aux = primeiro;
+        int indice = 0;
+
+        // Percorre a lista enquanto houver nós
+        while (aux != null) {
+            // Verifica se o elemento do nó atual é igual ao elemento procurado
+            if (aux.elemento.equals(elemento))
+                return indice; // Se sim, retorna o índice do nó atual
+
+            aux = aux.proximo; // Move para o próximo nó na lista
+            indice++;
+        }
+
+        return -1; // Se o elemento não for encontrado, retorna -1
+    }
+
     public boolean isEmpty() {
         return this.tamanho == 0;
     }
@@ -281,7 +293,6 @@ public class LinkedListDisordered<X> implements Cloneable {
     }
 
     public void rotate(int passos) {
-
         if (primeiro == null || primeiro.proximo == null)
             return;// Verifica se a lista está vazia ou contém apenas um elemento, se sim, não há necessidade de fazer rotação
 
@@ -415,19 +426,16 @@ public class LinkedListDisordered<X> implements Cloneable {
     @Override
     public Object clone() {
         LinkedListDisordered<X> clone = null;
-
         try {
             clone = new LinkedListDisordered<>(this);
         } catch (Exception ignored) {
         }
-
         return clone;
     }
 
     @Override
     @SuppressWarnings("unchecked")
     public boolean equals(Object obj) {
-
         if (this == obj) return true;
         if (obj == null) return false;
         if (this.getClass() != obj.getClass()) return false;
@@ -480,8 +488,9 @@ public class LinkedListDisordered<X> implements Cloneable {
         result.append("]");
         return result.toString();
     }
+}
 
-    /*
+/*
     extends LinkedList
     1 - void add (int index, E element) Inserts the specified element at the specified position in this list.
     2 - boolean add(E e) Appends the specified element to the end of this list.
@@ -524,5 +533,4 @@ public class LinkedListDisordered<X> implements Cloneable {
     39 - Spliterator<E> spliterator() Creates a late-binding and fail-fast Spliterator over the elements in this list.
     40 - Object[] toArray() Returns an array containing all the elements in this list in the proper sequence (from first to a last element).
     41 - <T> T[] toArray(T[] a) Returns an array containing all the elements in this list in proper sequences (from first to a last element); the runtime type of the returned array is that of the specified array.
-     */
-}
+ */

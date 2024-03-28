@@ -24,8 +24,8 @@ public class LinkedListCircularDisordered<X> implements Cloneable {
         }
 
         @SuppressWarnings("unchecked")
-        public Node(Node modelo) throws Exception {
-            if (modelo == null) throw new Exception("Modelo não pode ser nulo.");
+        public Node(Node modelo)  {
+            if (modelo == null) throw new IllegalArgumentException("Modelo não pode ser nulo.");
 
             this.elemento = (X) verifyAndCopy(modelo.elemento);
             this.proximo = (Node) verifyAndCopy(modelo.proximo);
@@ -34,12 +34,10 @@ public class LinkedListCircularDisordered<X> implements Cloneable {
         @Override
         public Object clone() {
             Node clone = null;
-
             try {
                 clone = new Node(this);
             } catch (Exception ignored) {
             }
-
             return clone;
         }
 
@@ -95,22 +93,11 @@ public class LinkedListCircularDisordered<X> implements Cloneable {
         return tamanho;
     }
 
-    public void addLast(X elemento) {
-        Node novo = new Node(elemento);
-
-        if (primeiro == null) {
-            primeiro = novo;
-        } else {
-            ultimo.proximo = novo;
-        }
-        ultimo = novo;
-        ultimo.proximo = primeiro;
-
-        tamanho++;
-    }
-
+    @SuppressWarnings("unchecked")
     public void addFirst(X elemento) {
-        Node novo = new Node(elemento);
+        if (elemento == null) throw new IllegalArgumentException("Elemento não pode ser nulo.");
+
+        Node novo = new Node((X) verifyAndCopy(elemento));
 
         if (primeiro == null) {
             primeiro = novo;
@@ -122,13 +109,31 @@ public class LinkedListCircularDisordered<X> implements Cloneable {
         novo.proximo = primeiro;
         primeiro = novo;
         ultimo.proximo = primeiro;
+
         tamanho++;
     }
 
+    @SuppressWarnings("unchecked")
+    public void addLast(X elemento) {
+        if (elemento == null) throw new IllegalArgumentException("Elemento não pode ser nulo.");
+
+        Node novo = new Node((X) verifyAndCopy(elemento));
+
+        if (primeiro == null)
+            primeiro = novo;
+        else
+            ultimo.proximo = novo;
+
+        ultimo = novo;
+        ultimo.proximo = primeiro;
+
+        tamanho++;
+    }
+
+    @SuppressWarnings("unchecked")
     public void addAt(int posicao, X elemento) {
-        if (posicao < 0 || posicao > tamanho) {
-            throw new IndexOutOfBoundsException("Posição inválida.");
-        }
+        if (elemento == null) throw new IllegalArgumentException("Elemento não pode ser nulo.");
+        if (posicao < 0 || posicao > tamanho) throw new IndexOutOfBoundsException("Posição inválida.");
 
         if (posicao == 0) {
             addFirst(elemento);
@@ -140,15 +145,41 @@ public class LinkedListCircularDisordered<X> implements Cloneable {
             return;
         }
 
-        Node novo = new Node(elemento);
+        Node novo = new Node((X) verifyAndCopy(elemento));
         Node temp = primeiro;
-        for (int i = 0; i < posicao - 1; i++) {
+
+        for (int i = 0; i < posicao - 1; i++)
             temp = temp.proximo;
-        }
 
         novo.proximo = temp.proximo;
         temp.proximo = novo;
+
         tamanho++;
+    }
+
+    public X getFirst() {
+        if (primeiro == null) return null;
+
+        return primeiro.elemento;
+    }
+
+    public X getLast() {
+        if (ultimo == null) return null;
+
+        return ultimo.elemento;
+    }
+
+    public X get(int posicao) {
+        if (posicao < 0 || posicao >= tamanho) {
+            throw new IndexOutOfBoundsException("Posição inválida.");
+        }
+
+        Node temp = primeiro;
+        for (int i = 0; i < posicao; i++) {
+            temp = temp.proximo;
+        }
+
+        return temp.elemento;
     }
 
     public void removeFirst() {
@@ -213,50 +244,82 @@ public class LinkedListCircularDisordered<X> implements Cloneable {
         temp.proximo = temp.proximo.proximo;
         tamanho--;
     }
-
-    public X getFirst() {
-        if (primeiro == null) return null;
-
-        return primeiro.elemento;
-    }
-
-    public X getLast() {
-        if (ultimo == null) return null;
-
-        return ultimo.elemento;
-    }
-
-    public X get(int posicao) {
-        if (posicao < 0 || posicao >= tamanho) {
-            throw new IndexOutOfBoundsException("Posição inválida.");
-        }
-
+    
+    public boolean contains(X elemento) {
         Node temp = primeiro;
-        for (int i = 0; i < posicao; i++) {
+        for (int i = 0; i < tamanho; i++) {
+            if (temp.elemento.equals(elemento)) 
+                return true;
             temp = temp.proximo;
         }
 
-        return temp.elemento;
+        return false;
     }
 
     public int indexOf(X elemento) {
+        if (elemento == null ) return -1;
+
         Node temp = primeiro;
         for (int i = 0; i < tamanho; i++) {
-            if (temp.elemento.equals(elemento)) {
+            if (temp.elemento.equals(elemento)) 
                 return i;
-            }
             temp = temp.proximo;
         }
 
         return -1;
     }
+    
+    public boolean isEmpty() {
+        return tamanho == 0;
+    }
+
+    public void clear() {
+        primeiro = null;
+        ultimo = null;
+        tamanho = 0;
+    }
+    
+    public void rotate(int passos){
+        if (primeiro == null || primeiro.proximo == null) return;
+        
+        passos = passos % tamanho;
+        if (passos < 0) passos += tamanho;
+        if (passos == 0) return;
+        
+        Node aux = primeiro;
+        for (int i = 0; i < passos; i++) 
+            aux = aux.proximo;
+        
+        Node novoHead = aux.proximo;
+        aux.proximo = null;
+        ultimo.proximo = primeiro;
+        primeiro = novoHead;
+        ultimo = aux;
+    }
 
     @SuppressWarnings("unchecked")
-    public LinkedListCircularDisordered(LinkedListCircularDisordered<X> modelo) throws Exception {
-        if (modelo == null) throw new Exception("Modelo não pode ser nulo.");
+    public LinkedListCircularDisordered(LinkedListCircularDisordered<X> modelo)  {
+        if (modelo == null) throw new IllegalArgumentException("Modelo não pode ser nulo.");
 
-        this.primeiro = (Node) verifyAndCopy(modelo.primeiro);
-        this.ultimo = (Node) verifyAndCopy(modelo.ultimo);
+        if (modelo.primeiro == null) {
+            this.primeiro = null;
+            this.ultimo = null;
+            this.tamanho = 0;
+            return;
+        }
+
+        Node auxiliar = modelo.primeiro;
+        Node copia = new Node((X) verifyAndCopy(auxiliar.elemento));
+        this.primeiro = copia;
+
+        while (auxiliar.proximo != modelo.primeiro) {
+            auxiliar = auxiliar.proximo;
+            copia.proximo = new Node((X) verifyAndCopy(auxiliar.elemento));
+            copia = copia.proximo;
+        }
+
+        copia.proximo = this.primeiro;
+        this.ultimo = copia;
         this.tamanho = (int) verifyAndCopy(modelo.tamanho);
     }
 

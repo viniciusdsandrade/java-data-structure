@@ -23,8 +23,8 @@ public class LinkedListCircularOrdered<X extends Comparable<X>> implements Clone
         }
 
         @SuppressWarnings("unchecked")
-        public Node(Node modelo) throws Exception {
-            if (modelo == null) throw new Exception("Modelo não pode ser nulo.");
+        public Node(Node modelo)  {
+            if (modelo == null) throw new IllegalArgumentException("Modelo não pode ser nulo.");
 
             this.elemento = (X) verifyAndCopy(modelo.elemento);
             this.proximo = (Node) verifyAndCopy(modelo.proximo);
@@ -41,18 +41,6 @@ public class LinkedListCircularOrdered<X extends Comparable<X>> implements Clone
         }
 
         @Override
-        public int hashCode() {
-            final int prime = 31;
-            int hash = 1;
-
-            hash *= prime + (this.elemento == null ? 0 : this.elemento.hashCode());
-
-            if (hash < 0) hash = -hash;
-
-            return hash;
-        }
-
-        @Override
         @SuppressWarnings("unchecked")
         public boolean equals(Object obj) {
             if (this == obj) return true;
@@ -62,6 +50,18 @@ public class LinkedListCircularOrdered<X extends Comparable<X>> implements Clone
             Node that = (Node) obj;
 
             return Objects.equals(this.elemento, that.elemento);
+        }
+
+        @Override
+        public int hashCode() {
+            final int prime = 31;
+            int hash = 1;
+
+            hash *= prime + (this.elemento == null ? 0 : this.elemento.hashCode());
+
+            if (hash < 0) hash = -hash;
+
+            return hash;
         }
 
         @Override
@@ -128,6 +128,29 @@ public class LinkedListCircularOrdered<X extends Comparable<X>> implements Clone
         tamanho++;
     }
 
+    public X get(int posicao) {
+        if (posicao < 0 || posicao >= tamanho) return null;
+
+        Node temp = primeiro;
+        for (int i = 0; i < posicao; i++) {
+            temp = temp.proximo;
+        }
+
+        return temp.elemento;
+    }
+
+    public X getFirst() {
+        if (primeiro == null) return null;
+
+        return primeiro.elemento;
+    }
+
+    public X getLast() {
+        if (ultimo == null) return null;
+
+        return ultimo.elemento;
+    }
+
     public void removeFirst() {
         if (primeiro == null) return;
 
@@ -185,27 +208,14 @@ public class LinkedListCircularOrdered<X extends Comparable<X>> implements Clone
         tamanho--;
     }
 
-    public X get(int posicao) {
-        if (posicao < 0 || posicao >= tamanho) return null;
-
+    public boolean contains(X elemento) {
         Node temp = primeiro;
-        for (int i = 0; i < posicao; i++) {
+        for (int i = 0; i < tamanho; i++) {
+            if (temp.elemento.equals(elemento)) return true;
             temp = temp.proximo;
         }
 
-        return temp.elemento;
-    }
-
-    public X getFirst() {
-        if (primeiro == null) return null;
-
-        return primeiro.elemento;
-    }
-
-    public X getLast() {
-        if (ultimo == null) return null;
-
-        return ultimo.elemento;
+        return false;
     }
 
     public int indexOf(X elemento) {
@@ -218,12 +228,39 @@ public class LinkedListCircularOrdered<X extends Comparable<X>> implements Clone
         return -1;
     }
 
-    @SuppressWarnings("unchecked")
-    public LinkedListCircularOrdered(LinkedListCircularOrdered<X> modelo) throws Exception {
-        if (modelo == null) throw new Exception("Modelo ausente");
+    public boolean isEmpty() {
+        return tamanho == 0;
+    }
 
-        this.primeiro = (Node) verifyAndCopy(modelo.primeiro);
-        this.ultimo = (Node) verifyAndCopy(modelo.ultimo);
+    public void clear() {
+        primeiro = null;
+        ultimo = null;
+        tamanho = 0;
+    }
+
+    @SuppressWarnings("unchecked")
+    public LinkedListCircularOrdered(LinkedListCircularOrdered<X> modelo)  {
+        if (modelo == null) throw new IllegalArgumentException("Modelo ausente");
+
+        if (modelo.primeiro == null) {
+            this.primeiro = null;
+            this.ultimo = null;
+            this.tamanho = 0;
+            return;
+        }
+
+        Node auxiliar = modelo.primeiro;
+        Node copia = new Node((X) verifyAndCopy(auxiliar.elemento));
+        this.primeiro = copia;
+
+        while (auxiliar.proximo != modelo.primeiro) {
+            auxiliar = auxiliar.proximo;
+            copia.proximo = new Node((X) verifyAndCopy(auxiliar.elemento));
+            copia = copia.proximo;
+        }
+
+        copia.proximo = this.primeiro;
+        this.ultimo = copia;
         this.tamanho = (int) verifyAndCopy(modelo.tamanho);
     }
 

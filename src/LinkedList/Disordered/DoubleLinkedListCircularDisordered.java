@@ -40,25 +40,11 @@ public class DoubleLinkedListCircularDisordered<X> implements Cloneable {
         @Override
         public Object clone() {
             Node clone = null;
-
             try {
                 clone = new Node(this);
             } catch (Exception ignored) {
             }
-
             return clone;
-        }
-
-        @Override
-        public int hashCode() {
-            final int prime = 31;
-            int hash = 1;
-
-            hash *= prime + (this.elemento == null ? 0 : this.elemento.hashCode());
-
-            if (hash < 0) hash = -hash;
-
-            return hash;
         }
 
         @Override
@@ -74,14 +60,29 @@ public class DoubleLinkedListCircularDisordered<X> implements Cloneable {
         }
 
         @Override
+        public int hashCode() {
+            final int prime = 31;
+            int hash = 1;
+
+            hash *= prime + (this.elemento == null ? 0 : this.elemento.hashCode());
+
+            if (hash < 0) hash = -hash;
+
+            return hash;
+        }
+
+        @Override
         public String toString() {
-            return elemento.toString();
+            if (proximo != null)
+                return elemento + " -> " + proximo.elemento;
+            else
+                return elemento.toString();
         }
     }
 
     public Node primeiro;
     public Node ultimo;
-    private int tamanho;
+    public int tamanho;
 
     public DoubleLinkedListCircularDisordered() {
         primeiro = null;
@@ -95,12 +96,11 @@ public class DoubleLinkedListCircularDisordered<X> implements Cloneable {
         return ultimo;
     }
     public int getTamanho() {
-        return this.tamanho;
+        return tamanho;
     }
 
     @SuppressWarnings("unchecked")
     public void addLast(X elemento) {
-
         if (elemento == null) throw new IllegalArgumentException("Elemento não pode ser nulo.");
 
         Node novo = new Node((X) verifyAndCopy(elemento));
@@ -122,7 +122,6 @@ public class DoubleLinkedListCircularDisordered<X> implements Cloneable {
 
     @SuppressWarnings("unchecked")
     public void addFirst(X elemento) {
-
         if (elemento == null) throw new IllegalArgumentException("Elemento não pode ser nulo.");
 
         Node novo = new Node((X) verifyAndCopy(elemento));
@@ -146,12 +145,8 @@ public class DoubleLinkedListCircularDisordered<X> implements Cloneable {
 
     @SuppressWarnings("unchecked")
     public void addAt(X elemento, int indice) {
-
-        if (elemento == null)
-            throw new IllegalArgumentException("Elemento não pode ser nulo.");
-
-        if (indice < 0 || indice > tamanho)
-            throw new IndexOutOfBoundsException("Índice fora dos limites da lista.");
+        if (elemento == null) throw new IllegalArgumentException("Elemento não pode ser nulo.");
+        if (indice < 0 || indice > tamanho) throw new IndexOutOfBoundsException("Índice fora dos limites da lista.");
 
         if (indice == 0) {
             addFirst(elemento);
@@ -174,6 +169,28 @@ public class DoubleLinkedListCircularDisordered<X> implements Cloneable {
         temp.anterior = novo;
 
         tamanho++;
+    }
+
+    public X get(int indice) {
+        if (indice < 0 || indice >= tamanho) throw new IndexOutOfBoundsException("Índice fora dos limites da lista.");
+
+        Node temp = primeiro;
+        for (int i = 0; i < indice; i++)
+            temp = temp.proximo;
+
+        return temp.elemento;
+    }
+
+    public X getFirst() {
+        if (primeiro == null) throw new IllegalArgumentException("Lista vazia.");
+
+        return primeiro.elemento;
+    }
+
+    public X getLast() {
+        if (ultimo == null) throw new IllegalArgumentException("Lista vazia.");
+
+        return ultimo.elemento;
     }
 
     public void removeFirst() {
@@ -227,43 +244,35 @@ public class DoubleLinkedListCircularDisordered<X> implements Cloneable {
 
         temp.anterior.proximo = temp.proximo;
         temp.proximo.anterior = temp.anterior;
-        
+
 
         tamanho--;
     }
 
-    public X get(int indice) {
-        if (indice < 0 || indice >= tamanho) throw new IndexOutOfBoundsException("Índice fora dos limites da lista.");
-
-        Node temp = primeiro;
-        for (int i = 0; i < indice; i++) 
-            temp = temp.proximo;
-        
-        return temp.elemento;
-    }
-
-    public X getFirst() {
-        if (primeiro == null) throw new IllegalArgumentException("Lista vazia.");
-
-        return primeiro.elemento;
-    }
-
-    public X getLast() {
-        if (ultimo == null) throw new IllegalArgumentException("Lista vazia.");
-
-        return ultimo.elemento;
-    }
-
-    public X contains(X elemento) {
-        if (primeiro == null) return null;
+    public boolean contains(X elemento) {
+        if (elemento == null) return false;
 
         Node temp = primeiro;
         do {
-            if (Objects.equals(temp.elemento, elemento)) return temp.elemento;
+            if (temp.elemento.equals(elemento)) return true;
             temp = temp.proximo;
         } while (temp != primeiro);
 
-        return null;
+        return false;
+    }
+
+    public int indexOf(X elemento) {
+        if (elemento == null) return -1;
+
+        Node temp = primeiro;
+        int indice = 0;
+        do {
+            if (temp.elemento.equals(elemento)) return indice;
+            temp = temp.proximo;
+            indice++;
+        } while (temp != primeiro);
+
+        return -1;
     }
 
     public boolean isEmpty() {
@@ -275,7 +284,7 @@ public class DoubleLinkedListCircularDisordered<X> implements Cloneable {
         ultimo = null;
         tamanho = 0;
     }
-    
+
     public void reverse() {
         if (primeiro == null) return;
 
@@ -291,7 +300,7 @@ public class DoubleLinkedListCircularDisordered<X> implements Cloneable {
         primeiro = ultimo;
         ultimo = aux;
     }
-    
+
     public void rotate(int passos) {
         if (primeiro == null) return;
 
@@ -305,7 +314,6 @@ public class DoubleLinkedListCircularDisordered<X> implements Cloneable {
             ultimo = ultimo.proximo;
         }
     }
-    
 
     @SuppressWarnings("unchecked")
     public DoubleLinkedListCircularDisordered(DoubleLinkedListCircularDisordered<X> modelo) {
@@ -326,13 +334,36 @@ public class DoubleLinkedListCircularDisordered<X> implements Cloneable {
     @Override
     public Object clone() {
         DoubleLinkedListCircularDisordered<X> clone = null;
-
         try {
             clone = new DoubleLinkedListCircularDisordered<>(this);
         } catch (Exception ignored) {
         }
-
         return clone;
+    }
+
+    @Override
+    @SuppressWarnings("unchecked")
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null) return false;
+        if (this.getClass() != obj.getClass()) return false;
+
+        DoubleLinkedListCircularDisordered<X> that = (DoubleLinkedListCircularDisordered<X>) obj;
+
+        if (this.primeiro == null && that.primeiro != null) return false;
+        if (this.primeiro != null && that.primeiro == null) return false;
+        if (this.primeiro == null) return true;
+
+        Node tempThis = this.primeiro;
+        Node tempThat = that.primeiro;
+
+        do {
+            if (!Objects.equals(tempThis.elemento, tempThat.elemento)) return false;
+            tempThis = tempThis.proximo;
+            tempThat = tempThat.proximo;
+        } while (tempThis != primeiro && tempThat != that.primeiro);
+
+        return true;
     }
 
     @Override
@@ -357,46 +388,18 @@ public class DoubleLinkedListCircularDisordered<X> implements Cloneable {
     }
 
     @Override
-    @SuppressWarnings("unchecked")
-    public boolean equals(Object obj) {
-        if (this == obj) return true;
-        if (obj == null) return false;
-        if (this.getClass() != obj.getClass()) return false;
-
-        DoubleLinkedListCircularDisordered<X> that = (DoubleLinkedListCircularDisordered<X>) obj;
-
-        if (this.primeiro == null && that.primeiro != null) return false;
-        if (this.primeiro != null && that.primeiro == null) return false;
-        if (this.primeiro == null) return true;
-
-        Node tempThis = primeiro;
-        Node tempThat = that.primeiro;
-
-        do {
-            if (!Objects.equals(tempThis.elemento, tempThat.elemento)) return false;
-            tempThis = tempThis.proximo;
-            tempThat = tempThat.proximo;
-        } while (tempThis != primeiro && tempThat != that.primeiro);
-
-        return true;
-    }
-
-    @Override
     public String toString() {
-        if (primeiro == null) {
-            return "[]";
-        }
+        if (primeiro == null) return "[]";
 
         StringBuilder result = new StringBuilder("[");
         Node temp = primeiro;
         boolean primeiroElemento = true;
 
         do {
-            if (!primeiroElemento) {
+            if (!primeiroElemento)
                 result.append(" <-> ");
-            } else {
+            else
                 primeiroElemento = false;
-            }
             result.append(temp.elemento);
             temp = temp.proximo;
         } while (temp != primeiro);
