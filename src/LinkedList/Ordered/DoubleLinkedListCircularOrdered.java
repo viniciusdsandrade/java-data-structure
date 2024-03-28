@@ -1,7 +1,5 @@
 package LinkedList.Ordered;
 
-import LinkedList.Disordered.LinkedListCircularDisordered;
-
 import java.util.Objects;
 
 import static ShallowOrDeepCopy.ShallowOrDeepCopy.verifyAndCopy;

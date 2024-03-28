@@ -11,6 +11,26 @@ public class TestLinkedListCircularDisordered {
 
         System.out.println("list: " + list);
 
+        boolean isCircular = false;
+        LinkedListCircularDisordered<Integer>.Node temp = list.getPrimeiro();
+        if (temp != null) {
+            LinkedListCircularDisordered<Integer>.Node ultimo = list.getUltimo();
+            do {
+                if (temp == ultimo) {
+                    if (temp.proximo == list.getPrimeiro()) {
+                        isCircular = true;
+                    }
+                    break;
+                }
+                temp = temp.proximo;
+            } while (temp != list.getPrimeiro());
+        }
+
+        if (isCircular)
+            System.out.println("A lista é circular.");
+        else
+            System.out.println("A lista não é circular.");
+
         int primeiro = list.primeiro.elemento;
         int ultimo = list.ultimo.elemento;
 

@@ -1,4 +1,4 @@
-package LinkedList.Tests.zleetcode;
+package LinkedList.Tests.z_leet_code_linked_list;
 
 /*
     707. Design Linked List

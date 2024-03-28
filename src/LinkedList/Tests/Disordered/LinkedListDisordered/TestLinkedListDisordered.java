@@ -18,10 +18,10 @@ public class TestLinkedListDisordered {
         meuNome.addLast("u");
         
         meuNome.addAt("V", 0);
-//        meuNome.addFirst("V");
+        // meuNome.addFirst("V");
         
         meuNome.addAt("s", 6);
-//        meuNome.addLast("s");
+        // meuNome.addLast("s");
         
         System.out.println("meuNome: " + meuNome);
         meuNome.removeAt(7);
@@ -43,10 +43,10 @@ public class TestLinkedListDisordered {
         System.out.println("tamanho:  " + coisas.getTamanho());
 
         Integer last = (Integer) coisas.getLast();
-        System.out.println("último:   " + last);
+        System.out.println("coisas.getLast():   " + last);
 
         Integer algum = (Integer) coisas.get(1);
-        System.out.println("algum:    " + algum);
+        System.out.println("coisas.get(1):     " + algum);
 
         coisas.removeFirst();
         System.out.println("depois de remover o primeiro: " + coisas);
@@ -168,9 +168,8 @@ public class TestLinkedListDisordered {
         list.shuffle(); // Embaralha com base na representação de string dos objetos
         System.out.println("depois de embaralhar: " + list);
 
-        for (int i = 0; i < numbers.getTamanho(); i++) {
+        for (int i = 0; i < numbers.getTamanho(); i++)
             System.out.println(numbers.get(i));
-        }
 
 
         LinkedListDisordered<String> name = new LinkedListDisordered<>();

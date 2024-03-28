@@ -90,6 +90,15 @@ public class DoubleLinkedListDisordered<X> implements Cloneable {
     public Node getPrimeiro() {
         return primeiro;
     }
+    public Node getUltimo() {
+        if (primeiro == null) return null;
+
+        Node temp = primeiro;
+        while (temp.proximo != null)
+            temp = temp.proximo;
+
+        return temp;
+    }
     public int getTamanho() {
         return tamanho;
     }
@@ -99,20 +108,21 @@ public class DoubleLinkedListDisordered<X> implements Cloneable {
         if (elemento == null) throw new IllegalArgumentException("Elemento ausente");
 
         Node novo = new Node((X) verifyAndCopy(elemento));
-        Node temp = primeiro;
-        Node anterior = null;
 
-        while (temp != null) {
-            anterior = temp;
-            temp = temp.proximo;
-        }
-
-        if (anterior == null) {
+        if (primeiro == null) {
             primeiro = novo;
-        } else {
-            anterior.proximo = novo;
-            novo.anterior = anterior;
+            novo.anterior = null;
+            novo.proximo = null;
+            return;
         }
+
+        Node temp = primeiro;
+        while (temp.proximo != null)
+            temp = temp.proximo;
+
+        temp.proximo = novo;
+        novo.anterior = temp;
+        novo.proximo = null;
 
         tamanho++;
     }
@@ -122,20 +132,17 @@ public class DoubleLinkedListDisordered<X> implements Cloneable {
         if (elemento == null) throw new IllegalArgumentException("Elemento ausente");
 
         Node novo = new Node((X) verifyAndCopy(elemento));
-        Node temp = primeiro;
-        Node anterior = null;
 
-        while (temp != null) {
-            anterior = temp;
-            temp = temp.proximo;
-        }
-
-        if (anterior == null) {
+        if (primeiro == null) {
             primeiro = novo;
-        } else {
-            anterior.proximo = novo;
-            novo.anterior = anterior;
+            primeiro.anterior = null;
+            primeiro.proximo = null;
+            return;
         }
+
+        novo.proximo = primeiro;
+        primeiro.anterior = novo;
+        primeiro = novo;
 
         tamanho++;
     }
@@ -157,17 +164,13 @@ public class DoubleLinkedListDisordered<X> implements Cloneable {
 
         Node novo = new Node((X) verifyAndCopy(elemento));
         Node temp = primeiro;
-        Node anterior = null;
-
-        for (int i = 0; i < indice; i++) {
-            anterior = temp;
+        for (int i = 0; i < indice - 1; i++)
             temp = temp.proximo;
-        }
 
-        anterior.proximo = novo;
-        novo.anterior = anterior;
-        novo.proximo = temp;
-        temp.anterior = novo;
+        novo.proximo = temp.proximo;
+        novo.anterior = temp;
+        temp.proximo.anterior = novo;
+        temp.proximo = novo;
 
         tamanho++;
     }
@@ -204,12 +207,12 @@ public class DoubleLinkedListDisordered<X> implements Cloneable {
 
         if (primeiro.proximo == null) {
             primeiro = null;
-            tamanho--;
             return;
         }
 
         primeiro = primeiro.proximo;
         primeiro.anterior = null;
+
         tamanho--;
     }
 
@@ -218,45 +221,37 @@ public class DoubleLinkedListDisordered<X> implements Cloneable {
 
         if (primeiro.proximo == null) {
             primeiro = null;
-            tamanho--;
             return;
         }
 
         Node temp = primeiro;
-        Node anterior = null;
-
-        while (temp.proximo != null) {
-            anterior = temp;
+        while (temp.proximo.proximo != null)
             temp = temp.proximo;
-        }
 
-        anterior.proximo = null;
+        temp.proximo = null;
         tamanho--;
     }
 
-    public void removeAt(int index) {
-        if (index < 0 || index >= tamanho) throw new IllegalArgumentException("Índice inválido");
+    public void removeAt(int indice) {
+        if (indice < 0 || indice >= tamanho) throw new IllegalArgumentException("Índice inválido");
 
-        if (index == 0) {
+        if (indice == 0) {
             removeFirst();
             return;
         }
 
-        if (index == tamanho - 1) {
+        if (indice == tamanho - 1) {
             removeLast();
             return;
         }
 
         Node temp = primeiro;
-        Node anterior = null;
-
-        for (int i = 0; i < index; i++) {
-            anterior = temp;
+        for (int i = 0; i < indice - 1; i++)
             temp = temp.proximo;
-        }
 
-        anterior.proximo = temp.proximo;
-        temp.proximo.anterior = anterior;
+        temp.proximo = temp.proximo.proximo;
+        temp.proximo.anterior = temp;
+
         tamanho--;
     }
 

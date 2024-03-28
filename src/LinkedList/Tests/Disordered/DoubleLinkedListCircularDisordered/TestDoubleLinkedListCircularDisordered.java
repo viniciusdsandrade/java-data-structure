@@ -4,8 +4,6 @@ import LinkedList.Disordered.DoubleLinkedListCircularDisordered;
 
 public class TestDoubleLinkedListCircularDisordered {
     public static void main(String[] args) {
-
-
         DoubleLinkedListCircularDisordered<Integer> numeros = new DoubleLinkedListCircularDisordered<>();
         numeros.addFirst(1);
         numeros.addFirst(2);
@@ -17,14 +15,12 @@ public class TestDoubleLinkedListCircularDisordered {
         System.out.println("Lista ordenada: " + numeros);
 
         DoubleLinkedListCircularDisordered<Character> chars = new DoubleLinkedListCircularDisordered<>();
-
         chars.addLast('n');
         chars.addLast('i');
         chars.addLast('c');
         chars.addLast('i');
         chars.addLast('u');
         chars.addLast('s');
-        //System.out.println(chars);
         chars.addFirst('v');
         System.out.println(chars);
         chars.addAt('i', 1);
@@ -39,21 +35,17 @@ public class TestDoubleLinkedListCircularDisordered {
         chars.reverse();
         System.out.println("reverse():  " + chars);
 
-
         DoubleLinkedListCircularDisordered<Integer> list = new DoubleLinkedListCircularDisordered<>();
-
-        // Adicionando elementos
         list.addLast(1);
         list.addLast(2);
         list.addLast(3);
         list.addLast(4);
         list.addLast(5);
-
-        // Imprimindo a lista
         System.out.println("Lista: " + list);
 
         // Verificando se é circular
-        if (list.getPrimeiro().anterior == list.getUltimo() && list.getUltimo().proximo == list.getPrimeiro())
+        if (list.getPrimeiro().anterior == list.getUltimo() &&
+                list.getUltimo().proximo == list.getPrimeiro())
             System.out.println("A lista é circular.");
         else
             System.out.println("A lista não é circular.");
@@ -69,10 +61,9 @@ public class TestDoubleLinkedListCircularDisordered {
             temp = temp.proximo;
         } while (temp != list.getPrimeiro());
 
-        if (isDoublyLinked) {
+        if (isDoublyLinked)
             System.out.println("A lista é duplamente ligada.");
-        } else {
+        else
             System.out.println("A lista não é duplamente ligada.");
-        }
     }
 }
