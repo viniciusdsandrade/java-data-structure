@@ -5,12 +5,12 @@ import LinkedList.Ordered.DoubleLinkedListCircularOrdered;
 public class TestDoubleLinkedListCircularOrdered {
 
     // Método para verificar se todos os nós estão corretamente duplamente ligados
-    public static <X extends Comparable<X>> boolean verificaDuplamenteLigada(DoubleLinkedListCircularOrdered<Integer> lista) {
+    public static <X extends Comparable<X>> boolean verificaDuplamenteLigada(DoubleLinkedListCircularOrdered<X> lista) {
         // Verifica se a lista está vazia ou contém apenas um elemento
         if (lista.primeiro == null || lista.primeiro == lista.ultimo) return true;
 
         // Inicia a verificação a partir do primeiro nó
-        DoubleLinkedListCircularOrdered<Integer>.Node atual = lista.primeiro;
+        DoubleLinkedListCircularOrdered<X>.Node atual = lista.primeiro;
 
         // Verifica se todos os nós estão corretamente encadeados
         while (atual != lista.ultimo) {

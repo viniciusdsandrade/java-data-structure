@@ -19,6 +19,10 @@ public class TestEqualsAndHashCode {
         list3.add(1);
         list3.add(2);
         list3.add(4);
+        
+        System.out.println("list1: " + list1);
+        System.out.println("list2: " + list2);
+        System.out.println("list3: " + list3);
 
         System.out.println("list1.equals(list2): " + list1.equals(list2));
         System.out.println("list1.equals(list3): " + list1.equals(list3));

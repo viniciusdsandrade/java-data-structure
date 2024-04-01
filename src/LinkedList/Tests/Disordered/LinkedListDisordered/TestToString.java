@@ -30,7 +30,6 @@ public class TestToString {
          * LinkedListDisordered<LinkedListDisordered<Float>>
          * LinkedListDisordered<LinkedListDisordered<Long>>
          */
-
         LinkedListDisordered<Object> list = new LinkedListDisordered<>();
         list.addLast(1);
         list.addLast(2);

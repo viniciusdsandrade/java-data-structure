@@ -4,12 +4,12 @@ import LinkedList.Disordered.DoubleLinkedListCircularDisordered;
 
 public class TestDoubleLinkedListCircularDisordered {
 
-    public static boolean verificaDuplamenteLigada(DoubleLinkedListCircularDisordered<Integer> lista) {
+    public static <X> boolean verificaDuplamenteLigada(DoubleLinkedListCircularDisordered<X> lista) {
         // Se a lista estiver vazia ou tiver apenas um elemento, ela é considerada duplamente ligada
         if (lista.getPrimeiro() == null || lista.getPrimeiro() == lista.getUltimo()) return true;
 
         // Começamos a verificação a partir do primeiro nó
-        DoubleLinkedListCircularDisordered<Integer>.Node atual = lista.getPrimeiro();
+        DoubleLinkedListCircularDisordered<X>.Node atual = lista.getPrimeiro();
 
         // Percorremos a lista até o último nó
         while (atual != lista.getUltimo()) {
@@ -65,13 +65,7 @@ public class TestDoubleLinkedListCircularDisordered {
         System.out.println(chars);
         chars.addAt('i', 1);
         System.out.println(chars);
-
-        chars.rotate(3);
-        System.out.println("rotate(3):  " + chars);
-
-        chars.rotate(-3);
-        System.out.println("rotate(-3): " + chars);
-
+        
         chars.reverse();
         System.out.println("reverse():  " + chars);
 

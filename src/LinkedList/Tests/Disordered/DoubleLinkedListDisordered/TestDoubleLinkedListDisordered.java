@@ -4,12 +4,12 @@ import LinkedList.Disordered.DoubleLinkedListDisordered;
 
 public class TestDoubleLinkedListDisordered {
 
-    public static boolean verificaDuplamenteLigada(DoubleLinkedListDisordered<Integer> lista) {
+    public static <X> boolean verificaDuplamenteLigada(DoubleLinkedListDisordered<X> lista) {
         // Se a lista estiver vazia ou tiver apenas um elemento, ela é considerada duplamente ligada
         if (lista.primeiro == null || lista.tamanho <= 1) return true;
 
         // Começamos a verificação a partir do primeiro nó
-        DoubleLinkedListDisordered<Integer>.Node temp = lista.primeiro;
+        DoubleLinkedListDisordered<X>.Node temp = lista.primeiro;
 
         // Percorremos a lista até o último nó
         while (temp.proximo != null) {
@@ -24,12 +24,12 @@ public class TestDoubleLinkedListDisordered {
         return true;
     }
 
-    public static boolean verificaCircular(DoubleLinkedListDisordered<Integer> lista) {
+    public static <X> boolean verificaCircular(DoubleLinkedListDisordered<X> lista) {
         // Se a lista estiver vazia, ela não é circular
         if (lista.primeiro == null) return false;
 
         // Começamos a verificação a partir do primeiro nó
-        DoubleLinkedListDisordered<Integer>.Node temp = lista.primeiro;
+        DoubleLinkedListDisordered<X>.Node temp = lista.primeiro;
 
         // Percorremos a lista até o último nó
         while (temp.proximo != null) {
@@ -58,7 +58,7 @@ public class TestDoubleLinkedListDisordered {
 
         // Teste 2: Verificar se a lista é circular
         boolean isCircular = verificaCircular(int_list);
-        System.out.println("A lista é circular:         " + isCircular);
+        System.out.println("A lista é circular:          " + isCircular);
 
         // Teste 3: Verificar se os elementos estão corretamente ligados
         System.out.println("int_list:                                 " + int_list);

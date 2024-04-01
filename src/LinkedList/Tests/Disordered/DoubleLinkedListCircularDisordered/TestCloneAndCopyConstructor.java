@@ -27,10 +27,10 @@ public class TestCloneAndCopyConstructor {
 
         list2.addLast(6);
         list2.addLast(7);
-
+        
+        list3.addLast(8);
         list3.addLast(6);
         list3.addLast(7);
-        list3.addLast(8);
 
         System.out.println("Depois de adicionar 6, 7 ao list2 e 6, 7, 8 ao list3:");
         System.out.println("List 1: " + list);
