@@ -4,11 +4,22 @@ import LinkedList.Ordered.DoubleLinkedListCircularOrdered;
 
 public class TestCloneAndCopyConstructor {
     public static void main(String[] args) {
+        DoubleLinkedListCircularOrdered<Integer> list1 = new DoubleLinkedListCircularOrdered<>();
+        list1.add(4);
+        list1.add(1);
+        list1.add(2);
+        list1.add(3);
+        list1.add(-1);
+        list1.add(0);
+        list1.add(9);
+        System.out.println("List1:  " + list1);
+        
         DoubleLinkedListCircularOrdered<Integer> list = new DoubleLinkedListCircularOrdered<>();
         list.add(6);
         list.add(5);
         list.add(3);
         list.add(4);
+        list.add(9);
         list.add(0);
         list.add(-1);
         list.add(1);

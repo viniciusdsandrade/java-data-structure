@@ -158,7 +158,6 @@ public class DoubleLinkedListCircularOrdered<X extends Comparable<X>> implements
         tamanho++;
     }
 
-
     public X get(int indice) {
         if (indice < 0 || indice >= tamanho) throw new IndexOutOfBoundsException("Posição inválida.");
 
