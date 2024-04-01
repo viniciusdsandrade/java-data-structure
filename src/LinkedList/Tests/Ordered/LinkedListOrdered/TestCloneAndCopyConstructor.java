@@ -5,13 +5,11 @@ import LinkedList.Ordered.LinkedListOrdered;
 public class TestCloneAndCopyConstructor {
     public static void main(String[] args) throws Exception {
         LinkedListOrdered<Integer> list = new LinkedListOrdered<>();
-        
         list.add(1);
         list.add(2);
         list.add(3);
         list.add(4);
         list.add(5);
-
         LinkedListOrdered<Integer> copy = new LinkedListOrdered<>(list);
         @SuppressWarnings("unchecked")
         LinkedListOrdered<Integer> clone = (LinkedListOrdered<Integer>) list.clone();
@@ -20,7 +18,7 @@ public class TestCloneAndCopyConstructor {
         System.out.println("Clone:  " + clone);
         System.out.println("Copy:   " + copy);
 
-        list.add(6);;
+        list.add(6);
 
         System.out.println("Depois de adicionar 6 a list");
         System.out.println("List:   " + list);

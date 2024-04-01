@@ -4,7 +4,6 @@ import LinkedList.Disordered.LinkedListCircularDisordered;
 
 public class TestEqualsAndHashCode {
     public static void main(String[] args) {
-
         LinkedListCircularDisordered<Integer> list = new LinkedListCircularDisordered<>();
         list.addFirst(1);
         list.addFirst(2);

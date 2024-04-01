@@ -4,7 +4,7 @@ import LinkedList.Disordered.DoubleLinkedListDisordered;
 
 public class TestDoubleLinkedListDisordered {
 
-    public static <X> boolean verificaDuplamenteLigada(DoubleLinkedListDisordered<Integer> lista) {
+    public static boolean verificaDuplamenteLigada(DoubleLinkedListDisordered<Integer> lista) {
         // Se a lista estiver vazia ou tiver apenas um elemento, ela é considerada duplamente ligada
         if (lista.primeiro == null || lista.tamanho <= 1) return true;
 
@@ -24,7 +24,7 @@ public class TestDoubleLinkedListDisordered {
         return true;
     }
 
-    public static <X> boolean verificaCircular(DoubleLinkedListDisordered<Integer> lista) {
+    public static boolean verificaCircular(DoubleLinkedListDisordered<Integer> lista) {
         // Se a lista estiver vazia, ela não é circular
         if (lista.primeiro == null) return false;
 

@@ -45,18 +45,25 @@ public class TestLinkedListDisordered {
 
     public static void main(String[] args) {
         LinkedListDisordered<Integer> int_list = new LinkedListDisordered<>();
-
-        // Adicionando elementos à int_list
         int_list.addLast(1);
         int_list.addLast(2);
         int_list.addLast(3);
         int_list.addLast(4);
         int_list.addLast(5);
-
+        
         // Verificando se a int_list é simplesmente encadeada
         boolean isSinglyLinked = verificaSimplesmenteEncadeada(int_list);
         System.out.println("int_list: " + int_list);
         System.out.println("A int_list é encadeada: " + isSinglyLinked);
+        
+        int indexOfThree = int_list.indexOf(3);
+        System.out.println("indexOfThree: " + indexOfThree);
+
+        System.out.println("int_list: " + int_list);
+        int_list.reverse();
+        System.out.println("int_list.reverse(): " + int_list);
+        int_list.reverse();
+        System.out.println("int_list.reverse(): " + int_list);
         
         LinkedListDisordered<String> meuNome = new LinkedListDisordered<>();
         meuNome.addLast("i");
@@ -219,8 +226,7 @@ public class TestLinkedListDisordered {
 
         for (int i = 0; i < numbers.getTamanho(); i++)
             System.out.println(numbers.get(i));
-
-
+        
         LinkedListDisordered<String> name = new LinkedListDisordered<>();
         System.out.println(name);
         name.addLast("dos");
@@ -232,22 +238,6 @@ public class TestLinkedListDisordered {
         System.out.println(name);
         name.reverse();
         System.out.println(name);
-
-        //Quero testar o método rotate
-        System.out.println("before rotacio: " + name);
-        name.rotate(0);
-        System.out.println("Rotacionando 0: " + name);
-        name.rotate(1);
-        System.out.println("Rotacionando 1: " + name);
-        name.rotate(2);
-        System.out.println("Rotacionando 2: " + name);
-        name.rotate(3);
-        System.out.println("Rotacionando 3: " + name);
-        name.rotate(4);
-        System.out.println("Rotacionando 4: " + name);
-        name.rotate(5);
-        System.out.println("Rotacionando 5: " + name);
-        System.out.println();
 
         System.out.println("adicionando no inicio: Vinícius");
         name.addFirst("Vinícius");

@@ -70,7 +70,7 @@ public class TestDoubleLinkedListCircularOrdered {
         int_list.add(1);
         int_list.add(2);
         System.out.println("List: " + int_list);
-
+        
         boolean isDuplamenteLigada = verificaDuplamenteLigada(int_list);
         boolean isCircular = verificaCircularidade(int_list);
         boolean isOrdered = verificaOrdenacao(int_list);
@@ -199,6 +199,16 @@ public class TestDoubleLinkedListCircularOrdered {
         System.out.println("int_list.remove(2)");
         int_list.removeAt(2);
         System.out.println("List: " + int_list);
+
+        System.out.println("int_list.getFirst(): " + int_list.getFirst());
+        System.out.println("int_list.getLast(): " + int_list.getLast());
+        System.out.println("int_list.get(1): " + int_list.get(1));
+
+        System.out.println("int_list.contains(2): " + int_list.contains(2));
+        System.out.println("int_list.contains(10): " + int_list.contains(10));
+
+        System.out.println("int_list.indexOf(2): " + int_list.indexOf(2));
+        System.out.println("int_list.indexOf(10): " + int_list.indexOf(10));
 
         System.out.println("int_list.clear()");
         int_list.clear();

@@ -10,7 +10,6 @@ public class TestCloneAndCopyConstructor {
         list.addLast(3);
         list.addLast(4);
         list.addLast(5);
-
         DoubleLinkedListDisordered<Integer> list2 = new DoubleLinkedListDisordered<>(list);
         @SuppressWarnings("unchecked")
         DoubleLinkedListDisordered<Integer> list3 = (DoubleLinkedListDisordered<Integer>) list.clone();

@@ -292,30 +292,6 @@ public class LinkedListDisordered<X> implements Cloneable {
         primeiro = anterior; // Atualiza o ponteiro da cabeça para o último nó (que era o primeiro nó)
     }
 
-    public void rotate(int passos) {
-        if (primeiro == null || primeiro.proximo == null)
-            return;// Verifica se a lista está vazia ou contém apenas um elemento, se sim, não há necessidade de fazer rotação
-
-        passos = passos % tamanho; // Calcula o número de passos necessários com base no tamanho da lista
-        if (passos < 0)
-            passos = tamanho + passos; // Se o número de passos for negativo, calcula o número de passos no sentido inverso
-        if (passos == 0) return; // Se o número de passos for 0, não há necessidade de fazer rotação
-
-        Node aux = primeiro; // Inicializa um nó auxiliar para percorrer a lista até a posição antes dos nós a serem rotacionados
-        for (int i = 0; i < tamanho - passos - 1; i++)
-            aux = aux.proximo;
-
-        Node novoHead = aux.proximo; // Salva o novo nó de cabeça (novoHead) após os passos especificados
-        aux.proximo = null; // Remove a conexão entre os nós antigos e o novoHead para criar duas listas independentes
-        aux = novoHead; // Move aux para o último nó da segunda parte da lista original
-
-        while (aux.proximo != null)
-            aux = aux.proximo;
-
-        aux.proximo = primeiro; // Conecta o último nó da segunda parte da lista original ao primeiro nó da primeira parte
-        primeiro = novoHead; // Atualiza o primeiro nó da lista para ser o novoHead, realizando assim a rotação
-    }
-
     public void sort(Comparator<X> comparador) {
         if (primeiro == null || primeiro.proximo == null) return;
 

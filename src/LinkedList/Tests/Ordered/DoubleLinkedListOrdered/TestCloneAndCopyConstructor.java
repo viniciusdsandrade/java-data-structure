@@ -4,7 +4,6 @@ import LinkedList.Ordered.DoubleLinkedListOrdered;
 
 public class TestCloneAndCopyConstructor {
     public static void main(String[] args) {
-
         DoubleLinkedListOrdered<Integer> list = new DoubleLinkedListOrdered<>();
         list.add(1);
         list.add(2);

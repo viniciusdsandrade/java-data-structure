@@ -4,7 +4,7 @@ import LinkedList.Disordered.DoubleLinkedListCircularDisordered;
 
 public class TestDoubleLinkedListCircularDisordered {
 
-    public static <X> boolean verificaDuplamenteLigada(DoubleLinkedListCircularDisordered<Integer> lista) {
+    public static boolean verificaDuplamenteLigada(DoubleLinkedListCircularDisordered<Integer> lista) {
         // Se a lista estiver vazia ou tiver apenas um elemento, ela é considerada duplamente ligada
         if (lista.getPrimeiro() == null || lista.getPrimeiro() == lista.getUltimo()) return true;
 
@@ -81,29 +81,5 @@ public class TestDoubleLinkedListCircularDisordered {
         list.addLast(3);
         list.addLast(4);
         list.addLast(5);
-        System.out.println("Lista: " + list);
-
-        // Verificando se é circular
-        if (list.getPrimeiro().anterior == list.getUltimo() &&
-                list.getUltimo().proximo == list.getPrimeiro())
-            System.out.println("A lista é circular.");
-        else
-            System.out.println("A lista não é circular.");
-
-        // Verificando se é duplamente ligada
-        boolean isDoublyLinked = true;
-        DoubleLinkedListCircularDisordered<Integer>.Node temp = list.getPrimeiro();
-        do {
-            if (temp.proximo.anterior != temp || temp.anterior.proximo != temp) {
-                isDoublyLinked = false;
-                break;
-            }
-            temp = temp.proximo;
-        } while (temp != list.getPrimeiro());
-
-        if (isDoublyLinked)
-            System.out.println("A lista é duplamente ligada.");
-        else
-            System.out.println("A lista não é duplamente ligada.");
     }
 }
