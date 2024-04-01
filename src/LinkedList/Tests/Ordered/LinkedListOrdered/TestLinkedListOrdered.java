@@ -30,6 +30,21 @@ public class TestLinkedListOrdered {
         return count;
     }
 
+    public static <X extends Comparable<X>> boolean verificaOrdenacao(LinkedListOrdered<X> lista) {
+        // Verifica se a lista está vazia ou contém apenas um elemento
+        if (lista.primeiro == null || lista.primeiro.proximo == null) return true;
+
+        // Percorre a lista e verifica se cada elemento é menor ou igual ao próximo elemento
+        LinkedListOrdered<X>.Node current = lista.primeiro;
+        while (current != null && current.proximo != null) {
+            if (current.elemento.compareTo(current.proximo.elemento) > 0) {
+                return false;
+            }
+            current = current.proximo;
+        }
+        return true;
+    }
+
     public static void main(String[] args) throws Exception {
         LinkedListOrdered<Integer> int_list = new LinkedListOrdered<>();
         int_list.add(2);
@@ -43,6 +58,10 @@ public class TestLinkedListOrdered {
         // Verificando se a lista é simplesmente encadeada
         boolean isSinglyLinked = verificaSimplesmenteEncadeada(int_list);
         System.out.println("A lista é simplesmente encadeada: " + isSinglyLinked);
+
+        // Verificando se a lista está ordenada
+        boolean isOrdered = verificaOrdenacao(int_list);
+        System.out.println("A lista está ordenada: " + isOrdered);
 
         LinkedListOrdered<Character> char_list = new LinkedListOrdered<>();
         char_list.add('b');

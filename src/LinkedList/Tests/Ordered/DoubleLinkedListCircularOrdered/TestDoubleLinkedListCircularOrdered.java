@@ -40,6 +40,26 @@ public class TestDoubleLinkedListCircularOrdered {
         return anteriorDoPrimeiroApontaUltimo && proximoDoUltimoApontaPrimeiro;
     }
 
+    // Método para verificar se a lista duplamente ligada circular está ordenada
+    public static <X extends Comparable<X>> boolean verificaOrdenacao(DoubleLinkedListCircularOrdered<X> lista) {
+        // Verifica se a lista está vazia ou contém apenas um elemento
+        if (lista.primeiro == null || lista.primeiro.proximo == null) return true;
+
+        // Inicia a verificação a partir do primeiro nó
+        DoubleLinkedListCircularOrdered<X>.Node atual = lista.primeiro;
+
+        // Verifica se todos os elementos estão em ordem crescente ou igual
+        while (atual != lista.ultimo) {
+            if (atual.elemento.compareTo(atual.proximo.elemento) > 0) {
+                return false;
+            }
+            atual = atual.proximo;
+        }
+
+        // Se chegou aqui, significa que a lista está ordenada
+        return true;
+    }
+
     public static void main(String[] args) {
         DoubleLinkedListCircularOrdered<Integer> int_list = new DoubleLinkedListCircularOrdered<>();
         int_list.add(5);
@@ -50,13 +70,14 @@ public class TestDoubleLinkedListCircularOrdered {
         int_list.add(2);
         System.out.println("List: " + int_list);
 
-        // Verificação do encadeamento de todos os nós
         boolean isDuplamenteLigada = verificaDuplamenteLigada(int_list);
         boolean isCircular = verificaCircularidade(int_list);
+        boolean isOrdered = verificaOrdenacao(int_list);
 
         // Impressão dos resultados
-        System.out.println("Todos os nós estão corretamente duplamente ligados: " + isDuplamenteLigada);
-        System.out.println("A lista é circular: " + isCircular);
+        System.out.println("Todos os nós duplamente ligados: " + isDuplamenteLigada);
+        System.out.println("A lista é circular:              " + isCircular);
+        System.out.println("A lista está ordenada:           " + isOrdered);
 
         int primeiro = int_list.primeiro.elemento;
         int ultimo = int_list.ultimo.elemento;

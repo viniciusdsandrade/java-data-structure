@@ -31,6 +31,22 @@ public class TestDoubleLinkListOrdered {
         return true;
     }
 
+    // Método para verificar se a lista duplamente ligada está ordenada
+    public static <X extends Comparable<X>> boolean verificaOrdenacao(DoubleLinkedListOrdered<X> lista) {
+        // Verifica se a lista está vazia ou contém apenas um elemento
+        if (lista.primeiro == null || lista.primeiro.proximo == null) return true;
+
+        // Percorre a lista e verifica se cada elemento é menor ou igual ao próximo elemento
+        DoubleLinkedListOrdered<X>.Node current = lista.primeiro;
+        while (current != null && current.proximo != null) {
+            if (current.elemento.compareTo(current.proximo.elemento) > 0) {
+                return false;
+            }
+            current = current.proximo;
+        }
+        return true;
+    }
+
     public static void main(String[] args) {
         DoubleLinkedListOrdered<Integer> int_list = new DoubleLinkedListOrdered<>();
         int_list.add(5);
@@ -43,9 +59,11 @@ public class TestDoubleLinkListOrdered {
 
         // Verificação do encadeamento de todos os nós
         boolean isDuplamenteLigada = verificaDuplamenteLigada(int_list);
+        System.out.println("Todos os nós duplamente ligados: " + isDuplamenteLigada);
 
-        // Impressão do resultado
-        System.out.println("Todos os nós estão corretamente duplamente ligados: " + isDuplamenteLigada);
+        // Verificação da ordenação da lista
+        boolean isOrdered = verificaOrdenacao(int_list);
+        System.out.println("A lista está ordenada:           " + isOrdered);
 
         DoubleLinkedListOrdered<String> string_list = new DoubleLinkedListOrdered<>();
         string_list.add("Eduardo");

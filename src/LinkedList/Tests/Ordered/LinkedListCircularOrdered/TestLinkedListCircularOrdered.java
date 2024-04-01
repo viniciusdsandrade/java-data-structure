@@ -4,12 +4,32 @@ import LinkedList.Ordered.LinkedListCircularOrdered;
 
 public class TestLinkedListCircularOrdered {
     // Método para verificar se a lista é circular
+    // Método para verificar se a lista é circular
     public static <X extends Comparable<X>> boolean verificaCircularidade(LinkedListCircularOrdered<X> lista) {
         // Verifica se a lista está vazia
         if (lista.primeiro == null || lista.ultimo == null) return false;
 
         // Verifica se o último nó aponta corretamente para o primeiro nó
         return lista.ultimo.proximo == lista.primeiro;
+    }
+
+    // Método para verificar se a lista circular está ordenada
+    public static <X extends Comparable<X>> boolean verificaOrdenacao(LinkedListCircularOrdered<X> lista) {
+        // Verifica se a lista é circular
+        if (!verificaCircularidade(lista)) return false;
+
+        // Verifica se a lista está vazia ou contém apenas um elemento
+        if (lista.primeiro == lista.ultimo) return true;
+
+        // Percorre a lista e verifica se cada elemento é menor ou igual ao próximo elemento
+        LinkedListCircularOrdered<X>.Node current = lista.primeiro;
+        while (current != lista.ultimo) {
+            if (current.elemento.compareTo(current.proximo.elemento) > 0) {
+                return false;
+            }
+            current = current.proximo;
+        }
+        return true;
     }
 
     public static void main(String[] args) {
@@ -24,6 +44,9 @@ public class TestLinkedListCircularOrdered {
 
         boolean isCircular = verificaCircularidade(int_list);
         System.out.println("A lista é circular: " + isCircular);
+
+        boolean isOrdered = verificaOrdenacao(int_list);
+        System.out.println("A lista é ordenada: " + isOrdered);
 
         LinkedListCircularOrdered<Character> char_list = new LinkedListCircularOrdered<>();
         char_list.add('e');
