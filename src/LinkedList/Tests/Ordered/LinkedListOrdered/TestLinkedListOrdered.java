@@ -30,6 +30,7 @@ public class TestLinkedListOrdered {
         return count;
     }
 
+    // Método para verificar se a lista está ordenada
     public static <X extends Comparable<X>> boolean verificaOrdenacao(LinkedListOrdered<X> lista) {
         // Verifica se a lista está vazia ou contém apenas um elemento
         if (lista.primeiro == null || lista.primeiro.proximo == null) return true;

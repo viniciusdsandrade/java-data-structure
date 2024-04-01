@@ -87,11 +87,9 @@ public class DoubleLinkedListDisordered<X> implements Cloneable {
         primeiro = null;
         tamanho = 0;
     }
-
     public Node getPrimeiro() {
         return primeiro;
     }
-
     public Node getUltimo() {
         if (primeiro == null) return null;
 
@@ -101,7 +99,6 @@ public class DoubleLinkedListDisordered<X> implements Cloneable {
 
         return temp;
     }
-
     public int getTamanho() {
         return tamanho;
     }

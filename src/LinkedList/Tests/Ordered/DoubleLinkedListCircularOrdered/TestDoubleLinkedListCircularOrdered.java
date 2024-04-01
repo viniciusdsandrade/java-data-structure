@@ -3,6 +3,7 @@ package LinkedList.Tests.Ordered.DoubleLinkedListCircularOrdered;
 import LinkedList.Ordered.DoubleLinkedListCircularOrdered;
 
 public class TestDoubleLinkedListCircularOrdered {
+
     // Método para verificar se todos os nós estão corretamente duplamente ligados
     public static <X extends Comparable<X>> boolean verificaDuplamenteLigada(DoubleLinkedListCircularOrdered<Integer> lista) {
         // Verifica se a lista está vazia ou contém apenas um elemento

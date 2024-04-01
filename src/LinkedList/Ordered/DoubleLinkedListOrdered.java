@@ -13,21 +13,17 @@ public class DoubleLinkedListOrdered<X extends Comparable<X>> implements Cloneab
 
         public Node() {
         }
-
         public Node(X elemento) {
             this.elemento = elemento;
             this.proximo = null;
             this.anterior = null;
         }
-
         public X getElemento() {
             return elemento;
         }
-
         public Node getProximo() {
             return proximo;
         }
-
         public Node getAnterior() {
             return anterior;
         }
@@ -91,11 +87,9 @@ public class DoubleLinkedListOrdered<X extends Comparable<X>> implements Cloneab
         this.primeiro = null;
         this.tamanho = 0;
     }
-
     public Node getPrimeiro() {
         return primeiro;
     }
-
     public int getTamanho() {
         return tamanho;
     }
@@ -137,7 +131,6 @@ public class DoubleLinkedListOrdered<X extends Comparable<X>> implements Cloneab
 
         tamanho++;
     }
-
 
     public X get(int index) {
         if (index < 0 || index >= tamanho) return null;

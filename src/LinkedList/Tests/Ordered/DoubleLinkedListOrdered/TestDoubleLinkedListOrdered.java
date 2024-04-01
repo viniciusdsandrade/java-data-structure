@@ -2,7 +2,7 @@ package LinkedList.Tests.Ordered.DoubleLinkedListOrdered;
 
 import LinkedList.Ordered.DoubleLinkedListOrdered;
 
-public class TestDoubleLinkListOrdered {
+public class TestDoubleLinkedListOrdered {
 
     // Método para verificar se todos os nós estão corretamente duplamente ligados
     public static <X extends Comparable<X>> boolean verificaDuplamenteLigada(DoubleLinkedListOrdered<X> lista) {

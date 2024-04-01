@@ -51,8 +51,8 @@ public class TestDoubleLinkedListCircularDisordered {
         boolean isCircular = verificaCircularidade(int_list);
 
         // Impressão dos resultados
-        System.out.println("Todos os nós estão corretamente duplamente ligados: " + isDuplamenteLigada);
-        System.out.println("A lista é circular: " + isCircular);
+        System.out.println("Nós estão duplamente ligados: " + isDuplamenteLigada);
+        System.out.println("A lista é circular:           " + isCircular);
 
         DoubleLinkedListCircularDisordered<Character> chars = new DoubleLinkedListCircularDisordered<>();
         chars.addLast('n');

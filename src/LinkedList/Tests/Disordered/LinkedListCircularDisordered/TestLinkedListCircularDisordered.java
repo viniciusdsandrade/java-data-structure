@@ -4,6 +4,7 @@ import LinkedList.Disordered.LinkedListCircularDisordered;
 
 public class TestLinkedListCircularDisordered {
 
+    // Método para verificar
     public static <X> boolean verificaCircular(LinkedListCircularDisordered<X> lista) {
         // Se a lista estiver vazia, ela não é circular
         if (lista.primeiro == null) return false;
@@ -23,6 +24,28 @@ public class TestLinkedListCircularDisordered {
         // Se chegamos ao final da lista sem encontrar o primeiro nó novamente, a lista não é circular
         return false;
     }
+
+    // Método para verificar se a lista circular está ordenada
+    public static <X> boolean verificaSimplesmenteEncadeada(LinkedListCircularDisordered<X> lista) {
+        // Se a lista estiver vazia ou contiver apenas um nó, ela é simplesmente encadeada
+        if (lista.primeiro == null || lista.primeiro.proximo == null) return true;
+
+        // Inicia a verificação a partir do primeiro nó
+        LinkedListCircularDisordered<X>.Node current = lista.primeiro;
+
+        // Percorre a lista até encontrar um nó que aponta para o primeiro nó novamente
+        while (current.proximo != lista.primeiro) {
+            // Avança para o próximo nó
+            current = current.proximo;
+
+            // Se encontrarmos um nó que aponta para o primeiro nó novamente, a lista não é simplesmente encadeada
+            if (current == lista.primeiro) return false;
+        }
+
+        // Se chegamos ao final da lista sem encontrar o primeiro nó novamente, a lista é simplesmente encadeada
+        return true;
+    }
+
     public static void main(String[] args) {
         LinkedListCircularDisordered<Integer> int_list = new LinkedListCircularDisordered<>();
         int_list.addLast(1);
@@ -31,7 +54,11 @@ public class TestLinkedListCircularDisordered {
 
         // Verificando se a lista é circular
         boolean isCircular = verificaCircular(int_list);
-        System.out.println("A lista é circular: " + isCircular);
+        System.out.println("A lista é circular:               " + isCircular);
+
+        // Verificando se a lista é simplesmente encadeada
+        boolean isSimplesmenteEncadeada = verificaSimplesmenteEncadeada(int_list);
+        System.out.println("A lista é simplesmente encadeada: " + isSimplesmenteEncadeada);
 
         int primeiro = int_list.primeiro.elemento;
         int ultimo = int_list.ultimo.elemento;
@@ -45,6 +72,7 @@ public class TestLinkedListCircularDisordered {
         int proximoDoProximoDoProximoDoPrimeiro = int_list.primeiro.proximo.proximo.proximo.elemento;
         int proximoDoProximoDoProximoDoUltimo = int_list.ultimo.proximo.proximo.proximo.elemento;
 
+        System.out.println("Lista:    " + int_list);
         System.out.println("primeiro: " + primeiro);
         System.out.println("ultimo:   " + ultimo);
         System.out.println("proximoDoPrimeiro: " + proximoDoPrimeiro);

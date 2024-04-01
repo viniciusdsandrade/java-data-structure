@@ -58,7 +58,7 @@ public class TestDoubleLinkedListDisordered {
 
         // Teste 2: Verificar se a lista é circular
         boolean isCircular = verificaCircular(int_list);
-        System.out.println("A lista é circular: " + isCircular);
+        System.out.println("A lista é circular:         " + isCircular);
 
         // Teste 3: Verificar se os elementos estão corretamente ligados
         System.out.println("int_list:                                 " + int_list);

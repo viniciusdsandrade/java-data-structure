@@ -3,7 +3,7 @@ package LinkedList.Tests.Ordered.LinkedListCircularOrdered;
 import LinkedList.Ordered.LinkedListCircularOrdered;
 
 public class TestLinkedListCircularOrdered {
-    // Método para verificar se a lista é circular
+
     // Método para verificar se a lista é circular
     public static <X extends Comparable<X>> boolean verificaCircularidade(LinkedListCircularOrdered<X> lista) {
         // Verifica se a lista está vazia
@@ -32,6 +32,27 @@ public class TestLinkedListCircularOrdered {
         return true;
     }
 
+    // Método para verificar se a lista é simplesmente encadeada
+    public static <X extends Comparable<X>> boolean verificaSimplesmenteEncadeada(LinkedListCircularOrdered<X> lista) {
+        // Verifica se a lista está vazia ou contém apenas um nó
+        if (lista.primeiro == null || lista.primeiro.proximo == null) return true;
+
+        // Inicia a verificação a partir do primeiro nó
+        LinkedListCircularOrdered<X>.Node current = lista.primeiro;
+
+        // Percorre a lista até encontrar um nó que aponta para o primeiro nó novamente
+        while (current.proximo != lista.primeiro) {
+            // Avança para o próximo nó
+            current = current.proximo;
+
+            // Se encontrarmos um nó que aponta para o primeiro nó novamente, a lista não é simplesmente encadeada
+            if (current == lista.primeiro) return false;
+        }
+
+        // Se chegamos ao final da lista sem encontrar o primeiro nó novamente, a lista é simplesmente encadeada
+        return true;
+    }
+
     public static void main(String[] args) {
         LinkedListCircularOrdered<Integer> int_list = new LinkedListCircularOrdered<>();
         int_list.add(2);
@@ -47,6 +68,9 @@ public class TestLinkedListCircularOrdered {
 
         boolean isOrdered = verificaOrdenacao(int_list);
         System.out.println("A lista é ordenada: " + isOrdered);
+
+        boolean isSinglyLinked = verificaSimplesmenteEncadeada(int_list);
+        System.out.println("A lista é simplesmente encadeada: " + isSinglyLinked);
 
         LinkedListCircularOrdered<Character> char_list = new LinkedListCircularOrdered<>();
         char_list.add('e');
