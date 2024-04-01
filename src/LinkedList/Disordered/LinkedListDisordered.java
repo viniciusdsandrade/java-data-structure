@@ -448,8 +448,7 @@ public class LinkedListDisordered<X> implements Cloneable {
         Node thatNode = that.primeiro;
 
         while (thisNode != null && thatNode != null) {
-            if (!Objects.equals(thisNode.elemento, thatNode.elemento))
-                return false;
+            if (!Objects.equals(thisNode.elemento, thatNode.elemento)) return false;
             thisNode = thisNode.proximo;
             thatNode = thatNode.proximo;
         }

@@ -74,7 +74,7 @@ public class DoubleLinkedListDisordered<X> implements Cloneable {
         @Override
         public String toString() {
             if (proximo != null)
-                return elemento + " -> " + proximo.elemento;
+                return elemento + " <-> " + proximo.elemento;
             else
                 return elemento.toString();
         }
@@ -87,9 +87,11 @@ public class DoubleLinkedListDisordered<X> implements Cloneable {
         primeiro = null;
         tamanho = 0;
     }
+
     public Node getPrimeiro() {
         return primeiro;
     }
+
     public Node getUltimo() {
         if (primeiro == null) return null;
 
@@ -99,6 +101,7 @@ public class DoubleLinkedListDisordered<X> implements Cloneable {
 
         return temp;
     }
+
     public int getTamanho() {
         return tamanho;
     }
@@ -292,10 +295,21 @@ public class DoubleLinkedListDisordered<X> implements Cloneable {
 
     @SuppressWarnings("unchecked")
     public DoubleLinkedListDisordered(DoubleLinkedListDisordered<X> modelo) {
-        if (modelo == null) throw new IllegalArgumentException("Modelo ausente");
+        if (modelo == null) throw new IllegalArgumentException("Lista não pode ser nula.");
+
+        if (modelo.primeiro == null) {
+            this.primeiro = null;
+            this.tamanho = 0;
+            return;
+        }
+
+        Node temp = modelo.primeiro;
+        while (temp != null) {
+            this.addLast((X) verifyAndCopy(temp.elemento));
+            temp = temp.proximo;
+        }
 
         this.tamanho = (int) verifyAndCopy(modelo.tamanho);
-        this.primeiro = (Node) verifyAndCopy(modelo.primeiro);
     }
 
     @Override
@@ -319,18 +333,17 @@ public class DoubleLinkedListDisordered<X> implements Cloneable {
 
         if (this.tamanho != that.tamanho) return false;
 
-        Node tempThis = this.primeiro;
-        Node tempLista = that.primeiro;
+        Node thisNode = this.primeiro;
+        Node thatNode = that.primeiro;
 
-        while (tempThis != null) {
-            if (!tempThis.elemento.equals(tempLista.elemento))
-                return false;
-
-            tempThis = tempThis.proximo;
-            tempLista = tempLista.proximo;
+        while (thisNode != null && thatNode != null) {
+            if (!Objects.equals(thisNode.elemento, thatNode.elemento)) return false;
+            thisNode = thisNode.proximo;
+            thatNode = thatNode.proximo;
         }
 
-        return true;
+        return thisNode == null &&
+                thatNode == null;
     }
 
     @Override

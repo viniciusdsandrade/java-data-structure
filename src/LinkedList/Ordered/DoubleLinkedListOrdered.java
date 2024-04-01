@@ -13,17 +13,21 @@ public class DoubleLinkedListOrdered<X extends Comparable<X>> implements Cloneab
 
         public Node() {
         }
+
         public Node(X elemento) {
             this.elemento = elemento;
             this.proximo = null;
             this.anterior = null;
         }
+
         public X getElemento() {
             return elemento;
         }
+
         public Node getProximo() {
             return proximo;
         }
+
         public Node getAnterior() {
             return anterior;
         }
@@ -74,7 +78,7 @@ public class DoubleLinkedListOrdered<X extends Comparable<X>> implements Cloneab
         @Override
         public String toString() {
             if (proximo != null)
-                return elemento + " -> " + proximo.elemento;
+                return elemento + " <-> " + proximo.elemento;
             else
                 return elemento.toString();
         }
@@ -87,9 +91,11 @@ public class DoubleLinkedListOrdered<X extends Comparable<X>> implements Cloneab
         this.primeiro = null;
         this.tamanho = 0;
     }
+
     public Node getPrimeiro() {
         return primeiro;
     }
+
     public int getTamanho() {
         return tamanho;
     }
@@ -99,24 +105,39 @@ public class DoubleLinkedListOrdered<X extends Comparable<X>> implements Cloneab
         if (elemento == null) throw new IllegalArgumentException("Elemento ausente.");
 
         Node novo = new Node((X) verifyAndCopy(elemento));
-        Node temp = primeiro;
+
+        if (this.primeiro == null) { // Se a lista estiver vazia
+            this.primeiro = novo;
+            return;
+        }
+
+        Node atual = this.primeiro;
         Node anterior = null;
 
-        while (temp != null && temp.elemento.compareTo(elemento) < 0) {
-            anterior = temp;
-            temp = temp.proximo;
+        // Encontra a posição correta para inserir o novo nó
+        while (atual != null && atual.elemento.compareTo(elemento) < 0) {
+            anterior = atual;
+            atual = atual.proximo;
         }
 
-        if (anterior == null) {
-            novo.proximo = primeiro;
-            primeiro = novo;
-        } else {
-            novo.proximo = anterior.proximo;
+        // Insere o novo nó na posição correta
+        if (anterior == null) { // Inserir no início da lista
+            novo.proximo = this.primeiro;
+            this.primeiro.anterior = novo;
+            this.primeiro = novo;
+        } else { // Inserir no meio ou final da lista
             anterior.proximo = novo;
+            novo.anterior = anterior;
+            if (atual != null) {
+                atual.anterior = novo;
+            }
+            novo.proximo = atual;
         }
+
 
         tamanho++;
     }
+
 
     public X get(int index) {
         if (index < 0 || index >= tamanho) return null;
@@ -238,11 +259,30 @@ public class DoubleLinkedListOrdered<X extends Comparable<X>> implements Cloneab
     }
 
     @SuppressWarnings("unchecked")
-    public DoubleLinkedListOrdered(DoubleLinkedListOrdered<X> modelo)  {
-        if (modelo == null) throw new IllegalArgumentException("Modelo ausente.");
+    public DoubleLinkedListOrdered(DoubleLinkedListOrdered<X> modelo) {
+        if (modelo == null) throw new IllegalArgumentException("Lista não pode ser nula.");
+
+        if (modelo.primeiro == null) {
+            this.primeiro = null;
+            this.tamanho = 0;
+            return;
+        }
+
+        Node atual = modelo.primeiro;
+        Node anterior = null;
+        while (atual != null) {
+            Node novo = new Node((X) verifyAndCopy(atual.elemento));
+            if (anterior == null) {
+                this.primeiro = novo;
+            } else {
+                anterior.proximo = novo;
+                novo.anterior = anterior;
+            }
+            anterior = novo;
+            atual = atual.proximo;
+        }
 
         this.tamanho = (int) verifyAndCopy(modelo.tamanho);
-        this.primeiro = (Node) verifyAndCopy(modelo.primeiro);
     }
 
     @Override

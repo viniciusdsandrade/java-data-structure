@@ -90,7 +90,7 @@ public class LinkedListOrdered<X extends Comparable<X>> implements Cloneable {
     }
 
     @SuppressWarnings("unchecked")
-    public void add(X elemento)  {
+    public void add(X elemento) {
         if (elemento == null) throw new IllegalArgumentException("Elemento nulo");
 
         Node novo = new Node((X) verifyAndCopy(elemento));
@@ -238,7 +238,7 @@ public class LinkedListOrdered<X extends Comparable<X>> implements Cloneable {
 
     @SuppressWarnings("unchecked")
     public LinkedListOrdered(LinkedListOrdered<X> modelo) {
-        if (modelo == null) throw new IllegalArgumentException("Modelo nulo");
+        if (modelo == null) throw new IllegalArgumentException("Lista não pode ser nula.");
 
         if (modelo.primeiro == null) {
             this.primeiro = null;
@@ -246,8 +246,19 @@ public class LinkedListOrdered<X extends Comparable<X>> implements Cloneable {
             return;
         }
 
-        for (Node atual = modelo.primeiro; atual != null; atual = atual.proximo)
-            this.add((X) verifyAndCopy(atual.elemento));
+        Node atual = modelo.primeiro;
+        Node anterior = null;
+
+        while (atual != null) {
+            Node novo = new Node((X) verifyAndCopy(atual.elemento));
+            if (anterior == null)
+                this.primeiro = novo;
+            else
+                anterior.proximo = novo;
+
+            anterior = novo;
+            atual = atual.proximo;
+        }
 
         this.tamanho = (int) verifyAndCopy(modelo.tamanho);
     }
@@ -277,9 +288,7 @@ public class LinkedListOrdered<X extends Comparable<X>> implements Cloneable {
         Node thatNode = that.primeiro;
 
         while (thisNode != null && thatNode != null) {
-            if (!Objects.equals(thisNode.elemento, thatNode.elemento))
-                return false;
-
+            if (!Objects.equals(thisNode.elemento, thatNode.elemento)) return false;
             thisNode = thisNode.proximo;
             thatNode = thatNode.proximo;
         }

@@ -74,7 +74,7 @@ public class DoubleLinkedListCircularOrdered<X extends Comparable<X>> implements
         @Override
         public String toString() {
             if (proximo != null)
-                return elemento + " -> " + proximo.elemento;
+                return elemento + " <-> " + proximo.elemento;
             else
                 return elemento.toString();
         }
@@ -122,11 +122,11 @@ public class DoubleLinkedListCircularOrdered<X extends Comparable<X>> implements
         }
 
         if (anterior == null) {
-            // Inserir no início
             novo.proximo = this.primeiro;
             novo.anterior = this.ultimo;
             this.primeiro.anterior = novo;
             this.primeiro = novo;
+            this.ultimo.proximo = novo; // Ajuste para manter a circularidade
         } else {
             // Inserir no meio ou no final
             anterior.proximo = novo;
@@ -139,11 +139,13 @@ public class DoubleLinkedListCircularOrdered<X extends Comparable<X>> implements
                 this.ultimo.proximo = novo;
                 novo.anterior = this.ultimo;
                 this.ultimo = novo;
+                this.primeiro.anterior = novo; // Ajuste para manter a circularidade
             }
         }
 
         tamanho++;
     }
+
 
     public X get(int indice) {
         if (indice < 0 || indice >= tamanho) throw new IndexOutOfBoundsException("Posição inválida.");
@@ -262,16 +264,23 @@ public class DoubleLinkedListCircularOrdered<X extends Comparable<X>> implements
 
     @SuppressWarnings("unchecked")
     public DoubleLinkedListCircularOrdered(DoubleLinkedListCircularOrdered<X> modelo) {
-        if (modelo == null) throw new IllegalArgumentException("Modelo ausente");
+        if (modelo == null) throw new IllegalArgumentException("Lista não pode ser nula.");
 
-        Node atual = modelo.primeiro;
-        while (atual != null && atual != modelo.ultimo) {
-            this.add((X) verifyAndCopy(atual.elemento));
-            atual = atual.proximo;
+        if (modelo.primeiro == null) {
+            this.primeiro = null;
+            this.ultimo = null;
+            this.tamanho = 0;
+            return;
         }
 
-        if (atual != null)
-            this.add((X) verifyAndCopy(atual.elemento));
+        Node primeiro = modelo.primeiro;
+        while (primeiro != null && primeiro != modelo.ultimo) {
+            this.add((X) verifyAndCopy(primeiro.elemento));
+            primeiro = primeiro.proximo;
+        }
+
+        if (primeiro != null)
+            this.add((X) verifyAndCopy(primeiro.elemento));
 
         this.tamanho = (int) verifyAndCopy(modelo.tamanho);
     }
@@ -302,11 +311,12 @@ public class DoubleLinkedListCircularOrdered<X extends Comparable<X>> implements
         Node tempThis = this.primeiro;
         Node tempThat = that.primeiro;
 
-        do {
-            if (!tempThis.equals(tempThat)) return false;
+        for (int i = 0; i < this.tamanho; i++) {
+            if (!tempThis.equals(tempThat))
+                return false;
             tempThis = tempThis.proximo;
             tempThat = tempThat.proximo;
-        } while (tempThis != this.primeiro && tempThat != that.primeiro);
+        }
 
         return true;
     }

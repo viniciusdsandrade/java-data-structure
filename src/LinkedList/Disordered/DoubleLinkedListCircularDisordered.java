@@ -13,21 +13,17 @@ public class DoubleLinkedListCircularDisordered<X> implements Cloneable {
 
         public Node() {
         }
-
         public Node(X elemento) {
             this.elemento = elemento;
             this.proximo = null;
             this.anterior = null;
         }
-
         public X getElemento() {
             return elemento;
         }
-
         public Node getProximo() {
             return proximo;
         }
-
         public Node getAnterior() {
             return anterior;
         }
@@ -78,7 +74,7 @@ public class DoubleLinkedListCircularDisordered<X> implements Cloneable {
         @Override
         public String toString() {
             if (proximo != null)
-                return elemento + " -> " + proximo.elemento;
+                return elemento + " <-> " + proximo.elemento;
             else
                 return elemento.toString();
         }
@@ -93,15 +89,12 @@ public class DoubleLinkedListCircularDisordered<X> implements Cloneable {
         ultimo = null;
         tamanho = 0;
     }
-
     public Node getPrimeiro() {
         return primeiro;
     }
-
     public Node getUltimo() {
         return ultimo;
     }
-
     public int getTamanho() {
         return tamanho;
     }
@@ -326,7 +319,15 @@ public class DoubleLinkedListCircularDisordered<X> implements Cloneable {
     public DoubleLinkedListCircularDisordered(DoubleLinkedListCircularDisordered<X> modelo) {
         if (modelo == null) throw new IllegalArgumentException("Lista não pode ser nula.");
 
+        if (modelo.primeiro == null) {
+            this.primeiro = null;
+            this.ultimo = null;
+            this.tamanho = 0;
+            return;
+        }
+
         Node temp = modelo.primeiro;
+
         while (temp != null && temp != modelo.ultimo) {
             this.addLast((X) verifyAndCopy(temp.elemento));
             temp = temp.proximo;
@@ -357,18 +358,17 @@ public class DoubleLinkedListCircularDisordered<X> implements Cloneable {
 
         DoubleLinkedListCircularDisordered<X> that = (DoubleLinkedListCircularDisordered<X>) obj;
 
-        if (this.primeiro == null && that.primeiro != null) return false;
-        if (this.primeiro != null && that.primeiro == null) return false;
         if (this.primeiro == null) return true;
+        if (this.tamanho != that.tamanho) return false;
 
         Node tempThis = this.primeiro;
         Node tempThat = that.primeiro;
 
-        do {
-            if (!Objects.equals(tempThis.elemento, tempThat.elemento)) return false;
+       for (int i = 0; i < this.tamanho; i++) {
+            if (!tempThis.equals(tempThat)) return false;
             tempThis = tempThis.proximo;
             tempThat = tempThat.proximo;
-        } while (tempThis != primeiro && tempThat != that.primeiro);
+        }
 
         return true;
     }

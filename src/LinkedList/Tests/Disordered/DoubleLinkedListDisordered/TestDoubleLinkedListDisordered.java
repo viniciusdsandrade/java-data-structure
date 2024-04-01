@@ -3,53 +3,69 @@ package LinkedList.Tests.Disordered.DoubleLinkedListDisordered;
 import LinkedList.Disordered.DoubleLinkedListDisordered;
 
 public class TestDoubleLinkedListDisordered {
-    public static void main(String[] args) {
-        DoubleLinkedListDisordered<Integer> list = new DoubleLinkedListDisordered<>();
-        list.addLast(1);
-        list.addLast(2);
-        list.addLast(3);
-        list.addLast(4);
-        list.addLast(5);
 
-        // Teste 1: Verificar se a lista é duplamente ligada: cada nó deve ter uma referência para o próximo e para o anterior
-        // Exemplo: dado um determinado nó que não seja o último nem o primeiro:
-        // o seu anterior do proximo deve ser igual ao proximo do anterior
-        // o seu proximo do anterior deve ser igual ao anterior do proximo
-        boolean isDoublyLinked = true;
-        DoubleLinkedListDisordered<Integer>.Node temp = list.getPrimeiro();
-        if (temp != null) {
-            do {
-                // Verificar se o nó atual é consistente
-                if ((temp.anterior == null && temp != list.getPrimeiro()) ||
-                        (temp.proximo == null && temp != list.getUltimo()) ||
-                        (temp.anterior != null && temp.anterior.proximo != temp) ||
-                        (temp.proximo != null && temp.proximo.anterior != temp)) {
-                    isDoublyLinked = false;
-                    break;
-                }
-                temp = temp.proximo;
-            } while (temp != null);
-        } else {
-            isDoublyLinked = false;
+    public static <X> boolean verificaDuplamenteLigada(DoubleLinkedListDisordered<Integer> lista) {
+        // Se a lista estiver vazia ou tiver apenas um elemento, ela é considerada duplamente ligada
+        if (lista.primeiro == null || lista.tamanho <= 1) return true;
+
+        // Começamos a verificação a partir do primeiro nó
+        DoubleLinkedListDisordered<Integer>.Node temp = lista.primeiro;
+
+        // Percorremos a lista até o último nó
+        while (temp.proximo != null) {
+            // Se o nó anterior ao próximo não for o nó atual, a lista não está duplamente ligada
+            if (temp.proximo.anterior != temp) return false;
+
+            // Avançamos para o próximo nó
+            temp = temp.proximo;
         }
 
-        if (isDoublyLinked)
-            System.out.println("A lista é duplamente ligada.");
-        else
-            System.out.println("A lista não é duplamente ligada.");
+        // Se chegamos ao final da lista sem encontrar problemas, a lista está duplamente ligada
+        return true;
+    }
+
+    public static <X> boolean verificaCircular(DoubleLinkedListDisordered<Integer> lista) {
+        // Se a lista estiver vazia, ela não é circular
+        if (lista.primeiro == null) return false;
+
+        // Começamos a verificação a partir do primeiro nó
+        DoubleLinkedListDisordered<Integer>.Node temp = lista.primeiro;
+
+        // Percorremos a lista até o último nó
+        while (temp.proximo != null) {
+            // Avançamos para o próximo nó
+            temp = temp.proximo;
+
+            // Se o próximo nó for o primeiro, a lista é circular
+            if (temp == lista.primeiro) return true;
+        }
+
+        // Se chegamos ao final da lista sem encontrar o primeiro nó novamente, a lista não é circular
+        return false;
+    }
+
+    public static void main(String[] args) {
+        DoubleLinkedListDisordered<Integer> int_list = new DoubleLinkedListDisordered<>();
+        int_list.addLast(1);
+        int_list.addLast(2);
+        int_list.addLast(3);
+        int_list.addLast(4);
+        int_list.addLast(5);
+
+        // Teste 1: Verificar se a lista está corretamente ligada
+        boolean isDuplamenteLigada = verificaDuplamenteLigada(int_list);
+        System.out.println("A lista é duplamente ligada: " + isDuplamenteLigada);
 
         // Teste 2: Verificar se a lista é circular
-        if (list.getUltimo() != null && list.getUltimo().proximo == list.getPrimeiro())
-            System.out.println("A lista é circular.");
-        else
-            System.out.println("A lista não é circular.");
+        boolean isCircular = verificaCircular(int_list);
+        System.out.println("A lista é circular: " + isCircular);
 
         // Teste 3: Verificar se os elementos estão corretamente ligados
-        System.out.println("list:                                     " + list);
-        System.out.println("Primeiro elemento:                        " + list.getPrimeiro().elemento); // Deve imprimir 1
-        System.out.println("proximo do primeiro elemento:             " + list.getPrimeiro().proximo.elemento); // Deve imprimir 2
-        System.out.println("proximo do anterior do primeiro elemento: " + list.getPrimeiro().proximo.anterior.elemento); // Deve imprimir 1
-        System.out.println("Próximo do proximo do primeiro elemento:  " + list.getPrimeiro().proximo.proximo); // Deve imprimir null
-        System.out.println("Anterior do primeiro elemento:            " + list.getPrimeiro().anterior); // Deve imprimir null
+        System.out.println("int_list:                                 " + int_list);
+        System.out.println("Primeiro elemento:                        " + int_list.getPrimeiro().elemento); // Deve imprimir 1
+        System.out.println("proximo do primeiro elemento:             " + int_list.getPrimeiro().proximo.elemento); // Deve imprimir 2
+        System.out.println("proximo do anterior do primeiro elemento: " + int_list.getPrimeiro().proximo.anterior.elemento); // Deve imprimir 1
+        System.out.println("Próximo do proximo do primeiro elemento:  " + int_list.getPrimeiro().proximo.proximo); // Deve imprimir null
+        System.out.println("Anterior do primeiro elemento:            " + int_list.getPrimeiro().anterior); // Deve imprimir null
     }
 }

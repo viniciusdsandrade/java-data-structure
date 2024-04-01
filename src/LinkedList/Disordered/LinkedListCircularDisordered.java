@@ -244,11 +244,11 @@ public class LinkedListCircularDisordered<X> implements Cloneable {
         temp.proximo = temp.proximo.proximo;
         tamanho--;
     }
-    
+
     public boolean contains(X elemento) {
         Node temp = primeiro;
         for (int i = 0; i < tamanho; i++) {
-            if (temp.elemento.equals(elemento)) 
+            if (temp.elemento.equals(elemento))
                 return true;
             temp = temp.proximo;
         }
@@ -261,14 +261,14 @@ public class LinkedListCircularDisordered<X> implements Cloneable {
 
         Node temp = primeiro;
         for (int i = 0; i < tamanho; i++) {
-            if (temp.elemento.equals(elemento)) 
+            if (temp.elemento.equals(elemento))
                 return i;
             temp = temp.proximo;
         }
 
         return -1;
     }
-    
+
     public boolean isEmpty() {
         return tamanho == 0;
     }
@@ -278,18 +278,18 @@ public class LinkedListCircularDisordered<X> implements Cloneable {
         ultimo = null;
         tamanho = 0;
     }
-    
+
     public void rotate(int passos){
         if (primeiro == null || primeiro.proximo == null) return;
-        
+
         passos = passos % tamanho;
         if (passos < 0) passos += tamanho;
         if (passos == 0) return;
-        
+
         Node aux = primeiro;
-        for (int i = 0; i < passos; i++) 
+        for (int i = 0; i < passos; i++)
             aux = aux.proximo;
-        
+
         Node novoHead = aux.proximo;
         aux.proximo = null;
         ultimo.proximo = primeiro;
@@ -299,7 +299,7 @@ public class LinkedListCircularDisordered<X> implements Cloneable {
 
     @SuppressWarnings("unchecked")
     public LinkedListCircularDisordered(LinkedListCircularDisordered<X> modelo)  {
-        if (modelo == null) throw new IllegalArgumentException("Modelo não pode ser nulo.");
+        if (modelo == null) throw new IllegalArgumentException("Lista não pode ser nula");
 
         if (modelo.primeiro == null) {
             this.primeiro = null;
@@ -342,6 +342,7 @@ public class LinkedListCircularDisordered<X> implements Cloneable {
 
         LinkedListCircularDisordered<X> that = (LinkedListCircularDisordered<X>) obj;
 
+        if (this.primeiro == null) return true;
         if (this.tamanho != that.tamanho) return false;
 
         Node tempThis = this.primeiro;

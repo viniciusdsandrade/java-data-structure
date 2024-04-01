@@ -7,7 +7,56 @@ import java.util.Comparator;
 import java.util.List;
 
 public class TestLinkedListDisordered {
+
+    // Método para verificar se a lista é simplesmente encadeada
+    public static <X> boolean verificaSimplesmenteEncadeada(LinkedListDisordered<X> lista) {
+        // Verifica se a lista está vazia ou contém apenas um elemento
+        if (lista.primeiro == null || lista.primeiro.proximo == null) return true;
+
+        // Verifica se há algum nó com mais de uma referência para o próximo nó
+        LinkedListDisordered<X>.Node current = lista.primeiro;
+        while (current != null) {
+            // Se um nó tem mais de uma referência para o próximo nó, a lista não é simplesmente encadeada
+            if (countReferencesToNext(current) > 1) return false;
+
+            // Avança para o próximo nó
+            current = current.proximo;
+        }
+
+        // Se chegamos ao final da lista sem encontrar problemas, a lista é simplesmente encadeada
+        return true;
+    }
+
+    // Método auxiliar para contar as referências para o próximo nó de um determinado nó
+    private static <X> int countReferencesToNext(LinkedListDisordered<X>.Node node) {
+        int count = 0;
+        LinkedListDisordered<X>.Node current = node;
+        while (current != null) {
+            // Se o próximo nó do nó atual é o nó que estamos verificando, incrementa o contador
+            if (current.proximo == node) count++;
+
+            // Avança para o próximo nó
+            current = current.proximo;
+        }
+
+        // Retorna a quantidade de referências para o próximo nó do nó que estamos verificando
+        return count;
+    }
+
     public static void main(String[] args) {
+        LinkedListDisordered<Integer> int_list = new LinkedListDisordered<>();
+
+        // Adicionando elementos à int_list
+        int_list.addLast(1);
+        int_list.addLast(2);
+        int_list.addLast(3);
+        int_list.addLast(4);
+        int_list.addLast(5);
+
+        // Verificando se a int_list é simplesmente encadeada
+        boolean isSinglyLinked = verificaSimplesmenteEncadeada(int_list);
+        System.out.println("int_list: " + int_list);
+        System.out.println("A int_list é encadeada: " + isSinglyLinked);
         
         LinkedListDisordered<String> meuNome = new LinkedListDisordered<>();
         meuNome.addLast("i");

@@ -241,7 +241,7 @@ public class LinkedListCircularOrdered<X extends Comparable<X>> implements Clone
 
     @SuppressWarnings("unchecked")
     public LinkedListCircularOrdered(LinkedListCircularOrdered<X> modelo)  {
-        if (modelo == null) throw new IllegalArgumentException("Modelo ausente");
+        if (modelo == null) throw new IllegalArgumentException("Lista não pode ser nula.");
 
         if (modelo.primeiro == null) {
             this.primeiro = null;
@@ -250,13 +250,13 @@ public class LinkedListCircularOrdered<X extends Comparable<X>> implements Clone
             return;
         }
 
-        Node auxiliar = modelo.primeiro;
-        Node copia = new Node((X) verifyAndCopy(auxiliar.elemento));
+        Node primeiro = modelo.primeiro;
+        Node copia = new Node((X) verifyAndCopy(primeiro.elemento));
         this.primeiro = copia;
 
-        while (auxiliar.proximo != modelo.primeiro) {
-            auxiliar = auxiliar.proximo;
-            copia.proximo = new Node((X) verifyAndCopy(auxiliar.elemento));
+        while (primeiro.proximo != modelo.primeiro) {
+            primeiro = primeiro.proximo;
+            copia.proximo = new Node((X) verifyAndCopy(primeiro.elemento));
             copia = copia.proximo;
         }
 
@@ -267,14 +267,11 @@ public class LinkedListCircularOrdered<X extends Comparable<X>> implements Clone
 
     @Override
     public Object clone() {
-
         LinkedListCircularOrdered<X> clone = null;
-
         try {
             clone = new LinkedListCircularOrdered<>(this);
         } catch (Exception ignored) {
         }
-
         return clone;
     }
 

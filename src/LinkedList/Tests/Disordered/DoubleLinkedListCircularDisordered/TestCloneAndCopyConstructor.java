@@ -25,5 +25,17 @@ public class TestCloneAndCopyConstructor {
         System.out.println("List 1: " + list);
         System.out.println("List 2: " + list2);
         System.out.println("List 3: " + list3);
+
+        list2.addLast(6);
+        list2.addLast(7);
+
+        list3.addLast(6);
+        list3.addLast(7);
+        list3.addLast(8);
+
+        System.out.println("Depois de adicionar 6, 7 ao list2 e 6, 7, 8 ao list3:");
+        System.out.println("List 1: " + list);
+        System.out.println("List 2: " + list2);
+        System.out.println("List 3: " + list3);
     }
 }
