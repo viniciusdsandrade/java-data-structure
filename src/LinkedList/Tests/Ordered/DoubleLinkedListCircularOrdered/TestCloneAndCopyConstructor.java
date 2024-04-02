@@ -24,15 +24,14 @@ public class TestCloneAndCopyConstructor {
         list.add(-1);
         list.add(1);
         list.add(2);
-        System.out.println("List original: " + list);
         
         @SuppressWarnings("unchecked")
         DoubleLinkedListCircularOrdered<Integer> list_clone = (DoubleLinkedListCircularOrdered<Integer>) list.clone();
-        System.out.println("List clone:    " + list_clone);
-        
         DoubleLinkedListCircularOrdered<Integer> list_copy = new DoubleLinkedListCircularOrdered<>(list);
+        System.out.println("List original: " + list);
         System.out.println("List copy:     " + list_copy);
-        
+        System.out.println("List clone:    " + list_clone);
+
         list.removeFirst();
         list.removeLast();
 
@@ -53,6 +52,13 @@ public class TestCloneAndCopyConstructor {
         list.add(8);
 
         System.out.println("Depois de adicionar 6, 7 e 8 na lista original:");
+        System.out.println("List original: " + list);
+        System.out.println("List clone:    " + list_clone);
+        System.out.println("List copy:     " + list_copy);
+
+        System.out.println("Depois de adicionar 0, -1 no clone e na copia");
+        list_clone.add(0);
+        list_copy.add(0);
         System.out.println("List original: " + list);
         System.out.println("List clone:    " + list_clone);
         System.out.println("List copy:     " + list_copy);

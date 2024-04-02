@@ -37,7 +37,7 @@ public class TestLinkedListOrdered {
 
         // Percorre a lista e verifica se cada elemento é menor ou igual ao próximo elemento
         LinkedListOrdered<X>.Node current = lista.primeiro;
-        while (current != null && current.proximo != null) {
+        while (current.proximo != null) {
             if (current.elemento.compareTo(current.proximo.elemento) > 0) {
                 return false;
             }
@@ -54,7 +54,6 @@ public class TestLinkedListOrdered {
         int_list.add(3);
         int_list.add(5);
         int_list.add(0);
-        System.out.println("List: " + int_list);
 
         // Verificando se a lista é simplesmente encadeada
         boolean isSinglyLinked = verificaSimplesmenteEncadeada(int_list);
@@ -70,7 +69,6 @@ public class TestLinkedListOrdered {
         char_list.add('d');
         char_list.add('c');
         char_list.add('e');
-        System.out.println("Char List: " + char_list);
 
         LinkedListOrdered<String> str_list = new LinkedListOrdered<>();
         str_list.add("Vinícius");
@@ -78,7 +76,6 @@ public class TestLinkedListOrdered {
         str_list.add("Carlos");
         str_list.add("Bruna");
         str_list.add("Eduardo");
-        System.out.println("String List: " + str_list);
 
         LinkedListOrdered<Double> double_list = new LinkedListOrdered<>();
         double_list.add(2.0);
@@ -86,7 +83,6 @@ public class TestLinkedListOrdered {
         double_list.add(4.0);
         double_list.add(3.0);
         double_list.add(5.0);
-        System.out.println("Double List: " + double_list);
 
         LinkedListOrdered<Float> float_list = new LinkedListOrdered<>();
         float_list.add(2.0f);
@@ -94,7 +90,6 @@ public class TestLinkedListOrdered {
         float_list.add(4.0f);
         float_list.add(3.0f);
         float_list.add(5.0f);
-        System.out.println("Float List: " + float_list);
 
         LinkedListOrdered<Long> long_list = new LinkedListOrdered<>();
         long_list.add(2L);
@@ -102,7 +97,6 @@ public class TestLinkedListOrdered {
         long_list.add(4L);
         long_list.add(3L);
         long_list.add(5L);
-        System.out.println("Long List: " + long_list);
 
         LinkedListOrdered<Short> short_list = new LinkedListOrdered<>();
         short_list.add((short) 2);
@@ -110,7 +104,6 @@ public class TestLinkedListOrdered {
         short_list.add((short) 4);
         short_list.add((short) 3);
         short_list.add((short) 5);
-        System.out.println("Short List: " + short_list);
 
         LinkedListOrdered<Byte> byte_list = new LinkedListOrdered<>();
         byte_list.add((byte) 2);
@@ -118,6 +111,14 @@ public class TestLinkedListOrdered {
         byte_list.add((byte) 4);
         byte_list.add((byte) 3);
         byte_list.add((byte) 5);
-        System.out.println("Byte List: " + byte_list);
+
+        System.out.println("List:           " + int_list);
+        System.out.println("Char List:      " + char_list);
+        System.out.println("String List:    " + str_list);
+        System.out.println("Double List:    " + double_list);
+        System.out.println("Float List:     " + float_list);
+        System.out.println("Long List:      " + long_list);
+        System.out.println("Short List:     " + short_list);
+        System.out.println("Byte List:      " + byte_list);
     }
 }

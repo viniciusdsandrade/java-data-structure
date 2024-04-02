@@ -61,7 +61,6 @@ public class TestLinkedListCircularOrdered {
         int_list.add(3);
         int_list.add(5);
         int_list.add(0);
-        System.out.println("int_list:       " + int_list);
 
         boolean isCircular = verificaCircularidade(int_list);
         System.out.println("A lista é circular: " + isCircular);
@@ -78,7 +77,6 @@ public class TestLinkedListCircularOrdered {
         char_list.add('d');
         char_list.add('c');
         char_list.add('b');
-        System.out.println("char_list:      " + char_list);
 
         LinkedListCircularOrdered<String> str_list = new LinkedListCircularOrdered<>();
         str_list.add("Vinícius");
@@ -86,7 +84,6 @@ public class TestLinkedListCircularOrdered {
         str_list.add("Bárbara");
         str_list.add("Carlos");
         str_list.add("Eduardo");
-        System.out.println("str_list:       " + str_list);
 
         LinkedListCircularOrdered<Double> double_list = new LinkedListCircularOrdered<>();
         double_list.add(2.0);
@@ -95,7 +92,6 @@ public class TestLinkedListCircularOrdered {
         double_list.add(3.0);
         double_list.add(5.0);
         double_list.add(0.0);
-        System.out.println("double_list:    " + double_list);
 
         LinkedListCircularOrdered<Float> float_list = new LinkedListCircularOrdered<>();
         float_list.add(2.0f);
@@ -104,7 +100,6 @@ public class TestLinkedListCircularOrdered {
         float_list.add(3.0f);
         float_list.add(5.0f);
         float_list.add(0.0f);
-        System.out.println("float_list:     " + float_list);
 
         LinkedListCircularOrdered<Long> long_list = new LinkedListCircularOrdered<>();
         long_list.add(2L);
@@ -113,7 +108,6 @@ public class TestLinkedListCircularOrdered {
         long_list.add(3L);
         long_list.add(5L);
         long_list.add(0L);
-        System.out.println("long_list:      " + long_list);
 
         LinkedListCircularOrdered<Short> short_list = new LinkedListCircularOrdered<>();
         short_list.add((short) 2);
@@ -122,7 +116,6 @@ public class TestLinkedListCircularOrdered {
         short_list.add((short) 3);
         short_list.add((short) 5);
         short_list.add((short) 0);
-        System.out.println("short_list:     " + short_list);
 
         LinkedListCircularOrdered<Byte> byte_list = new LinkedListCircularOrdered<>();
         byte_list.add((byte) 2);
@@ -131,6 +124,15 @@ public class TestLinkedListCircularOrdered {
         byte_list.add((byte) 3);
         byte_list.add((byte) 5);
         byte_list.add((byte) 0);
+
+
+        System.out.println("int_list:       " + int_list);
+        System.out.println("char_list:      " + char_list);
+        System.out.println("str_list:       " + str_list);
+        System.out.println("double_list:    " + double_list);
+        System.out.println("float_list:     " + float_list);
+        System.out.println("long_list:      " + long_list);
+        System.out.println("short_list:     " + short_list);
         System.out.println("byte_list:      " + byte_list);
 
         int primeiro = int_list.primeiro.elemento;

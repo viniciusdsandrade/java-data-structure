@@ -62,13 +62,13 @@ public class TestToString {
         list_short.add((short) 4);
         list_short.add((short) 5);
         
-        System.out.println("String: " + list_string);
-        System.out.println("Integer: " + list_int);
-        System.out.println("Double: " + list_double);
-        System.out.println("Character: " + list_char);
-        System.out.println("Boolean: " + list_boolean);
-        System.out.println("Float: " + list_float);
-        System.out.println("Long: " + list_long);
-        System.out.println("Short: " + list_short);
+        System.out.println("String:     " + list_string);
+        System.out.println("Integer:    " + list_int);
+        System.out.println("Double:     " + list_double);
+        System.out.println("Character:  " + list_char);
+        System.out.println("Boolean:    " + list_boolean);
+        System.out.println("Float:      " + list_float);
+        System.out.println("Long:       " + list_long);
+        System.out.println("Short:      " + list_short);
     }
 }

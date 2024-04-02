@@ -41,10 +41,10 @@ public class TestToString {
         list_boolean.add(true);
         list_boolean.add(false);
         
-        System.out.println("Integer: " + list_integer);
-        System.out.println("String: " + list_string);
-        System.out.println("Double: " + list_double);
-        System.out.println("Character: " + list_char);
-        System.out.println("Boolean: " + list_boolean);
+        System.out.println("Integer:    " + list_integer);
+        System.out.println("String:     " + list_string);
+        System.out.println("Double:     " + list_double);
+        System.out.println("Character:  " + list_char);
+        System.out.println("Boolean:    " + list_boolean);
     }
 }

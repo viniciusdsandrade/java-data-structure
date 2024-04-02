@@ -64,12 +64,12 @@ public class TestToString {
         list_object.addLast(list_boolean);
         list_object.addLast(list_object);
 
-        System.out.println("List<Integer>: " + list_integer);
-        System.out.println("List<String>: " + list_string);
-        System.out.println("List<Double>: " + list_double);
-        System.out.println("List<Character>: " + list_char);
-        System.out.println("List<Boolean>: " + list_boolean);
-        System.out.println("List<List<Integer>>: " + list_list_integer);
-        System.out.println("List<Object>: " + list_object);
+        System.out.println("List<Integer>:          " + list_integer);
+        System.out.println("List<String>:           " + list_string);
+        System.out.println("List<Double>:           " + list_double);
+        System.out.println("List<Character>:        " + list_char);
+        System.out.println("List<Boolean>:          " + list_boolean);
+        System.out.println("List<List<Integer>>:    " + list_list_integer);
+        System.out.println("List<Object>:           " + list_object);
     }
 }
