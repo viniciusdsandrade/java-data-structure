@@ -6,9 +6,9 @@ import java.util.EmptyStackException;
 
 import static ShallowOrDeepCopy.ShallowOrDeepCopy.verifyAndCopy;
 
-// LIFO - last-in-first-out
 public class Stack<X> implements Cloneable {
 
+    // LIFO - last-in-first-out
     private LinkedListDisordered<X> elemento;
     private int tamanho;
     private int capacidade;
@@ -18,7 +18,6 @@ public class Stack<X> implements Cloneable {
         this.capacidade = 100;
         this.tamanho = 0;
     }
-
     public Stack(int capacidade) {
         if (capacidade <= 0) throw new IllegalArgumentException("Capacidade inválida");
 
@@ -26,9 +25,11 @@ public class Stack<X> implements Cloneable {
         this.capacidade = capacidade;
         this.tamanho = 0;
     }
-
-    public boolean empty() {
-        return this.tamanho == 0;
+    public int getTamanho() {
+        return tamanho;
+    }
+    public int getCapacidade() {
+        return capacidade;
     }
 
     public X push(X item) {
@@ -41,13 +42,13 @@ public class Stack<X> implements Cloneable {
     }
 
     public X peek() {
-        if (empty()) throw new EmptyStackException();
+        if (isEmpty()) throw new EmptyStackException();
 
         return this.elemento.getFirst();
     }
 
     public X pop() {
-        if (empty()) throw new EmptyStackException();
+        if (isEmpty()) throw new EmptyStackException();
 
         X elemento = this.elemento.getFirst();
         this.elemento.removeFirst();
@@ -56,15 +57,52 @@ public class Stack<X> implements Cloneable {
         return elemento;
     }
 
+    public int search(X item) {
+        if (isEmpty()) throw new EmptyStackException();
+
+        int index = 1;
+        for (int i = 0; i < this.tamanho; i++) {
+            if (this.elemento.get(i).equals(item)) {
+                return index;
+            }
+            index++;
+        }
+
+        return -1;
+    }
+
+    public boolean isEmpty() {
+        return this.tamanho == 0;
+    }
+
+    public void clear() {
+        this.elemento.clear();
+        this.tamanho = 0;
+    }
+
+    public void removeAllElements() {
+        for (int i = 0; i < this.tamanho; i++)
+            this.elemento.removeFirst();
+
+        this.tamanho = 0;
+    }
+
+    public boolean contains(X item) {
+        for (int i = 0; i < this.tamanho; i++) {
+            if (this.elemento.get(i).equals(item)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     @SuppressWarnings("unchecked")
     public Stack(Stack<X> modelo) {
         if (modelo == null) throw new IllegalArgumentException("Modelo ausente");
 
-        // Inicializa uma nova pilha vazia com a mesma capacidade do modelo
         this.elemento = new LinkedListDisordered<>();
         this.capacidade = (int) verifyAndCopy(modelo.capacidade);
 
-        // Copia os elementos do modelo para a nova pilha
         for (int i = 0; i < modelo.tamanho; i++)
             this.elemento.addLast((X) verifyAndCopy(modelo.elemento.get(i)));
 
@@ -104,20 +142,20 @@ public class Stack<X> implements Cloneable {
     @Override
     public int hashCode() {
         final int prime = 31;
-        int result = 1;
+        int hash = 1;
 
-        result *= prime + this.tamanho;
-        result *= prime + this.capacidade;
+        hash *= prime + this.tamanho;
+        hash *= prime + this.capacidade;
 
         for (int i = 0; i < this.tamanho; i++)
-            result *= prime + this.elemento.get(i).hashCode();
+            hash *= prime + this.elemento.get(i).hashCode();
 
-        return result;
+        return hash;
     }
 
     @Override
     public String toString() {
-        if (empty()) return "[]";
+        if (isEmpty()) return "[]";
         else return "[" + this.peek() + "]";
     }
 

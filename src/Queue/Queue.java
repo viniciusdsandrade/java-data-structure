@@ -1,171 +1,134 @@
 package Queue;
 
-import java.lang.reflect.Method;
+import LinkedList.Disordered.LinkedListDisordered;
+
 import java.util.EmptyStackException;
-import java.util.StringJoiner;
+
+import static ShallowOrDeepCopy.ShallowOrDeepCopy.verifyAndCopy;
 
 public class Queue<X> implements Cloneable {
 
     // FIFO - First in First Out
-    private X[] elemento;
-    private int frente;
-    private int atras;
+    private LinkedListDisordered<X> elemento;
     private int tamanho;
+    private int capacidade;
 
-    @SuppressWarnings("unchecked")
-    public Queue(int capInicial) throws IllegalArgumentException {
-        if (capInicial < 1)
-            throw new IllegalArgumentException();
-
-        this.elemento = (X[]) new Object[capInicial];
-        this.frente = 0;
-        this.atras = -1;
+    public Queue() {
+        this.elemento = new LinkedListDisordered<>();
+        this.capacidade = 100;
         this.tamanho = 0;
     }
+    public Queue(int capacidade) {
+        if (capacidade <= 0) throw new IllegalArgumentException("Capacidade inválida");
 
-    public void enqueue(X x) throws Exception {
-
-        if (x == null) throw new Exception("Falta o que guardar");
-
-        if (estaCheio()) expandirFila(2.0F);
-
-        this.atras = (atras + 1) % elemento.length;
-        this.elemento[atras] = x;
-        this.tamanho++;
+        this.elemento = new LinkedListDisordered<>();
+        this.capacidade = capacidade;
+        this.tamanho = 0;
+    }
+    public int getTamanho() {
+        return tamanho;
+    }
+    public int getCapacidade() {
+        return capacidade;
     }
 
-    public X peek() {
+    public X enqueue(X item) {
+        if (this.tamanho == this.capacidade) throw new StackOverflowError("Fila cheia");
 
-        if (estaVazio())
-            throw new EmptyStackException();
-
-        X ret;
-        if (this.elemento[frente] instanceof Cloneable)
-            ret = meuCloneDeX(this.elemento[frente]);
-        else
-            ret = this.elemento[frente];
-
-        return ret;
+        this.elemento.addLast(item);
+        this.tamanho++;
+        return item;
     }
 
     public X dequeue() {
+        if (this.isEmpty()) throw new EmptyStackException();
 
-        if (estaVazio())
-            throw new EmptyStackException();
-
-        X data = elemento[frente];
-        this.frente = (frente + 1) % tamanho;
+        X item = this.elemento.getFirst();
+        this.elemento.removeFirst();
         this.tamanho--;
-        return data;
+
+        return item;
     }
 
-    @SuppressWarnings("unchecked")
-    public void expandirFila(float porct) {
+    public X peek() {
+        if (isEmpty()) throw new EmptyStackException();
 
-        int novaCapacidade = (int) (tamanho * Math.ceil(this.elemento.length * porct));
+        return this.elemento.getFirst();
+    }
 
-        X[] novoElemento = (X[]) new Object[novaCapacidade];
-
-        for (int i = 0; i < this.getTamanho(); i++) {
-            novoElemento[i] = elemento[(frente + i) % this.elemento.length];
+    public int search(X item) {
+        for (int i = 0; i < this.tamanho; i++) {
+            if (this.elemento.get(i).equals(item)) {
+                return i;
+            }
         }
-
-        this.elemento = novoElemento;
-        this.frente = 0;
-        this.atras = tamanho - 1;
+        return -1;
     }
 
-    public int getTamanho() {
-        return this.tamanho;
-    }
-
-    public boolean estaCheio() {
-        return this.tamanho == this.elemento.length;
-    }
-
-    public boolean estaVazio() {
+    public boolean isEmpty() {
         return this.tamanho == 0;
     }
 
-    public String dequeueAll() {
+    public void clear() {
+        this.elemento.clear();
+        this.tamanho = 0;
+    }
 
-        if (estaVazio()) {
-            return "";
+    public void removeAllElements() {
+        for (int i = 0; i < this.tamanho; i++)
+            this.elemento.removeFirst();
+
+        this.tamanho = 0;
+    }
+
+    public boolean contains(X item) {
+        for (int i = 0; i < this.tamanho; i++) {
+            if (this.elemento.get(i).equals(item)) {
+                return true;
+            }
         }
-
-        StringJoiner removidos = new StringJoiner(",");
-        while (!estaVazio()) {
-            X data = dequeue();
-            removidos.add(data.toString());
-        }
-
-        return removidos.toString();
+        return false;
     }
 
     @SuppressWarnings("unchecked")
-    public Queue(Queue<X> copia) throws Exception {
+    public Queue(Queue<X> queue) {
+        if (queue == null) throw new IllegalArgumentException("Fila inválida");
 
-        if (copia == null) {
-            throw new NullPointerException("Não é possível copiar Queue nula.");
-        }
+        this.elemento = new LinkedListDisordered<>();
+        this.capacidade = (int) verifyAndCopy(queue.capacidade);
 
-        this.elemento = (X[]) new Object[copia.getTamanho()];
-        this.frente = 0;
-        this.atras = -1;
-        this.tamanho = 0;
+        for (int i = 0; i < queue.tamanho; i++)
+            this.elemento.addLast((X) verifyAndCopy(queue.elemento.get(i)));
 
-        for (int i = 0; i < copia.tamanho; i++) {
-            this.enqueue(copia.elemento[(copia.frente + i) % copia.elemento.length]);
-        }
+        this.tamanho = (int) verifyAndCopy(queue.tamanho);
     }
 
     @Override
     public Object clone() {
-
         Queue<X> clone = null;
-
         try {
             clone = new Queue<X>(this);
         } catch (Exception ignored) {
         }
-
         return clone;
     }
 
-    @SuppressWarnings("unchecked")
-    public X meuCloneDeX(X x) {
-
-        X ret = null;
-
-        try {
-            Class<?> classe = x.getClass();
-            Class<?>[] tipoDosParms = null;
-            Method metodo = classe.getMethod("clone", (Class<?>) null);
-            Object[] parms = null;
-            ret = (X) metodo.invoke(x, (Object[]) null);
-        } catch (Exception ignored) {
-        }
-
-        return ret;
-    }
-
     @Override
+    @SuppressWarnings("unchecked")
     public boolean equals(Object obj) {
-
-        if (this == obj) return true;
         if (obj == null) return false;
+        if (this == obj) return true;
         if (this.getClass() != obj.getClass()) return false;
 
-        Queue<?> other = (Queue<?>) obj;
+        Queue<X> queue = (Queue<X>) obj;
 
-        if (this.tamanho != other.tamanho)
-            return false;
+        if (this.tamanho != queue.tamanho) return false;
+        if (this.capacidade != queue.capacidade) return false;
 
         for (int i = 0; i < this.tamanho; i++) {
-            if (!this.elemento[(this.frente + i) % this.elemento.length]
-                    .equals(other.elemento[(other.frente + i) % other.elemento.length]))
+            if (!this.elemento.get(i).equals(queue.elemento.get(i))) {
                 return false;
-
+            }
         }
 
         return true;
@@ -173,49 +136,32 @@ public class Queue<X> implements Cloneable {
 
     @Override
     public int hashCode() {
-
         final int prime = 31;
-        int hash = 19;
+        int hash = 1;
 
-        hash *= hash + Integer.valueOf(this.tamanho).hashCode();
+        hash *= prime + this.tamanho;
+        hash *= prime + this.capacidade;
 
-        for (int i = 0; i < this.tamanho; i++) {
-            hash *= prime + (this.elemento[((this.frente) + i) % this.elemento.length].hashCode());
-        }
-
-        if (hash < 0)
-            hash = -hash;
+        for (int i = 0; i < this.tamanho; i++)
+            hash *= prime + this.elemento.get(i).hashCode();
 
         return hash;
     }
 
-
     @Override
     public String toString() {
-        if (this.estaVazio()) {
-            return "[]";
-        }
-
-        return "[" + this.elemento[this.frente] + "]";
+        if (isEmpty()) return "[]";
+        else return "[" + this.peek() + "]";
     }
 
     public String toArray() {
-
-        if (estaVazio())
-            return "";
-        else {
-
-            StringBuilder sb = new StringBuilder();
-            sb.append("[");
-
-            for (int i = 0; i < this.getTamanho(); i++) {
-                sb.append(this.elemento[(frente + i) % elemento.length]);
-                if (i != this.getTamanho() - 1) {
-                    sb.append(", ");
-                }
-            }
-            sb.append("]");
-            return sb.toString();
+        StringBuilder sb = new StringBuilder();
+        sb.append("[");
+        for (int i = 0; i < this.tamanho; i++) {
+            sb.append(this.elemento.get(i));
+            if (i < this.tamanho - 1) sb.append(", ");
         }
+        sb.append("]");
+        return sb.toString();
     }
 }
