@@ -4,6 +4,7 @@ import LinkedList.Disordered.DoubleLinkedListCircularDisordered;
 
 public class TestDoubleLinkedListCircularDisordered {
 
+    // Método para verificar se a lista é duplamente ligada
     public static <X> boolean verificaDuplamenteLigada(DoubleLinkedListCircularDisordered<X> lista) {
         // Se a lista estiver vazia ou tiver apenas um elemento, ela é considerada duplamente ligada
         if (lista.getPrimeiro() == null || lista.getPrimeiro() == lista.getUltimo()) return true;
@@ -25,6 +26,7 @@ public class TestDoubleLinkedListCircularDisordered {
         return lista.getPrimeiro().anterior == lista.getUltimo();
     }
 
+    // Método para verificar se a lista é circular
     public static <X> boolean verificaCircularidade(DoubleLinkedListCircularDisordered<X> lista) {
         // Se a lista estiver vazia, ela não é circular
         if (lista.getPrimeiro() == null || lista.getUltimo() == null) return false;
@@ -46,7 +48,6 @@ public class TestDoubleLinkedListCircularDisordered {
         int_list.addFirst(5);
 
         System.out.println("Lista:          " + int_list);
-        // Verificação do encadeamento de todos os nós
         boolean isDuplamenteLigada = verificaDuplamenteLigada(int_list);
         boolean isCircular = verificaCircularidade(int_list);
 
@@ -54,26 +55,83 @@ public class TestDoubleLinkedListCircularDisordered {
         System.out.println("Nós estão duplamente ligados: " + isDuplamenteLigada);
         System.out.println("A lista é circular:           " + isCircular);
 
-        DoubleLinkedListCircularDisordered<Character> chars = new DoubleLinkedListCircularDisordered<>();
-        chars.addLast('n');
-        chars.addLast('i');
-        chars.addLast('c');
-        chars.addLast('i');
-        chars.addLast('u');
-        chars.addLast('s');
-        chars.addFirst('v');
-        System.out.println(chars);
-        chars.addAt('i', 1);
-        System.out.println(chars);
-        
-        chars.reverse();
-        System.out.println("reverse():  " + chars);
+        // Adicionando um elemento ao final da lista
+        int_list.addLast(6);
+        System.out.println("int_list.addLast(6):    " + int_list);
 
-        DoubleLinkedListCircularDisordered<Integer> list = new DoubleLinkedListCircularDisordered<>();
-        list.addLast(1);
-        list.addLast(2);
-        list.addLast(3);
-        list.addLast(4);
-        list.addLast(5);
+        // Adicionando elemento 7 na posição 4 da lista
+        int_list.addAt(7, 3);
+        System.out.println("int_list.addAt(7, 3):   " + int_list);
+        
+        // Removendo o elemento 7 da lista
+        int_list.removeAt(3);
+        System.out.println("int_list.removeAt(3):   " + int_list);
+        
+        // Removendo o primeiro elemento da lista
+        int_list.removeFirst();
+        System.out.println("int_list.removeFirst(): " + int_list);
+        
+        // Removendo o último elemento da lista
+        int_list.removeLast();
+        System.out.println("int_list.removeLast():  " + int_list);
+        
+        // Removendo o elemento 3 elemento da lista
+        int_list.removeAt(2);
+        System.out.println("int_list.removeAt(2):   " + int_list);
+        
+        int first = int_list.getFirst();
+        int last = int_list.getLast();
+        int at = int_list.get(1);
+        
+        // Impressão dos resultados
+        System.out.println("lista:              " + int_list);
+        System.out.println("int_list.getFirst() " + first);
+        System.out.println("int_list.getLast()  " + last);
+        System.out.println("int_list.get(1):    " + at);
+        
+        int indexOf = int_list.indexOf(3);
+        System.out.println("Index of 3 in list: " + indexOf);
+        
+        boolean containsThree = int_list.contains(3);
+        System.out.println("Contains 3:         " + containsThree);
+        
+        boolean containsFour = int_list.contains(4);
+        System.out.println("Contains 4:         " + containsFour);
+        
+        boolean containsFive = int_list.contains(5);
+        System.out.println("Contains 5:         " + containsFive);
+
+        System.out.println("int_list: " + int_list);
+        int_list.reverse();
+        System.out.println("reverse:  " + int_list);
+        
+        int_list.addFirst(1);
+        System.out.println("addFirst(1): " + int_list);
+
+        int_list.rotate(0);
+        System.out.println("rotate(0): " + int_list);
+
+        int_list.rotate(1);
+        System.out.println("rotate(1): " + int_list);
+        
+        int_list.rotate(1);
+        System.out.println("rotate(1): " + int_list);
+        
+        int_list.rotate(1);
+        System.out.println("rotate(1): " + int_list);
+
+        int_list.rotate(1);
+        System.out.println("rotate(1): " + int_list);
+        
+        int_list.rotate(4);
+        System.out.println("rotate(4): " + int_list);
+
+        boolean isEmpty = int_list.isEmpty();
+        System.out.println("isEmpty:  " + isEmpty);
+        int_list.clear();
+        System.out.println("clear:    " + int_list);
+        
+        isEmpty = int_list.isEmpty();
+        System.out.println("isEmpty:  " + isEmpty);
     }
 }

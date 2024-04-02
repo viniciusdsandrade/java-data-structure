@@ -291,10 +291,11 @@ public class LinkedListCircularDisordered<X> implements Cloneable {
             aux = aux.proximo;
 
         Node novoHead = aux.proximo;
-        aux.proximo = null;
-        ultimo.proximo = primeiro;
-        primeiro = novoHead;
+        Node oldLast = ultimo;
         ultimo = aux;
+        ultimo.proximo = null;
+        oldLast.proximo = primeiro;
+        primeiro = novoHead;
     }
 
     @SuppressWarnings("unchecked")
@@ -382,14 +383,14 @@ public class LinkedListCircularDisordered<X> implements Cloneable {
         boolean primeiroElemento = true;
 
         do {
-            if (!primeiroElemento) {
+            if (temp == null) break;
+            if (!primeiroElemento) 
                 result.append(" -> ");
-            } else {
+            else 
                 primeiroElemento = false;
-            }
             result.append(temp.elemento);
             temp = temp.proximo;
-        } while (temp != primeiro);
+        } while (temp != primeiro && temp != null);
 
         result.append("]");
         return result.toString();

@@ -4,7 +4,7 @@ import LinkedList.Disordered.LinkedListCircularDisordered;
 
 public class TestLinkedListCircularDisordered {
 
-    // Método para verificar
+    // Método para verificar se a lista é circular
     public static <X> boolean verificaCircular(LinkedListCircularDisordered<X> lista) {
         // Se a lista estiver vazia, ela não é circular
         if (lista.primeiro == null) return false;
@@ -81,5 +81,71 @@ public class TestLinkedListCircularDisordered {
         System.out.println("proximoDoProximoDoUltimo:   " + proximoDoProximoDoUltimo);
         System.out.println("proximoDoProximoDoProximoDoPrimeiro: " + proximoDoProximoDoProximoDoPrimeiro);
         System.out.println("proximoDoProximoDoProximoDoUltimo:   " + proximoDoProximoDoProximoDoUltimo);
+
+        int_list.addFirst(0);
+        System.out.println("int_list.addFirst(0): " + int_list);
+
+        int_list.addLast(4);
+        System.out.println("int_list.addLast(4):  " + int_list);
+
+        int_list.addAt(2, 2);
+        System.out.println("int_list.addAt(2, 2): " + int_list);
+
+        int_list.removeFirst();
+        System.out.println("int_list.removeFirst(): " + int_list);
+
+        int_list.removeLast();
+        System.out.println("int_list.removeLast():  " + int_list);
+
+        int_list.removeAt(2);
+        System.out.println("int_list.removeAt(2):   " + int_list);
+
+        int getFirst = int_list.getFirst();
+        int getLast = int_list.getLast();
+        int getAtTwo = int_list.get(1);
+
+        System.out.println("int_list.getFirst(): " + getFirst);
+        System.out.println("int_list.getLast():  " + getLast);
+        System.out.println("int_list.get(1):     " + getAtTwo);
+
+        boolean containsTwo = int_list.contains(2);
+        boolean containsFive = int_list.contains(5);
+
+        System.out.println("int_list.contains(2): " + containsTwo);
+        System.out.println("int_list.contains(5): " + containsFive);
+
+        int indexOfTwo = int_list.indexOf(2);
+        int indexOfFive = int_list.indexOf(5);
+
+        System.out.println("int_list.indexOf(2): " + indexOfTwo);
+        System.out.println("int_list.indexOf(5): " + indexOfFive);
+
+        boolean isEmpty = int_list.isEmpty();
+        int size = int_list.getTamanho();
+        System.out.println("int_list.isEmpty(): " + isEmpty);
+        System.out.println("int_list.getTamanho(): " + size);
+
+        int_list.rotate(0);
+        System.out.println("int_list.rotate(0): " + int_list);
+
+        int_list.rotate(1);
+        System.out.println("int_list.rotate(1): " + int_list);
+
+        int_list.rotate(1);
+        System.out.println("int_list.rotate(1): " + int_list);
+
+        int_list.rotate(1);
+        System.out.println("int_list.rotate(1): " + int_list);
+
+        int_list.rotate(3);
+        System.out.println("int_list.rotate(3): " + int_list);
+
+        int_list.clear();
+        System.out.println("int_list.clear(): " + int_list);
+
+        isEmpty = int_list.isEmpty();
+        size = int_list.getTamanho();
+        System.out.println("int_list.isEmpty() após clear: " + isEmpty);
+        System.out.println("int_list.getTamanho() após clear: " + size);
     }
 }

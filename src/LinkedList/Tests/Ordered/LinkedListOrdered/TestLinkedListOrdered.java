@@ -120,5 +120,48 @@ public class TestLinkedListOrdered {
         System.out.println("Long List:      " + long_list);
         System.out.println("Short List:     " + short_list);
         System.out.println("Byte List:      " + byte_list);
+
+        System.out.println("int_list:   " + int_list);
+        int getFirst = int_list.getFirst();
+        int getLast = int_list.getLast();
+
+        System.out.println("Get First:  " + getFirst);
+        System.out.println("Get Last:   " + getLast);
+
+        int_list.deleteFirst();
+        System.out.println("Delete First: " + int_list);
+
+        int_list.deleteLast();
+        System.out.println("Delete Last:  " + int_list);
+
+        int_list.deleteAt(2);
+        System.out.println("Delete At(2): " + int_list);
+
+        boolean contains_2 = int_list.contains(2);
+        boolean contains_3 = int_list.contains(3);
+
+        System.out.println("Contains 2: " + contains_2);
+        System.out.println("Contains 3: " + contains_3);
+
+        int index_2 = int_list.indexOf(2);
+        int index_3 = int_list.indexOf(3);
+
+        System.out.println("Index of 2: " + index_2);
+        System.out.println("Index of 3: " + index_3);
+
+        boolean isEmpty = int_list.isEmpty();
+        int size = int_list.getTamanho();
+
+        System.out.println("Is Empty: " + isEmpty);
+        System.out.println("Size: " + size);
+
+        int_list.clear();
+        System.out.println("Clear: " + int_list);
+
+        isEmpty = int_list.isEmpty();
+        size = int_list.getTamanho();
+
+        System.out.println("Is Empty: " + isEmpty);
+        System.out.println("Size: " + size);
     }
 }

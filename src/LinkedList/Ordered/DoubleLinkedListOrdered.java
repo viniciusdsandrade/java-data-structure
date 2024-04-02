@@ -102,6 +102,7 @@ public class DoubleLinkedListOrdered<X extends Comparable<X>> implements Cloneab
 
         if (this.primeiro == null) { // Se a lista estiver vazia
             this.primeiro = novo;
+            tamanho++;
             return;
         }
 

@@ -125,7 +125,6 @@ public class TestLinkedListCircularOrdered {
         byte_list.add((byte) 5);
         byte_list.add((byte) 0);
 
-
         System.out.println("int_list:       " + int_list);
         System.out.println("char_list:      " + char_list);
         System.out.println("str_list:       " + str_list);
@@ -156,5 +155,50 @@ public class TestLinkedListCircularOrdered {
         System.out.println("proximoDoProximoDoUltimo:  " + proximoDoProximoDoUltimo);
         System.out.println("proximoDoProximoDoProximoDoPrimeiro: " + proximoDoProximoDoProximoDoPrimeiro);
         System.out.println("proximoDoProximoDoProximoDoUltimo:  " + proximoDoProximoDoProximoDoUltimo);
+
+        System.out.println("int_list:       " + int_list);
+        
+        int getFirst = int_list.primeiro.elemento;
+        int getLast = int_list.ultimo.elemento;
+        
+        System.out.println("int_list:   " + int_list);
+        System.out.println("getFirst:   " + getFirst);
+        System.out.println("getLast:    " + getLast);
+        
+        int_list.removeFirst();
+        System.out.println("int_list.removeFirst(): " + int_list);
+        
+        int_list.removeLast();
+        System.out.println("int_list.removeLast():  " + int_list);
+        
+        int_list.removeAt(2);
+        System.out.println("int_list.removeAt(2):   " + int_list);
+        
+        boolean contais_2 = int_list.contains(2);
+        boolean contais_3 = int_list.contains(3);
+        
+        System.out.println("int_list.contains(2): " + contais_2);
+        System.out.println("int_list.contains(3): " + contais_3);
+        
+        int index_2 = int_list.indexOf(2);
+        int index_3 = int_list.indexOf(3);
+        
+        System.out.println("int_list.indexOf(2): " + index_2);
+        System.out.println("int_list.indexOf(3): " + index_3);
+
+        System.out.println("int_list:       " + int_list);
+        boolean isEmpty = int_list.isEmpty();
+        int size = int_list.getTamanho();
+        System.out.println("int_list.isEmpty(): " + isEmpty);
+        System.out.println("int_list.size():    " + size);
+        
+        int_list.clear();
+        System.out.println("int_list.clear(): " + int_list);
+        
+        isEmpty = int_list.isEmpty();
+        size = int_list.getTamanho();
+        
+        System.out.println("int_list.isEmpty(): " + isEmpty);
+        System.out.println("int_list.size():    " + size);
     }
 }

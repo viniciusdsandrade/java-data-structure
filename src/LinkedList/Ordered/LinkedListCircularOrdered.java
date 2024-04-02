@@ -100,6 +100,7 @@ public class LinkedListCircularOrdered<X extends Comparable<X>> implements Clone
             primeiro = novo;
             ultimo = novo;
             novo.proximo = primeiro;
+            tamanho++;
             return;
         }
 
@@ -187,7 +188,7 @@ public class LinkedListCircularOrdered<X extends Comparable<X>> implements Clone
         tamanho--;
     }
 
-    public void remoteAt(int posicao) {
+    public void removeAt(int posicao) {
         if (posicao < 0 || posicao >= tamanho) return;
 
         if (posicao == 0) {
@@ -323,11 +324,10 @@ public class LinkedListCircularOrdered<X extends Comparable<X>> implements Clone
         boolean primeiroElemento = true;
 
         do {
-            if (!primeiroElemento) {
+            if (!primeiroElemento) 
                 result.append(" -> ");
-            } else {
+            else 
                 primeiroElemento = false;
-            }
             result.append(temp.elemento);
             temp = temp.proximo;
         } while (temp != primeiro);

@@ -13,7 +13,6 @@ public class TestCloneAndCopyConstructor {
         DoubleLinkedListDisordered<Integer> list2 = new DoubleLinkedListDisordered<>(list);
         @SuppressWarnings("unchecked")
         DoubleLinkedListDisordered<Integer> list3 = (DoubleLinkedListDisordered<Integer>) list.clone();
-
         System.out.println("List 1: " + list);
         System.out.println("List 2: " + list2);
         System.out.println("List 3: " + list3);

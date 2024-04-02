@@ -210,14 +210,17 @@ public class TestDoubleLinkedListCircularOrdered {
         System.out.println("int_list.indexOf(2): " + int_list.indexOf(2));
         System.out.println("int_list.indexOf(10): " + int_list.indexOf(10));
 
+        System.out.println("int_list" + int_list);
+        System.out.println("int_list.getTamanho(): " + int_list.getTamanho());
+        
         System.out.println("int_list.clear()");
         int_list.clear();
         System.out.println("List: " + int_list);
 
         isEmpty = int_list.isEmpty();
-        System.out.println("int_list.isEmpty(): " + isEmpty);
-
         size = int_list.getTamanho();
+
+        System.out.println("int_list.isEmpty(): " + isEmpty);
         System.out.println("int_list.getTamanho(): " + size);
     }
 }

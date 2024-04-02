@@ -4,6 +4,7 @@ import LinkedList.Disordered.DoubleLinkedListDisordered;
 
 public class TestDoubleLinkedListDisordered {
 
+    // Método para verificar se a lista está duplamente ligada
     public static <X> boolean verificaDuplamenteLigada(DoubleLinkedListDisordered<X> lista) {
         // Se a lista estiver vazia ou tiver apenas um elemento, ela é considerada duplamente ligada
         if (lista.primeiro == null || lista.tamanho <= 1) return true;
@@ -24,6 +25,7 @@ public class TestDoubleLinkedListDisordered {
         return true;
     }
 
+    // Método para verificar se a lista é circular
     public static <X> boolean verificaCircular(DoubleLinkedListDisordered<X> lista) {
         // Se a lista estiver vazia, ela não é circular
         if (lista.primeiro == null) return false;
@@ -62,10 +64,57 @@ public class TestDoubleLinkedListDisordered {
 
         // Teste 3: Verificar se os elementos estão corretamente ligados
         System.out.println("int_list:                                 " + int_list);
-        System.out.println("Primeiro elemento:                        " + int_list.getPrimeiro().elemento); // Deve imprimir 1
-        System.out.println("proximo do primeiro elemento:             " + int_list.getPrimeiro().proximo.elemento); // Deve imprimir 2
-        System.out.println("proximo do anterior do primeiro elemento: " + int_list.getPrimeiro().proximo.anterior.elemento); // Deve imprimir 1
-        System.out.println("Próximo do proximo do primeiro elemento:  " + int_list.getPrimeiro().proximo.proximo); // Deve imprimir null
-        System.out.println("Anterior do primeiro elemento:            " + int_list.getPrimeiro().anterior); // Deve imprimir null
+        System.out.println("Primeiro elemento:                        " + int_list.primeiro.elemento); // Deve imprimir 1
+        System.out.println("proximo do primeiro elemento:             " + int_list.primeiro.proximo.elemento); // Deve imprimir 2
+        System.out.println("proximo do anterior do primeiro elemento: " + int_list.primeiro.proximo.anterior.elemento); // Deve imprimir 1
+        System.out.println("Próximo do proximo do primeiro elemento:  " + int_list.primeiro.proximo.proximo); // Deve imprimir null
+        System.out.println("Anterior do primeiro elemento:            " + int_list.primeiro.anterior); // Deve imprimir null
+
+        // Adicionando um elemento no início da lista
+        System.out.println("int_list:                   " + int_list);
+        int_list.addFirst(0);
+        System.out.println("int_list.addFirst(0):       " + int_list);
+
+        // Adicionando um elemento no final da lista
+        int_list.addLast(6);
+        System.out.println("int_list.addFirst(6):       " + int_list);
+
+        // Adicionando um 3 no indice 2(3 posicao)
+        int_list.addAt(3, 2);
+        System.out.println("int_list.addAt(3, 2):       " + int_list);
+
+        int_list.removeFirst();
+        System.out.println("int_list.removeFirst():     " + int_list);
+
+        int_list.removeLast();
+        System.out.println("int_list.removeLast():      " + int_list);
+
+        int_list.removeAt(2);
+        System.out.println("int_list.removeAt(2):       " + int_list);
+
+        int getFirst = int_list.getFirst();
+        System.out.println("int_list.getFirst():        " + getFirst);
+
+        int getLast = int_list.getLast();
+        System.out.println("int_list.getLast():         " + getLast);
+
+        int getAt = int_list.get(2);
+        System.out.println("int_list.get(2):            " + getAt);
+
+        System.out.println("int_list:                   " + int_list);
+        boolean containsThree = int_list.contains(3);
+        System.out.println("int_list.contains(3):       " + containsThree);
+
+        int indexOfThree = int_list.indexOf(3);
+        System.out.println("int_list.indexOf(3):        " + indexOfThree);
+
+        boolean isEmpty = int_list.isEmpty();
+        System.out.println("int_list.isEmpty():         " + isEmpty);
+
+        int_list.clear();
+        System.out.println("int_list.clear():           " + int_list);
+
+        boolean isEmptyAfterClear = int_list.isEmpty();
+        System.out.println("int_list.isEmpty() após clear: " + isEmptyAfterClear);
     }
 }

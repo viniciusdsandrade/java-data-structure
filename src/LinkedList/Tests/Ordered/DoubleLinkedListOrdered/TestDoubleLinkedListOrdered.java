@@ -38,7 +38,7 @@ public class TestDoubleLinkedListOrdered {
 
         // Percorre a lista e verifica se cada elemento é menor ou igual ao próximo elemento
         DoubleLinkedListOrdered<X>.Node current = lista.primeiro;
-        while (current != null && current.proximo != null) {
+        while (current.proximo != null) {
             if (current.elemento.compareTo(current.proximo.elemento) > 0) {
                 return false;
             }
@@ -55,7 +55,6 @@ public class TestDoubleLinkedListOrdered {
         int_list.add(0);
         int_list.add(1);
         int_list.add(2);
-        System.out.println("List1: " + int_list);
 
         // Verificação do encadeamento de todos os nós
         boolean isDuplamenteLigada = verificaDuplamenteLigada(int_list);
@@ -71,7 +70,6 @@ public class TestDoubleLinkedListOrdered {
         string_list.add("Barbara");
         string_list.add("Dunga");
         string_list.add("Arthur");
-        System.out.println("List2: " + string_list);
 
         DoubleLinkedListOrdered<Character> char_list = new DoubleLinkedListOrdered<>();
         char_list.add('E');
@@ -79,7 +77,6 @@ public class TestDoubleLinkedListOrdered {
         char_list.add('B');
         char_list.add('D');
         char_list.add('A');
-        System.out.println("List3: " + char_list);
 
         DoubleLinkedListOrdered<Float> float_list = new DoubleLinkedListOrdered<>();
         float_list.add(5.0f);
@@ -88,7 +85,6 @@ public class TestDoubleLinkedListOrdered {
         float_list.add(1.0f);
         float_list.add(0.0f);
         float_list.add(2.0f);
-        System.out.println("List4: " + float_list);
 
         DoubleLinkedListOrdered<Double> double_list = new DoubleLinkedListOrdered<>();
         double_list.add(5.0);
@@ -97,7 +93,6 @@ public class TestDoubleLinkedListOrdered {
         double_list.add(1.0);
         double_list.add(0.0);
         double_list.add(2.0);
-        System.out.println("List5: " + double_list);
 
         DoubleLinkedListOrdered<Long> long_list = new DoubleLinkedListOrdered<>();
         long_list.add(5L);
@@ -106,7 +101,6 @@ public class TestDoubleLinkedListOrdered {
         long_list.add(1L);
         long_list.add(0L);
         long_list.add(2L);
-        System.out.println("List6: " + long_list);
 
         DoubleLinkedListOrdered<Short> short_list = new DoubleLinkedListOrdered<>();
         short_list.add((short) 5);
@@ -115,7 +109,6 @@ public class TestDoubleLinkedListOrdered {
         short_list.add((short) 1);
         short_list.add((short) 0);
         short_list.add((short) 2);
-        System.out.println("List7: " + short_list);
 
         DoubleLinkedListOrdered<Byte> byte_list = new DoubleLinkedListOrdered<>();
         byte_list.add((byte) 5);
@@ -124,7 +117,6 @@ public class TestDoubleLinkedListOrdered {
         byte_list.add((byte) 1);
         byte_list.add((byte) 0);
         byte_list.add((byte) 2);
-        System.out.println("List8: " + byte_list);
 
         DoubleLinkedListOrdered<Boolean> bool_list = new DoubleLinkedListOrdered<>();
         bool_list.add(true);
@@ -133,6 +125,69 @@ public class TestDoubleLinkedListOrdered {
         bool_list.add(false);
         bool_list.add(true);
         bool_list.add(false);
-        System.out.println("List9: " + bool_list);
+
+        System.out.println("List_int:    " + int_list);
+        System.out.println("List_string: " + string_list);
+        System.out.println("List_char:   " + char_list);
+        System.out.println("List_float:  " + float_list);
+        System.out.println("List_double: " + double_list);
+        System.out.println("List_long:   " + long_list);
+        System.out.println("List_short:  " + short_list);
+        System.out.println("List_byte:   " + byte_list);
+        System.out.println("List_bool:   " + bool_list);
+
+        int first_int = int_list.getFirst();
+        int last_int = int_list.getLast();
+
+        System.out.println("int_list:  " + int_list);
+        System.out.println("First_int: " + first_int);
+        System.out.println("Last_int:  " + last_int);
+        
+        int get_two = int_list.get(2);
+        int get_three = int_list.get(3);
+        
+        System.out.println("int_list:           " + int_list);
+        System.out.println("int_list.get(2):    " + get_two);
+        System.out.println("int_list.get(3):    " + get_three);
+
+        int_list.removeFirst();
+        System.out.println("int_list.removeFirst() " + int_list);
+        
+        int_list.removeLast();
+        System.out.println("int_list.removeLast()  " + int_list);
+        
+        int_list.removeAt(1);
+        System.out.println("int_list.removeAt(1)   " + int_list);
+        
+        boolean contains_0 = int_list.contains(0);
+        boolean contains_3 = int_list.contains(3);
+        boolean contains_4 = int_list.contains(4);
+        
+        System.out.println("int_list:           " + int_list);
+        System.out.println("int_list.contains(0): " + contains_3);
+        System.out.println("int_list.contains(3): " + contains_3);
+        System.out.println("int_list.contains(4): " + contains_4);
+        
+        int index_0 = int_list.indexOf(0);
+        int index_3 = int_list.indexOf(3);
+        int index_4 = int_list.indexOf(4);
+        
+        System.out.println("int_list:           " + int_list);
+        System.out.println("int_list.indexOf(0): " + index_0);
+        System.out.println("int_list.indexOf(3): " + index_3);
+        System.out.println("int_list.indexOf(4): " + index_4);
+        
+        boolean is_empty = int_list.isEmpty();
+        int size = int_list.getTamanho();
+        System.out.println("int_list.isEmpty(): " + is_empty);
+        System.out.println("int_list.size():    " + size);
+        
+        int_list.clear();
+        System.out.println("int_list.clear():    " + int_list);
+        
+        is_empty = int_list.isEmpty();
+        size = int_list.getTamanho();
+        System.out.println("int_list.isEmpty(): " + is_empty);
+        System.out.println("int_list.size():    " + size);
     }
 }
