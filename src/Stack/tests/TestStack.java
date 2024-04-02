@@ -2,51 +2,47 @@ package Stack.tests;
 
 import Stack.Stack;
 
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.List;
-
 public class TestStack {
-
-    public static void main(String[] args) throws Exception {
-        Stack<Integer> stack = new Stack<Integer>(10);
-
+    public static void main(String[] args) {
+        Stack<Integer> stack = new Stack<Integer>(100);
         stack.push(1);
         stack.push(2);
         stack.push(3);
         stack.push(4);
+        
+        System.out.println("stack.toArray(): " + stack.toArray());
 
-        Object[] toList = stack.toArrayObject();
-        System.out.println(Arrays.toString(toList));
+        int x = stack.peek();
+        System.out.println("stack.peek(): " + x);
 
-        Arrays.stream(toList)
-                .min(Comparator.comparingInt(o -> (Integer) o))
-                .ifPresent(System.out::println);
+        int y = stack.pop();
+        System.out.println("stack.pop(): " + y);
+        
+        System.out.println("stack.toArray(): " + stack.toArray());
 
-        System.out.println();
-        System.out.println(stack);
-        System.out.println(stack.peek());
-        System.out.println(stack.toArray());
+        x = stack.peek();
+        System.out.println("stack.peek(): " + x);
 
-        stack.pop();
+        y = stack.pop();
+        System.out.println("stack.pop(): " + y);
+        
+        System.out.println("stack.toArray(): " + stack.toArray());
 
-        System.out.println();
-        System.out.println(stack);
-        System.out.println(stack.peek());
-        System.out.println(stack.toArray());
+        x = stack.peek();
+        System.out.println("stack.peek(): " + x);
 
-        Integer num = stack.pop();
+        y = stack.pop();
+        System.out.println("stack.pop(): " + y);
+        
+        System.out.println("stack.toArray(): " + stack.toArray());
 
-        System.out.println();
-        System.out.println(stack);
-        System.out.println(stack.peek());
-        System.out.println(stack.toArray());
+        x = stack.peek();
+        System.out.println("stack.peek(): " + x);
 
-        stack.clear();
+        y = stack.pop();
+        System.out.println("stack.pop(): " + y);
 
-        System.out.println();
-        System.out.println(stack.toArray());
-
-
+        System.out.println("stack: " + stack);
+        System.out.println("stack.toArray(): " + stack.toArray());
     }
 }

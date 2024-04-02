@@ -170,23 +170,19 @@ public class LinkedListCircularDisordered<X> implements Cloneable {
     }
 
     public X get(int posicao) {
-        if (posicao < 0 || posicao >= tamanho) {
-            throw new IndexOutOfBoundsException("Posição inválida.");
-        }
-
+        if (posicao < 0 || posicao >= tamanho) throw new IndexOutOfBoundsException("Posição inválida.");
+        
         Node temp = primeiro;
-        for (int i = 0; i < posicao; i++) {
+        
+        for (int i = 0; i < posicao; i++) 
             temp = temp.proximo;
-        }
 
         return temp.elemento;
     }
 
     public void removeFirst() {
-        if (primeiro == null) {
-            return;
-        }
-
+        if (primeiro == null) return;
+        
         if (primeiro == ultimo) {
             primeiro = null;
             ultimo = null;
@@ -200,10 +196,8 @@ public class LinkedListCircularDisordered<X> implements Cloneable {
     }
 
     public void removeLast() {
-        if (primeiro == null) {
-            return;
-        }
-
+        if (primeiro == null) return;
+        
         if (primeiro == ultimo) {
             primeiro = null;
             ultimo = null;
@@ -222,10 +216,8 @@ public class LinkedListCircularDisordered<X> implements Cloneable {
     }
 
     public void removeAt(int posicao) {
-        if (posicao < 0 || posicao >= tamanho) {
-            throw new IndexOutOfBoundsException("Posição inválida.");
-        }
-
+        if (posicao < 0 || posicao >= tamanho) throw new IndexOutOfBoundsException("Posição inválida.");
+        
         if (posicao == 0) {
             removeFirst();
             return;
@@ -237,9 +229,8 @@ public class LinkedListCircularDisordered<X> implements Cloneable {
         }
 
         Node temp = primeiro;
-        for (int i = 0; i < posicao - 1; i++) {
+        for (int i = 0; i < posicao - 1; i++) 
             temp = temp.proximo;
-        }
 
         temp.proximo = temp.proximo.proximo;
         tamanho--;

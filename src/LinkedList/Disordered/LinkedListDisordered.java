@@ -153,7 +153,7 @@ public class LinkedListDisordered<X> implements Cloneable {
     }
 
     public X get(int indice) {
-        if (indice < 0 || indice >= this.tamanho) throw new IndexOutOfBoundsException("Index out of bounds");
+        if (indice < 0 || indice > this.tamanho) throw new IndexOutOfBoundsException("Index out of bounds");
 
         // Inicia a busca a partir do primeiro nó
         Node aux = primeiro;
@@ -167,7 +167,6 @@ public class LinkedListDisordered<X> implements Cloneable {
 
     public X getFirst() {
         if (primeiro == null) return null;
-
         return primeiro.elemento; // Retorna o elemento do primeiro nó da lista
     }
 
