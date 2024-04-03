@@ -36,13 +36,11 @@ public class NodeBilateral<X> implements Cloneable {
 
     @Override
     public Object clone() {
-        NodeBilateral<?> clone = null;
-
+        NodeBilateral<X> clone = null;
         try {
-            clone = new NodeBilateral<>(this);
+            clone = new NodeBilateral<X>(this);
         } catch (Exception ignored) {
         }
-        
         return clone;
     }
 }

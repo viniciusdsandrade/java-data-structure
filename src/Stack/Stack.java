@@ -3,12 +3,13 @@ package Stack;
 import LinkedList.Disordered.LinkedListDisordered;
 
 import java.util.EmptyStackException;
+import java.util.Objects;
 
 import static ShallowOrDeepCopy.ShallowOrDeepCopy.verifyAndCopy;
 
 public class Stack<X> implements Cloneable {
 
-    // LIFO - last-in-first-out
+    // LIFO - Last In First Out
     private LinkedListDisordered<X> elemento;
     private int tamanho;
     private int capacidade;
@@ -35,6 +36,7 @@ public class Stack<X> implements Cloneable {
     public X push(X item) {
         if (this.tamanho == this.capacidade) throw new StackOverflowError();
 
+        // Adiciona o item no início da lista(Utilizando o método addFirst da LinkedListDisordered)
         this.elemento.addFirst(item);
         this.tamanho++;
 
@@ -44,12 +46,14 @@ public class Stack<X> implements Cloneable {
     public X peek() {
         if (isEmpty()) throw new EmptyStackException();
 
+        // Retorna o primeiro elemento da lista(Utilizando o método getFirst da LinkedListDisordered)
         return this.elemento.getFirst();
     }
 
     public X pop() {
         if (isEmpty()) throw new EmptyStackException();
 
+        // Remove o primeiro elemento da lista(Utilizando o método removeFirst da LinkedListDisordered)
         X elemento = this.elemento.getFirst();
         this.elemento.removeFirst();
         this.tamanho--;
@@ -77,13 +81,6 @@ public class Stack<X> implements Cloneable {
 
     public void clear() {
         this.elemento.clear();
-        this.tamanho = 0;
-    }
-
-    public void removeAllElements() {
-        for (int i = 0; i < this.tamanho; i++)
-            this.elemento.removeFirst();
-
         this.tamanho = 0;
     }
 
@@ -120,13 +117,12 @@ public class Stack<X> implements Cloneable {
     }
 
     @Override
-    @SuppressWarnings("unchecked")
     public boolean equals(Object obj) {
         if (this == obj) return true;
         if (obj == null) return false;
         if (this.getClass() != obj.getClass()) return false;
 
-        Stack<X> other = (Stack<X>) obj;
+        Stack<?> other = (Stack<?>) obj;
 
         if (this.tamanho != other.tamanho) return false;
         if (this.capacidade != other.capacidade) return false;
@@ -148,7 +144,9 @@ public class Stack<X> implements Cloneable {
         hash *= prime + this.capacidade;
 
         for (int i = 0; i < this.tamanho; i++)
-            hash *= prime + this.elemento.get(i).hashCode();
+            hash *= prime + Objects.hashCode(this.elemento.get(i));
+
+        if (hash < 0) hash *= -1;
 
         return hash;
     }

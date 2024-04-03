@@ -8,7 +8,7 @@ import static ShallowOrDeepCopy.ShallowOrDeepCopy.verifyAndCopy;
 
 public class Queue<X> implements Cloneable {
 
-    // FIFO - First in First Out
+    // FIFO - First In First Out
     private LinkedListDisordered<X> elemento;
     private int tamanho;
     private int capacidade;
@@ -35,14 +35,23 @@ public class Queue<X> implements Cloneable {
     public X enqueue(X item) {
         if (this.tamanho == this.capacidade) throw new StackOverflowError("Fila cheia");
 
+        // Adiciona no final da fila (utilizando o método addLast da LinkedListDisordered)
         this.elemento.addLast(item);
         this.tamanho++;
         return item;
     }
 
+    public X peek() {
+        if (isEmpty()) throw new EmptyStackException();
+
+        // Retorna o primeiro elemento da fila (utilizando o método getFirst da LinkedListDisordered)
+        return this.elemento.getFirst();
+    }
+
     public X dequeue() {
         if (this.isEmpty()) throw new EmptyStackException();
 
+        // Remove o primeiro elemento da fila (utilizando o método removeFirst da LinkedListDisordered)
         X item = this.elemento.getFirst();
         this.elemento.removeFirst();
         this.tamanho--;
@@ -50,17 +59,10 @@ public class Queue<X> implements Cloneable {
         return item;
     }
 
-    public X peek() {
-        if (isEmpty()) throw new EmptyStackException();
-
-        return this.elemento.getFirst();
-    }
-
     public int search(X item) {
         for (int i = 0; i < this.tamanho; i++) {
-            if (this.elemento.get(i).equals(item)) {
+            if (this.elemento.get(i).equals(item))
                 return i;
-            }
         }
         return -1;
     }
@@ -74,18 +76,10 @@ public class Queue<X> implements Cloneable {
         this.tamanho = 0;
     }
 
-    public void removeAllElements() {
-        for (int i = 0; i < this.tamanho; i++)
-            this.elemento.removeFirst();
-
-        this.tamanho = 0;
-    }
-
     public boolean contains(X item) {
         for (int i = 0; i < this.tamanho; i++) {
-            if (this.elemento.get(i).equals(item)) {
+            if (this.elemento.get(i).equals(item))
                 return true;
-            }
         }
         return false;
     }
@@ -114,21 +108,19 @@ public class Queue<X> implements Cloneable {
     }
 
     @Override
-    @SuppressWarnings("unchecked")
     public boolean equals(Object obj) {
         if (obj == null) return false;
         if (this == obj) return true;
         if (this.getClass() != obj.getClass()) return false;
 
-        Queue<X> queue = (Queue<X>) obj;
+        Queue<?> queue = (Queue<?>) obj;
 
         if (this.tamanho != queue.tamanho) return false;
         if (this.capacidade != queue.capacidade) return false;
 
         for (int i = 0; i < this.tamanho; i++) {
-            if (!this.elemento.get(i).equals(queue.elemento.get(i))) {
+            if (!this.elemento.get(i).equals(queue.elemento.get(i)))
                 return false;
-            }
         }
 
         return true;

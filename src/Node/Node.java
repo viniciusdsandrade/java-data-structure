@@ -43,14 +43,11 @@ public class Node<X> implements Cloneable {
 
     @Override
     public Node<X> clone() {
-
         Node<X> clone = null;
-
         try {
             clone = new Node<X>(this);
         } catch (Exception ignored) {
         }
-
         return clone;
     }
 

@@ -130,22 +130,26 @@ public class LinkedListDisordered<X> implements Cloneable {
         if (elemento == null) throw new IllegalArgumentException("Valor não pode ser nulo");
         if (indice < 0 || indice > tamanho) throw new IndexOutOfBoundsException("Index out of bounds");
 
+        // Se o índice for 0, insere o elemento no início da lista
         if (indice == 0) {
             addFirst(elemento);
             return;
         }
 
+        // Se o índice for igual ao tamanho da lista, insere o elemento no final da lista
         if (indice == tamanho) {
             addLast(elemento);
             return;
         }
 
+        // Cria um novo nó com o elemento fornecido
         Node novo = new Node((X) verifyAndCopy(elemento));
+        // Encontra o nó na posição anterior à posição desejada
         Node aux = primeiro;
-
         for (int i = 0; i < indice - 1; i++)
             aux = aux.proximo;
 
+        // Insere o novo nó após o nó encontrado
         novo.proximo = aux.proximo;
         aux.proximo = novo;
 
@@ -213,26 +217,47 @@ public class LinkedListDisordered<X> implements Cloneable {
 
         if (indice < 0 || indice > tamanho) throw new IndexOutOfBoundsException("Index out of bounds");
 
+        // Se o índice for 0, remove o primeiro elemento da lista
         if (indice == 0) {
             removeFirst();
             return;
         }
 
+        // Se o índice for igual ao tamanho da lista, remove o último elemento da lista
         if (indice == tamanho) {
             removeLast();
             return;
         }
 
+        // Encontra o nó na posição anterior à posição do elemento a ser removido
         Node aux = primeiro;
         for (int i = 0; i < indice - 1; i++)
             aux = aux.proximo;
 
+        // Remove o elemento atualizando as referências dos nós adjacentes
         aux.proximo = aux.proximo.proximo;
         tamanho--;
     }
 
+    public int indexOf(X elemento) {
+        Node aux = primeiro; // Inicializa um nó auxiliar para percorrer a lista
+        int indice = 0; // Inicializa o índice como 0
+
+        // Percorre a lista enquanto houver nós
+        while (aux != null) {
+            // Verifica se o elemento do nó atual é igual ao elemento procurado
+            if (aux.elemento.equals(elemento))
+                return indice; // Se sim, retorna o índice do nó atual
+
+            aux = aux.proximo; // Move para o próximo nó na lista
+            indice++; // Incrementa o índice
+        }
+
+        return -1; // Se o elemento não for encontrado, retorna -1
+    }
+
     public boolean contains(X elemento) {
-        Node aux = primeiro;
+        Node aux = primeiro; // Inicializa um nó auxiliar para percorrer a lista
 
         // Percorre a lista enquanto houver nós
         while (aux != null) {
@@ -243,25 +268,9 @@ public class LinkedListDisordered<X> implements Cloneable {
             aux = aux.proximo; // Move para o próximo nó na lista
         }
 
-        return false;
+        return false; // Se o elemento não for encontrado, retorna falso
     }
 
-    public int indexOf(X elemento) {
-        Node aux = primeiro;
-        int indice = 0;
-
-        // Percorre a lista enquanto houver nós
-        while (aux != null) {
-            // Verifica se o elemento do nó atual é igual ao elemento procurado
-            if (aux.elemento.equals(elemento))
-                return indice; // Se sim, retorna o índice do nó atual
-
-            aux = aux.proximo; // Move para o próximo nó na lista
-            indice++;
-        }
-
-        return -1; // Se o elemento não for encontrado, retorna -1
-    }
 
     public boolean isEmpty() {
         return this.tamanho == 0;
@@ -379,22 +388,26 @@ public class LinkedListDisordered<X> implements Cloneable {
     public LinkedListDisordered(LinkedListDisordered<X> modelo) {
         if (modelo == null) throw new IllegalArgumentException("Lista não pode ser nula");
 
+        // Se o primeiro nó do modelo for nulo, cria uma lista vazia
         if (modelo.primeiro == null) {
             this.primeiro = null;
             this.tamanho = 0;
             return;
         }
 
+        // Cria uma cópia profunda do primeiro nó do modelo
         Node auxiliar = modelo.primeiro;
         Node copia = new Node((X) verifyAndCopy(auxiliar.elemento));
         this.primeiro = copia;
 
+        // Copia os elementos restantes da lista encadeada do modelo para a nova lista
         while (auxiliar.proximo != null) {
             auxiliar = auxiliar.proximo;
             copia.proximo = new Node((X) verifyAndCopy(auxiliar));
             copia = copia.proximo;
         }
 
+        // Copia o tamanho da lista do modelo para a nova lista
         this.tamanho = (int) verifyAndCopy(modelo.tamanho);
     }
 
