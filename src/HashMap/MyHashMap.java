@@ -1,7 +1,8 @@
 package HashMap;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentSkipListMap;
 
 public class MyHashMap {
     /*
@@ -15,7 +16,13 @@ public class MyHashMap {
         É mais eficiente em termos de desempenho do que HashTable.
      */
     public static void main(String[] args) {
-        Map<Integer, String> hm = new HashMap<>();
-        System.out.println(hm);
+        Map<Integer, String> hm1 = new HashMap<>();
+        Map<Integer, String> hm3 = new TreeMap<>();
+        Map<Integer, String> hm2 = new IdentityHashMap<>();
+        Map<Integer, String> hm4 = new LinkedHashMap<>();
+        Map<Integer, String> hm5 = new WeakHashMap<>();
+        Map<Integer, String> hm6 = new Hashtable<>();
+        Map<Integer, String> hm7 = new ConcurrentHashMap<>();
+        Map<Integer, String> hm8 = new ConcurrentSkipListMap<>();
     }
 }

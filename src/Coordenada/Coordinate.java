@@ -2,6 +2,8 @@ package Coordenada;
 
 import java.util.Objects;
 
+import static ShallowOrDeepCopy.ShallowOrDeepCopy.verifyAndCopy;
+
 public class Coordinate implements Cloneable {
 
     private int X;
@@ -11,27 +13,34 @@ public class Coordinate implements Cloneable {
         this.X = X;
         this.Y = Y;
     }
-
     public int getX() {
         return X;
     }
-
     public int getY() {
         return Y;
     }
-
     public void setX(int X) {
         this.X = X;
     }
-
     public void setY(int Y) {
         this.Y = Y;
     }
+    
+    public Coordinate(Coordinate modelo) {
+        if (modelo == null) throw new IllegalArgumentException();
+        
+        this.X = (int) verifyAndCopy(modelo.X);
+        this.Y = (int) verifyAndCopy(modelo.Y);
+    }
 
-    // Construtor de cópia
-    public Coordinate(Coordinate other) {
-        this.X = other.X;
-        this.Y = other.Y;
+    @Override
+    public Coordinate clone() {
+        Coordinate ret = null;
+        try {
+            ret = new Coordinate(this);
+        } catch (Exception ignore) {
+        }
+        return ret;
     }
 
     @Override
@@ -58,16 +67,6 @@ public class Coordinate implements Cloneable {
 
         return Objects.equals(this.X, that.X) &&
                 Objects.equals(this.Y, that.Y);
-    }
-
-    @Override
-    public Coordinate clone() {
-        Coordinate ret = null;
-        try {
-            ret = new Coordinate(this);
-        } catch (Exception ignore) {
-        }
-        return ret;
     }
 
     @Override

@@ -18,12 +18,10 @@ public class MyHashSet {
         Permite um único elemento nulo.
      */
     public static void main(String[] args) {
-
-        Set<Integer> hs = new HashSet<>();
+        Set<Integer> hs1 = new HashSet<>();
         Set<Integer> hs2 = new TreeSet<>();
         Set<Integer> hs3 = new ConcurrentSkipListSet<>();
         Set<Integer> hs5 = new CopyOnWriteArraySet<>();
         Set<Integer> hs4 = new LinkedHashSet<>();
-
     }
 }
