@@ -26,6 +26,8 @@ public class TestEqualsAndHashCode {
         System.out.println("List1.hashCode(): " + list1.hashCode());
         System.out.println("List2.hashCode(): " + list2.hashCode());
 
+        System.out.println("List1.equals(List2): " + list1.equals(list2));
+
         list3.addLast(1);
         list3.addLast(2);
         list3.addLast(3);

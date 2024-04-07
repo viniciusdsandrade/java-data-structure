@@ -4,6 +4,27 @@ import LinkedList.Disordered.LinkedListCircularDisordered;
 
 public class TestEqualsAndHashCode {
     public static void main(String[] args) {
+        LinkedListCircularDisordered<Integer> list_int1 = new LinkedListCircularDisordered<>();
+        LinkedListCircularDisordered<Integer> list_int2 = new LinkedListCircularDisordered<>();
+        list_int1.addLast(1);
+        list_int1.addLast(2);
+        list_int1.addLast(3);
+        list_int1.addLast(4);
+        list_int1.addLast(5);
+
+        list_int2.addFirst(1);
+        list_int2.addFirst(2);
+        list_int2.addFirst(3);
+        list_int2.addFirst(4);
+        list_int2.addFirst(5);
+
+        System.out.println("list_int1:  " + list_int1);
+        System.out.println("list_int2:  " + list_int2);
+
+        System.out.println("list_int1.hashCode():  " + list_int1.hashCode());
+        System.out.println("list_int2.hashCode():  " + list_int2.hashCode());
+        System.out.println("list_int1.equals(list_int2):  " + list_int1.equals(list_int2));
+
         LinkedListCircularDisordered<Integer> list = new LinkedListCircularDisordered<>();
         list.addFirst(1);
         list.addFirst(2);

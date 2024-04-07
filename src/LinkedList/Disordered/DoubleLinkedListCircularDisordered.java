@@ -13,17 +13,21 @@ public class DoubleLinkedListCircularDisordered<X> implements Cloneable {
 
         public Node() {
         }
+
         public Node(X elemento) {
             this.elemento = elemento;
             this.proximo = null;
             this.anterior = null;
         }
+
         public X getElemento() {
             return elemento;
         }
+
         public Node getProximo() {
             return proximo;
         }
+
         public Node getAnterior() {
             return anterior;
         }
@@ -89,12 +93,15 @@ public class DoubleLinkedListCircularDisordered<X> implements Cloneable {
         ultimo = null;
         tamanho = 0;
     }
+
     public Node getPrimeiro() {
         return primeiro;
     }
+
     public Node getUltimo() {
         return ultimo;
     }
+
     public int getTamanho() {
         return tamanho;
     }
@@ -109,13 +116,15 @@ public class DoubleLinkedListCircularDisordered<X> implements Cloneable {
             primeiro = novo;
             novo.proximo = novo; // O novo nó aponta para si mesmo
             novo.anterior = novo; // O novo nó aponta para si mesmo
-        } else {
-            ultimo.proximo = novo;
-            novo.anterior = ultimo;
-            novo.proximo = primeiro; // Torna o novo nó circular
-            primeiro.anterior = novo; // Atualiza o anterior do primeiro nó para o novo nó
+            ultimo = novo;
+            tamanho++;
+            return;
         }
 
+        ultimo.proximo = novo;
+        novo.anterior = ultimo;
+        novo.proximo = primeiro; // Torna o novo nó circular
+        primeiro.anterior = novo; // Atualiza o anterior do primeiro nó para o novo nó
         ultimo = novo;
         tamanho++;
     }
@@ -131,6 +140,7 @@ public class DoubleLinkedListCircularDisordered<X> implements Cloneable {
             novo.proximo = novo; // O novo nó aponta para si mesmo
             novo.anterior = novo; // O novo nó aponta para si mesmo
             ultimo = novo;
+            tamanho++;
             return;
         }
 
@@ -199,6 +209,7 @@ public class DoubleLinkedListCircularDisordered<X> implements Cloneable {
         if (primeiro == ultimo) {
             primeiro = null;
             ultimo = null;
+            tamanho--;
             return;
         }
 
@@ -215,6 +226,7 @@ public class DoubleLinkedListCircularDisordered<X> implements Cloneable {
         if (primeiro == ultimo) {
             primeiro = null;
             ultimo = null;
+            tamanho--;
             return;
         }
 
@@ -244,7 +256,6 @@ public class DoubleLinkedListCircularDisordered<X> implements Cloneable {
 
         temp.anterior.proximo = temp.proximo;
         temp.proximo.anterior = temp.anterior;
-
 
         tamanho--;
     }
@@ -364,7 +375,7 @@ public class DoubleLinkedListCircularDisordered<X> implements Cloneable {
         Node tempThis = this.primeiro;
         Node tempThat = that.primeiro;
 
-       for (int i = 0; i < this.tamanho; i++) {
+        for (int i = 0; i < this.tamanho; i++) {
             if (!tempThis.equals(tempThat)) return false;
             tempThis = tempThis.proximo;
             tempThat = tempThat.proximo;
@@ -379,7 +390,7 @@ public class DoubleLinkedListCircularDisordered<X> implements Cloneable {
         int hash = 1;
 
         Node auxiliar = primeiro;
-        
+
         for (int i = 0; i < tamanho; i++) {
             hash *= prime + (auxiliar.elemento == null ? 0 : auxiliar.elemento.hashCode());
             auxiliar = auxiliar.proximo;

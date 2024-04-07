@@ -174,13 +174,11 @@ public class LinkedListOrdered<X extends Comparable<X>> implements Cloneable {
         if (indice < 0 || indice > tamanho) return;
 
         if (indice == 0) {
-            System.out.println("deleteFirst");
             deleteFirst();
             return;
         }
 
         if (indice == tamanho - 1) {
-            System.out.println("deleteLast");
             deleteLast();
             return;
         }

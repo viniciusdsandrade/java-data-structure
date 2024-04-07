@@ -189,5 +189,16 @@ public class TestDoubleLinkedListOrdered {
         size = int_list.getTamanho();
         System.out.println("int_list.isEmpty(): " + is_empty);
         System.out.println("int_list.size():    " + size);
+
+        DoubleLinkedListOrdered<Integer> int_list2 = new DoubleLinkedListOrdered<>();
+        System.out.println("int_list2.getTamanho(): " + int_list2.getTamanho());
+        int_list2.add(1);
+        System.out.println("int_list2.getTamanho(): " + int_list2.getTamanho());
+        int_list2.add(2);
+        System.out.println("int_list2.getTamanho(): " + int_list2.getTamanho());
+        int_list2.removeAt(0);
+        System.out.println("int_list2.getTamanho(): " + int_list2.getTamanho());
+        int_list2.removeAt(0);
+        System.out.println("int_list2.getTamanho(): " + int_list2.getTamanho());
     }
 }

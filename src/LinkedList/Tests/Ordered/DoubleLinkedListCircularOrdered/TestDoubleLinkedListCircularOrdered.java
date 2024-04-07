@@ -222,6 +222,19 @@ public class TestDoubleLinkedListCircularOrdered {
 
         System.out.println("int_list.isEmpty(): " + isEmpty);
         System.out.println("int_list.getTamanho(): " + size);
+
+        DoubleLinkedListCircularOrdered<Integer> int_list2 = new DoubleLinkedListCircularOrdered<>();
+        System.out.println("int_list2.size(): " + int_list2.getTamanho());
+        int_list2.add(5);
+        System.out.println("int_list2.size(): " + int_list2.getTamanho());
+        int_list2.add(3);
+        System.out.println("int_list2.size(): " + int_list2.getTamanho());
+        int_list2.removeAt(0);
+        System.out.println("int_list2.size(): " + int_list2.getTamanho());
+        int_list2.removeAt(0);
+        System.out.println("int_list2.size(): " + int_list2.getTamanho());
+        int_list2.removeAt(0);
+        System.out.println("int_list2.size(): " + int_list2.getTamanho());
     }
 }
 

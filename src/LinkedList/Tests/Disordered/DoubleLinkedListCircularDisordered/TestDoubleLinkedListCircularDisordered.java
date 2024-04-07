@@ -133,5 +133,16 @@ public class TestDoubleLinkedListCircularDisordered {
         
         isEmpty = int_list.isEmpty();
         System.out.println("isEmpty:  " + isEmpty);
+
+        DoubleLinkedListCircularDisordered<Integer> int_list2 = new DoubleLinkedListCircularDisordered<>();
+        System.out.println("int_list2.getTamanho(): " + int_list2.getTamanho());
+        int_list2.addFirst(1);
+        System.out.println("int_list2.getTamanho(): " + int_list2.getTamanho());
+        int_list2.addFirst(2);
+        System.out.println("int_list2.getTamanho(): " + int_list2.getTamanho());
+        int_list2.removeAt(0);
+        System.out.println("int_list2.getTamanho(): " + int_list2.getTamanho());
+        int_list2.removeAt(0);
+        System.out.println("int_list2.getTamanho(): " + int_list2.getTamanho());
     }
 }

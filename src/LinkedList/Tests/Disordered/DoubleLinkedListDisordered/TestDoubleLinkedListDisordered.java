@@ -116,5 +116,16 @@ public class TestDoubleLinkedListDisordered {
 
         boolean isEmptyAfterClear = int_list.isEmpty();
         System.out.println("int_list.isEmpty() após clear: " + isEmptyAfterClear);
+
+        DoubleLinkedListDisordered<Integer> int_list2 = new DoubleLinkedListDisordered<>();
+        System.out.println("int_list2.getTamanho(): " + int_list2.getTamanho());
+        int_list2.addLast(1);
+        System.out.println("int_list2.getTamanho(): " + int_list2.getTamanho());
+        int_list2.addLast(2);
+        System.out.println("int_list2.getTamanho(): " + int_list2.getTamanho());
+        int_list2.removeAt(0);
+        System.out.println("int_list2.getTamanho(): " + int_list2.getTamanho());
+        int_list2.removeAt(0);
+        System.out.println("int_list2.getTamanho(): " + int_list2.getTamanho());
     }
 }

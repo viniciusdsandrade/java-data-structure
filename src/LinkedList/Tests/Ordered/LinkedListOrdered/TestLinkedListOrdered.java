@@ -163,5 +163,16 @@ public class TestLinkedListOrdered {
 
         System.out.println("Is Empty: " + isEmpty);
         System.out.println("Size: " + size);
+
+        LinkedListOrdered<Integer> int_list2 = new LinkedListOrdered<>();
+        System.out.println("int_list2.getTamanho(): " + int_list2.getTamanho());
+        int_list2.add(1);
+        System.out.println("int_list2.getTamanho(): " + int_list2.getTamanho());
+        int_list2.add(2);
+        System.out.println("int_list2.getTamanho(): " + int_list2.getTamanho());
+        int_list2.deleteAt(0);
+        System.out.println("int_list2.getTamanho(): " + int_list2.getTamanho());
+        int_list2.deleteAt(0);
+        System.out.println("int_list2.getTamanho(): " + int_list2.getTamanho());
     }
 }

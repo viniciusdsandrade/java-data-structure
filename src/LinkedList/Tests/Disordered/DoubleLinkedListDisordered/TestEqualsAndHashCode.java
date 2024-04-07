@@ -7,7 +7,6 @@ public class TestEqualsAndHashCode {
         DoubleLinkedListDisordered<Integer> list1 = new DoubleLinkedListDisordered<>();
         DoubleLinkedListDisordered<Integer> list2 = new DoubleLinkedListDisordered<>();
         DoubleLinkedListDisordered<Integer> list3 = new DoubleLinkedListDisordered<>();
-
         list1.addLast(1);
         list1.addLast(2);
         list1.addLast(3);
@@ -25,6 +24,9 @@ public class TestEqualsAndHashCode {
 
         System.out.println("List1.hashCode(): " + list1.hashCode());
         System.out.println("List2.hashCode(): " + list2.hashCode());
+
+        System.out.println("List1.equals(List2): " + list1.equals(list2));
+
 
         list3.addLast(1);
         list3.addLast(2);

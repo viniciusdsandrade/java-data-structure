@@ -291,7 +291,18 @@ public class TestLinkedListDisordered {
 
         Object ultimo = name.getLast();
         System.out.println("Último: " + ultimo);
-
         name.clear();
+
+        LinkedListDisordered<Integer> numbers2 = new LinkedListDisordered<>();
+        System.out.println("numbers.getTamanho(): " + numbers2.getTamanho());
+        numbers2.addLast(1);
+        System.out.println("numbers.getTamanho(): " + numbers2.getTamanho());
+        numbers2.addLast(2);
+        System.out.println("numbers.getTamanho(): " + numbers2.getTamanho());
+        numbers2.removeAt(0);
+        System.out.println("numbers.getTamanho(): " + numbers2.getTamanho());
+        numbers2.removeAt(0);
+        System.out.println("numbers.getTamanho(): " + numbers2.getTamanho());
+
     }
 }

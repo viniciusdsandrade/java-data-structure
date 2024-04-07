@@ -147,5 +147,18 @@ public class TestLinkedListCircularDisordered {
         size = int_list.getTamanho();
         System.out.println("int_list.isEmpty() após clear: " + isEmpty);
         System.out.println("int_list.getTamanho() após clear: " + size);
+
+        LinkedListCircularDisordered<Integer> int_list2 = new LinkedListCircularDisordered<>();
+        System.out.println("int_list2.getTamanho(): " + int_list2.getTamanho());
+        int_list2.addLast(1);
+        System.out.println("int_list2.getTamanho(): " + int_list2.getTamanho());
+        int_list2.addLast(2);
+        System.out.println("int_list2.getTamanho(): " + int_list2.getTamanho());
+        int_list2.removeAt(0);
+        System.out.println("int_list2.getTamanho(): " + int_list2.getTamanho());
+        int_list2.removeAt(0);
+        System.out.println("int_list2.getTamanho(): " + int_list2.getTamanho());
+
+
     }
 }

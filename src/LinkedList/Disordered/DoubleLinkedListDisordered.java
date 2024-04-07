@@ -113,6 +113,7 @@ public class DoubleLinkedListDisordered<X> implements Cloneable {
             primeiro = novo;
             novo.anterior = null;
             novo.proximo = null;
+            tamanho++;
             return;
         }
 
@@ -137,6 +138,7 @@ public class DoubleLinkedListDisordered<X> implements Cloneable {
             primeiro = novo;
             primeiro.anterior = null;
             primeiro.proximo = null;
+            tamanho++;
             return;
         }
 
@@ -207,6 +209,7 @@ public class DoubleLinkedListDisordered<X> implements Cloneable {
 
         if (primeiro.proximo == null) {
             primeiro = null;
+            tamanho--;
             return;
         }
 
@@ -221,6 +224,7 @@ public class DoubleLinkedListDisordered<X> implements Cloneable {
 
         if (primeiro.proximo == null) {
             primeiro = null;
+            tamanho--;
             return;
         }
 

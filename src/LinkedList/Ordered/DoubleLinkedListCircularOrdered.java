@@ -13,21 +13,17 @@ public class DoubleLinkedListCircularOrdered<X extends Comparable<X>> implements
 
         public Node() {
         }
-
         public Node(X elemento) {
             this.elemento = elemento;
             this.proximo = null;
             this.anterior = null;
         }
-
         public X getElemento() {
             return elemento;
         }
-
         public Node getProximo() {
             return proximo;
         }
-
         public Node getAnterior() {
             return anterior;
         }
@@ -93,15 +89,12 @@ public class DoubleLinkedListCircularOrdered<X extends Comparable<X>> implements
         this.ultimo = null;
         this.tamanho = 0;
     }
-
     public Node getPrimeiro() {
         return primeiro;
     }
-
     public Node getUltimo() {
         return ultimo;
     }
-
     public int getTamanho() {
         return tamanho;
     }
@@ -196,7 +189,7 @@ public class DoubleLinkedListCircularOrdered<X extends Comparable<X>> implements
         if (primeiro == ultimo) {
             primeiro = null;
             ultimo = null;
-            tamanho = 0;
+            tamanho--;
             return;
         }
 
@@ -213,7 +206,7 @@ public class DoubleLinkedListCircularOrdered<X extends Comparable<X>> implements
         if (primeiro == ultimo) {
             primeiro = null;
             ultimo = null;
-            tamanho = 0;
+            tamanho--;
             return;
         }
 
@@ -274,7 +267,6 @@ public class DoubleLinkedListCircularOrdered<X extends Comparable<X>> implements
 
         return -1;
     }
-
 
     public boolean isEmpty() {
         return tamanho == 0;

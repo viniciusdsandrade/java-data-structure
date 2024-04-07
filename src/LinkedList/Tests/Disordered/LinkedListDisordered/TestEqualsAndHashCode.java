@@ -8,6 +8,30 @@ import java.util.List;
 public class TestEqualsAndHashCode {
     public static void main(String[] args) {
 
+
+        LinkedListDisordered<Integer> list_int1 = new LinkedListDisordered<>();
+        LinkedListDisordered<Integer> list_int2 = new LinkedListDisordered<>();
+
+        list_int1.addLast(1);
+        list_int1.addLast(2);
+        list_int1.addLast(3);
+        list_int1.addLast(4);
+        list_int1.addLast(5);
+
+        list_int2.addFirst(1);
+        list_int2.addFirst(2);
+        list_int2.addFirst(3);
+        list_int2.addFirst(4);
+        list_int2.addFirst(5);
+
+        System.out.println("list_int1:  " + list_int1);
+        System.out.println("list_int2:  " + list_int2);
+
+        System.out.println("list_int1.hashCode():  " + list_int1.hashCode());
+        System.out.println("list_int2.hashCode():  " + list_int2.hashCode());
+
+        System.out.println("list_int1.equals(list_int2):  " + list_int1.equals(list_int2));
+
         LinkedListDisordered<Character> list_char1 = new LinkedListDisordered<>();
         LinkedListDisordered<String> list_string1 = new LinkedListDisordered<>();
         list_char1.addLast('V');

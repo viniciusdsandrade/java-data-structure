@@ -103,6 +103,7 @@ public class LinkedListCircularDisordered<X> implements Cloneable {
             primeiro = novo;
             ultimo = novo;
             novo.proximo = primeiro;
+            tamanho++;
             return;
         }
 

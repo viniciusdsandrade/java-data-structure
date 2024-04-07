@@ -112,6 +112,7 @@ public class LinkedListDisordered<X> implements Cloneable {
         // Se a lista estiver vazia, define o no nó como o primeiro nó da lista
         if (primeiro == null) {
             primeiro = no;
+            tamanho++;
             return;
         }
 
@@ -200,6 +201,7 @@ public class LinkedListDisordered<X> implements Cloneable {
         // Verifica se há apenas um nó na lista
         if (primeiro.proximo == null) {
             primeiro = null; // Se sim, define o primeiro nó como nulo
+            tamanho--;
             return;
         }
 
@@ -270,7 +272,6 @@ public class LinkedListDisordered<X> implements Cloneable {
 
         return false; // Se o elemento não for encontrado, retorna falso
     }
-
 
     public boolean isEmpty() {
         return this.tamanho == 0;
@@ -451,10 +452,12 @@ public class LinkedListDisordered<X> implements Cloneable {
         int hash = 1;
 
         Node aux = this.primeiro;
+        int index = 0;
 
         while (aux != null) {
-            hash *= prime + aux.elemento.hashCode();
+            hash *= prime + Objects.hash(aux.elemento, index);
             aux = aux.proximo;
+            index++;
         }
 
         if (hash < 0) hash = -hash;

@@ -200,5 +200,17 @@ public class TestLinkedListCircularOrdered {
         
         System.out.println("int_list.isEmpty(): " + isEmpty);
         System.out.println("int_list.size():    " + size);
+
+        LinkedListCircularOrdered<Integer> int_list2 = new LinkedListCircularOrdered<>();
+        System.out.println("int_list2.getTamanho(): " + int_list2.getTamanho());
+        int_list2.add(1);
+        System.out.println("int_list2.getTamanho(): " + int_list2.getTamanho());
+        int_list2.add(2);
+        System.out.println("int_list2.getTamanho(): " + int_list2.getTamanho());
+        int_list2.removeAt(0);
+        System.out.println("int_list2.getTamanho(): " + int_list2.getTamanho());
+        int_list2.removeAt(0);
+        System.out.println("int_list2.getTamanho(): " + int_list2.getTamanho());
+
     }
 }

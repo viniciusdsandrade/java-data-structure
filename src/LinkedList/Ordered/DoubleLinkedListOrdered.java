@@ -129,7 +129,6 @@ public class DoubleLinkedListOrdered<X extends Comparable<X>> implements Cloneab
             novo.proximo = atual;
         }
 
-
         tamanho++;
     }
 
