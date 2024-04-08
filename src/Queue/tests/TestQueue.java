@@ -2,6 +2,8 @@ package Queue.tests;
 
 import Queue.Queue;
 
+import java.util.List;
+
 public class TestQueue {
     public static void main(String[] args) {
 
@@ -28,5 +30,23 @@ public class TestQueue {
         queue.clear();
         System.out.println("queue.isEmpty(): " + queue.isEmpty());
         System.out.println("queue: " + queue.toArray());
+
+        Queue<Integer> queue2 = new Queue<Integer>(5);
+        queue2.enqueue(1);
+        queue2.enqueue(2);
+        queue2.enqueue(3);
+        queue2.enqueue(4);
+        queue2.enqueue(5);
+
+        List<Integer> list = queue2.toList();
+        System.out.println("list: " + list);
+
+        Object[] array = list.toArray();
+        System.out.print("array: [");
+        for (int i = 0; i < array.length; i++) {
+            System.out.print(array[i]);
+            if (i < array.length - 1) System.out.print(", ");
+        }
+        System.out.println("]");
     }
 }

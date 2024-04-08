@@ -1,6 +1,8 @@
 package LinkedList.Disordered;
 
+import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.List;
 import java.util.Objects;
 
 import static ShallowOrDeepCopy.ShallowOrDeepCopy.verifyAndCopy;
@@ -258,6 +260,41 @@ public class LinkedListDisordered<X> implements Cloneable {
         return -1; // Se o elemento não for encontrado, retorna -1
     }
 
+    public int lastIndexOf(X elemento) {
+        Node aux = primeiro; // Inicializa um nó auxiliar para percorrer a lista
+        int indice = 0; // Inicializa o índice como 0
+        int ultimoIndice = -1; // Inicializa o último índice como -1
+
+        // Percorre a lista enquanto houver nós
+        while (aux != null) {
+            // Verifica se o elemento do nó atual é igual ao elemento procurado
+            if (aux.elemento.equals(elemento))
+                ultimoIndice = indice; // Se sim, atualiza o último índice encontrado
+
+            aux = aux.proximo; // Move para o próximo nó na lista
+            indice++; // Incrementa o índice
+        }
+
+        return ultimoIndice; // Retorna o último índice encontrado
+    }
+
+    public int firstIndexOf(X elemento) {
+        Node aux = primeiro; // Inicializa um nó auxiliar para percorrer a lista
+        int indice = 0; // Inicializa o índice como 0
+
+        // Percorre a lista enquanto houver nós
+        while (aux != null) {
+            // Verifica se o elemento do nó atual é igual ao elemento procurado
+            if (aux.elemento.equals(elemento))
+                return indice; // Se sim, retorna o índice do nó atual
+
+            aux = aux.proximo; // Move para o próximo nó na lista
+            indice++; // Incrementa o índice
+        }
+
+        return -1; // Se o elemento não for encontrado, retorna -1
+    }
+
     public boolean contains(X elemento) {
         Node aux = primeiro; // Inicializa um nó auxiliar para percorrer a lista
 
@@ -383,6 +420,52 @@ public class LinkedListDisordered<X> implements Cloneable {
             }
             atual = atual.proximo; // Move para o próximo nó na lista
         }
+    }
+
+    public Object[] toArray() {
+        Object[] array = new Object[tamanho]; // Cria um array de objetos com o tamanho da lista
+        Node aux = primeiro; // Inicializa um nó auxiliar para percorrer a lista
+
+        // Percorre a lista e adiciona os elementos ao array
+        for (int i = 0; i < tamanho; i++) {
+            array[i] = aux.elemento;
+            aux = aux.proximo;
+        }
+
+        return array; // Retorna o array com os elementos da lista
+    }
+
+    public List<X> toList() {
+        List<X> lista = new ArrayList<>(tamanho); // Cria uma nova lista (ArrayList) com o tamanho da lista encadeada
+
+        Node aux = primeiro; // Inicializa um nó auxiliar para percorrer a lista
+
+        // Percorre a lista e adiciona os elementos à nova lista
+        while (aux != null) {
+            lista.add(aux.elemento);
+            aux = aux.proximo;
+        }
+        return lista; // Retorna a nova lista
+    }
+
+    public LinkedListDisordered<X> subList(int inicio, int fim) {
+        if (inicio < 0 || fim > tamanho || inicio > fim) throw new IndexOutOfBoundsException("Index out of bounds");
+
+        LinkedListDisordered<X> subLista = new LinkedListDisordered<>(); // Cria uma nova lista encadeada
+
+        Node aux = primeiro; // Inicializa um nó auxiliar para percorrer a lista
+
+        // Percorre a lista até o índice inicio início
+        for (int i = 0; i < inicio; i++)
+            aux = aux.proximo;
+
+        // Adiciona os elementos da sublista à nova lista encadeada
+        for (int i = inicio; i < fim; i++) {
+            subLista.addLast(aux.elemento);
+            aux = aux.proximo;
+        }
+
+        return subLista; // Retorna a sublista
     }
 
     @SuppressWarnings("unchecked")

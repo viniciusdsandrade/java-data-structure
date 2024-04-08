@@ -304,5 +304,46 @@ public class TestLinkedListDisordered {
         numbers2.removeAt(0);
         System.out.println("numbers.getTamanho(): " + numbers2.getTamanho());
 
+        System.out.println("Testando ToArray");
+        LinkedListDisordered<Integer> numbers3 = new LinkedListDisordered<>();
+        numbers3.addLast(1);
+        numbers3.addLast(2);
+        numbers3.addLast(3);
+        numbers3.addLast(4);
+        numbers3.addLast(5);
+
+        Object[] array = numbers3.toArray();
+        List<Integer> list2 = numbers3.toList();
+        for (Object obj : array)
+            System.out.println(obj);
+
+        System.out.println("Testando SubList");
+        LinkedListDisordered<Integer> numbers4 = numbers3.subList(0, 5);
+        System.out.println("numbers4: " + numbers4);
+
+        System.out.println("Testando lastIndexOf");
+        LinkedListDisordered<Integer> numbers5 = new LinkedListDisordered<>();
+        numbers5.addLast(1);
+        numbers5.addLast(1);
+        numbers5.addLast(1);
+        numbers5.addLast(2);
+        numbers5.addLast(2);
+        numbers5.addLast(2);
+
+        System.out.println("numbers5:       " + numbers5);
+
+        int lastIndexOf1 = numbers5.lastIndexOf(1);
+        System.out.println("lastIndexOf1:   " + lastIndexOf1);
+
+        int firstIndexOf1 = numbers5.indexOf(1);
+        System.out.println("firstIndexOf1:  " + firstIndexOf1);
+
+        int lastIndexOf2 = numbers5.lastIndexOf(2);
+        System.out.println("lastIndexOf2:   " + lastIndexOf2);
+
+        int firstIndexOf2 = numbers5.indexOf(2);
+        System.out.println("firstIndexOf2:  " + firstIndexOf2);
+
+
     }
 }

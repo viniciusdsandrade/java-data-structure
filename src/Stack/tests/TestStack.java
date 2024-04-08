@@ -51,7 +51,6 @@ public class TestStack {
         stack.push(3);
         stack.push(4);
         stack.push(5);
-
         System.out.println("stack: " + stack.toArray());
         System.out.println("stack.getTamanho(): " + stack.getTamanho());
         System.out.println("stack.getCapacidade(): " + stack.getCapacidade());

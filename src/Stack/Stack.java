@@ -2,7 +2,9 @@ package Stack;
 
 import LinkedList.Disordered.LinkedListDisordered;
 
+import java.util.ArrayList;
 import java.util.EmptyStackException;
+import java.util.List;
 import java.util.Objects;
 
 import static ShallowOrDeepCopy.ShallowOrDeepCopy.verifyAndCopy;
@@ -31,6 +33,9 @@ public class Stack<X> implements Cloneable {
     }
     public int getCapacidade() {
         return capacidade;
+    }
+    public LinkedListDisordered<X> getElemento() {
+        return elemento;
     }
 
     public X push(X item) {
@@ -61,6 +66,11 @@ public class Stack<X> implements Cloneable {
         return elemento;
     }
 
+    public X peekLast() {
+        if (isEmpty()) throw new EmptyStackException();
+        return this.elemento.getLast();
+    }
+
     public int search(X item) {
         if (isEmpty()) throw new EmptyStackException();
 
@@ -75,13 +85,33 @@ public class Stack<X> implements Cloneable {
         return -1;
     }
 
-    public boolean isEmpty() {
-        return this.tamanho == 0;
+    public int indexOf(X item) {
+        if (isEmpty()) throw new EmptyStackException();
+
+        for (int i = 0; i < this.tamanho; i++) {
+            if (this.elemento.get(i).equals(item)) {
+                return i;
+            }
+        }
+
+        return -1;
     }
 
-    public void clear() {
-        this.elemento.clear();
-        this.tamanho = 0;
+    public int lastIndexOf(X item) {
+        if (isEmpty()) throw new EmptyStackException();
+
+        int lastIndex = -1;
+        for (int i = 0; i < this.tamanho; i++) {
+            if (this.elemento.get(i).equals(item)) {
+                lastIndex = i;
+            }
+        }
+
+        return lastIndex;
+    }
+
+    public int firstIndexOf(X item) {
+        return indexOf(item);
     }
 
     public boolean contains(X item) {
@@ -91,6 +121,49 @@ public class Stack<X> implements Cloneable {
             }
         }
         return false;
+    }
+
+    public boolean isEmpty() {
+        return this.tamanho == 0;
+    }
+
+    public boolean isFull() {
+        return this.tamanho == this.capacidade;
+    }
+
+    public void clear() {
+        this.elemento.clear();
+        this.tamanho = 0;
+    }
+
+    public String toArray() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("[");
+        for (int i = 0; i < this.tamanho; i++) {
+            sb.append(this.elemento.get(i));
+            if (i < this.tamanho - 1) {
+                sb.append(", ");
+            }
+        }
+        sb.append("]");
+        return sb.toString();
+    }
+
+    public List<X> toList() {
+        List<X> list = new ArrayList<>(tamanho);
+        for (int i = 0; i < this.tamanho; i++)
+            list.add(this.elemento.get(i));
+        return list;
+    }
+
+    public Object[] toArray(Object[] array) {
+        if (array == null) throw new IllegalArgumentException("Array ausente");
+        if (array.length < this.tamanho) throw new IllegalArgumentException("Array menor que o tamanho da pilha");
+
+        for (int i = 0; i < this.tamanho; i++)
+            array[i] = verifyAndCopy(this.elemento.get(i));
+
+        return array;
     }
 
     @SuppressWarnings("unchecked")
@@ -146,7 +219,7 @@ public class Stack<X> implements Cloneable {
         for (int i = 0; i < this.tamanho; i++)
             hash *= prime + Objects.hashCode(this.elemento.get(i));
 
-        if (hash < 0) hash *= -1;
+        if (hash < 0) hash = -hash;
 
         return hash;
     }
@@ -155,19 +228,6 @@ public class Stack<X> implements Cloneable {
     public String toString() {
         if (isEmpty()) return "[]";
         else return "[" + this.peek() + "]";
-    }
-
-    public String toArray() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("[");
-        for (int i = 0; i < this.tamanho; i++) {
-            sb.append(this.elemento.get(i));
-            if (i < this.tamanho - 1) {
-                sb.append(", ");
-            }
-        }
-        sb.append("]");
-        return sb.toString();
     }
 }
 /*
@@ -193,8 +253,7 @@ public class Stack<X> implements Cloneable {
  * 21 - E firstElement(): Retorna o primeiro elemento da pilha.
  * 22 - E lastElement(): Retorna o último elemento da pilha. void insertElementAt(E obj, int index): Insere um elemento em uma posição específica da pilha.
  * 23 - E remove(int index): Remove o elemento na posição especificada da pilha.
- * 24 - boolean removeElement(Object obj): Remove a primeira ocorrência do elemento
- * 25 - especificado da pilha, se presente.
+ * 24 - boolean removeElement(Object obj): Remove a primeira ocorrência do elemento especificado da pilha.
  * 26 - void removeAllElements(): Remove todos os elementos da pilha.
  * 27 - void setSize(int newSize): Define o tamanho da pilha.
  * 28 - String toString(): Retorna uma representação em string da pilha.
