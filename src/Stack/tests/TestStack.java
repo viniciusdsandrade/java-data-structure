@@ -2,55 +2,18 @@ package Stack.tests;
 
 import Stack.Stack;
 
+import java.util.List;
+
 public class TestStack {
     public static void main(String[] args) {
-        Stack<Integer> stack = new Stack<Integer>(100);
-        stack.push(1);
-        stack.push(2);
-        stack.push(3);
-        stack.push(4);
-        
-        System.out.println("stack.toArray(): " + stack.toArray());
-
-        int x = stack.peek();
-        System.out.println("stack.peek(): " + x);
-
-        int y = stack.pop();
-        System.out.println("stack.pop(): " + y);
-        
-        System.out.println("stack.toArray(): " + stack.toArray());
-
-        x = stack.peek();
-        System.out.println("stack.peek(): " + x);
-
-        y = stack.pop();
-        System.out.println("stack.pop(): " + y);
-        
-        System.out.println("stack.toArray(): " + stack.toArray());
-
-        x = stack.peek();
-        System.out.println("stack.peek(): " + x);
-
-        y = stack.pop();
-        System.out.println("stack.pop(): " + y);
-        
-        System.out.println("stack.toArray(): " + stack.toArray());
-
-        x = stack.peek();
-        System.out.println("stack.peek(): " + x);
-
-        y = stack.pop();
-        System.out.println("stack.pop(): " + y);
-
-        System.out.println("stack: " + stack);
-        System.out.println("stack.toArray(): " + stack.toArray());
-
-
+        Stack<Integer> stack = new Stack<Integer>(5);
         stack.push(1);
         stack.push(2);
         stack.push(3);
         stack.push(4);
         stack.push(5);
+
+        System.out.println("stack.isFull(): " + stack.isFull());
         System.out.println("stack: " + stack.toArray());
         System.out.println("stack.getTamanho(): " + stack.getTamanho());
         System.out.println("stack.getCapacidade(): " + stack.getCapacidade());
@@ -67,5 +30,23 @@ public class TestStack {
         stack.clear();
         System.out.println("stack.isEmpty(): " + stack.isEmpty());
         System.out.println("stack: " + stack.toArray());
+
+        Stack<Integer> stack2 = new Stack<Integer>(5);
+        stack2.push(1);
+        stack2.push(2);
+        stack2.push(3);
+        stack2.push(4);
+        stack2.push(5);
+
+        List<Integer> list = stack2.toList();
+        System.out.println("list: " + list);
+
+        Object[] array = list.toArray();
+        System.out.print("array: [");
+        for (int i = 0; i < array.length; i++) {
+            System.out.print(array[i]);
+            if (i < array.length - 1) System.out.print(", ");
+        }
+        System.out.println("]");
     }
 }

@@ -13,17 +13,21 @@ public class DoubleLinkedListCircularOrdered<X extends Comparable<X>> implements
 
         public Node() {
         }
+
         public Node(X elemento) {
             this.elemento = elemento;
             this.proximo = null;
             this.anterior = null;
         }
+
         public X getElemento() {
             return elemento;
         }
+
         public Node getProximo() {
             return proximo;
         }
+
         public Node getAnterior() {
             return anterior;
         }
@@ -89,12 +93,15 @@ public class DoubleLinkedListCircularOrdered<X extends Comparable<X>> implements
         this.ultimo = null;
         this.tamanho = 0;
     }
+
     public Node getPrimeiro() {
         return primeiro;
     }
+
     public Node getUltimo() {
         return ultimo;
     }
+
     public int getTamanho() {
         return tamanho;
     }
@@ -116,9 +123,8 @@ public class DoubleLinkedListCircularOrdered<X extends Comparable<X>> implements
 
         Node atual = primeiro;
 
-        while (atual != ultimo && elemento.compareTo(atual.elemento) > 0) {
+        while (atual != ultimo && elemento.compareTo(atual.elemento) > 0)
             atual = atual.proximo;
-        }
 
         if (elemento.compareTo(atual.elemento) <= 0) {
             novoNo.proximo = atual;
@@ -128,16 +134,18 @@ public class DoubleLinkedListCircularOrdered<X extends Comparable<X>> implements
             if (atual == primeiro) {
                 primeiro = novoNo;
             }
-        } else {
-            novoNo.proximo = primeiro;
-            novoNo.anterior = ultimo;
-            primeiro.anterior = novoNo;
-            ultimo.proximo = novoNo;
-            ultimo = novoNo;
+            tamanho++;
+            return;
         }
+
+        novoNo.proximo = primeiro;
+        novoNo.anterior = ultimo;
+        primeiro.anterior = novoNo;
+        ultimo.proximo = novoNo;
+        ultimo = novoNo;
+
         tamanho++;
     }
-
 
     public X get(int indice) {
         if (indice < 0 || indice >= tamanho) throw new IndexOutOfBoundsException("Posição inválida.");

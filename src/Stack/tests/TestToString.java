@@ -68,7 +68,7 @@ public class TestToString {
         stack_byte.push((byte) 4);
         stack_byte.push((byte) 5);
 
-
+        System.out.println("Teste do método toString()");
         System.out.println("Stack<Integer>:     " + stack_int);
         System.out.println("Stack<String>:      " + stack_str);
         System.out.println("Stack<Character>:   " + stack_char);
@@ -79,6 +79,7 @@ public class TestToString {
         System.out.println("Stack<Short>:       " + stack_short);
         System.out.println("Stack<Byte>:        " + stack_byte);
         System.out.println();
+        System.out.println("Teste do método toArray()");
         System.out.println("Stack<Integer>:     " + stack_int.toArray());
         System.out.println("Stack<String>:      " + stack_str.toArray());
         System.out.println("Stack<Character>:   " + stack_char.toArray());

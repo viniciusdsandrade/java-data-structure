@@ -18,14 +18,14 @@ public class TestCloneAndCopyConstructor {
         System.out.println("copy:  " + copy);
 
         System.out.println("stack.toArray(): " + stack.toArray());
-        System.out.println("stack.toArray(): " + stack.toArray());
+        System.out.println("clone.toArray(): " + clone.toArray());
         System.out.println("copy.toArray():  " + copy.toArray());
 
         System.out.println("Adicionando 5 na pilha");
         stack.push(5);
 
         System.out.println("stack.toArray(): " + stack.toArray());
-        System.out.println("stack.toArray(): " + stack.toArray());
+        System.out.println("clone.toArray(): " + clone.toArray());
         System.out.println("copy.toArray():  " + copy.toArray());
 
         System.out.println("adicionando 5 e 6 na copia e no clone");
@@ -35,7 +35,7 @@ public class TestCloneAndCopyConstructor {
         clone.push(6);
 
         System.out.println("stack.toArray(): " + stack.toArray());
-        System.out.println("copy.toArray():  " + copy.toArray());
         System.out.println("clone.toArray(): " + clone.toArray());
+        System.out.println("copy.toArray():  " + copy.toArray());
     }
 }

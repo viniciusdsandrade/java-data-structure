@@ -6,7 +6,6 @@ import java.util.List;
 
 public class TestQueue {
     public static void main(String[] args) {
-
         Queue<Integer> queue = new Queue<Integer>(5);
         queue.enqueue(1);
         queue.enqueue(2);
@@ -14,6 +13,7 @@ public class TestQueue {
         queue.enqueue(4);
         queue.enqueue(5);
 
+        System.out.println("queue.isFull(): " + queue.isFull());
         System.out.println("queue: " + queue.toArray());
         System.out.println("queue.getTamanho(): " + queue.getTamanho());
         System.out.println("queue.getCapacidade(): " + queue.getCapacidade());

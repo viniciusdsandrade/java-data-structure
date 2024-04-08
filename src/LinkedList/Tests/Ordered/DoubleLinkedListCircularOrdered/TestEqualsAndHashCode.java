@@ -7,10 +7,10 @@ public class TestEqualsAndHashCode {
         DoubleLinkedListCircularOrdered<Integer> list1 = new DoubleLinkedListCircularOrdered<>();
         DoubleLinkedListCircularOrdered<Integer> list2 = new DoubleLinkedListCircularOrdered<>();
         DoubleLinkedListCircularOrdered<Integer> list3 = new DoubleLinkedListCircularOrdered<>();
-        list1.add(4);
-        list1.add(2);
         list1.add(1);
+        list1.add(2);
         list1.add(3);
+        list1.add(4);
         
         list2.add(4);
         list2.add(2);
