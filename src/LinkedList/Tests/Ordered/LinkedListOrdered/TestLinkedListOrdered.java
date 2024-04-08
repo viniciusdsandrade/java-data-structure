@@ -48,12 +48,12 @@ public class TestLinkedListOrdered {
 
     public static void main(String[] args) throws Exception {
         LinkedListOrdered<Integer> int_list = new LinkedListOrdered<>();
-        int_list.add(2);
-        int_list.add(1);
-        int_list.add(4);
-        int_list.add(3);
-        int_list.add(5);
         int_list.add(0);
+        int_list.add(1);
+        int_list.add(2);
+        int_list.add(3);
+        int_list.add(4);
+        int_list.add(5);
 
         // Verificando se a lista é simplesmente encadeada
         boolean isSinglyLinked = verificaSimplesmenteEncadeada(int_list);

@@ -12,11 +12,10 @@ public class TestToString {
         DoubleLinkedListCircularOrdered<Float> list_float = new DoubleLinkedListCircularOrdered<>();
         DoubleLinkedListCircularOrdered<Long> list_long = new DoubleLinkedListCircularOrdered<>();
         DoubleLinkedListCircularOrdered<Short> list_short = new DoubleLinkedListCircularOrdered<>();
-        
         list_string.add("Vinícius");
         list_string.add("Dos");
-        list_string.add("Santos");
         list_string.add("Andrade");
+        list_string.add("Santos");
         
         list_int.add(1);
         list_int.add(2);

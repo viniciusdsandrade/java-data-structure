@@ -101,13 +101,10 @@ public class DoubleLinkedListCircularOrdered<X extends Comparable<X>> implements
 
     @SuppressWarnings("unchecked")
     public void add(X elemento) {
-        // Verifica se o elemento é nulo e lança uma exceção se for
         if (elemento == null) throw new IllegalArgumentException("Elemento ausente");
 
-        // Cria um novo nó com o elemento fornecido
         Node novoNo = new Node((X) verifyAndCopy(elemento));
 
-        // Se a lista estiver vazia, o novo nó se torna o primeiro e o último nó
         if (primeiro == null) {
             primeiro = novoNo;
             ultimo = novoNo;
@@ -117,49 +114,30 @@ public class DoubleLinkedListCircularOrdered<X extends Comparable<X>> implements
             return;
         }
 
-        // Itera sobre a lista para encontrar a posição correta para inserir o novo nó
         Node atual = primeiro;
-        Node anterior = null;
 
-        // Percorre a lista até que o elemento seja maior que o elemento atual ou até chegar ao último nó
         while (atual != ultimo && elemento.compareTo(atual.elemento) > 0) {
-            anterior = atual;
             atual = atual.proximo;
         }
 
-        // Se não houver um nó anterior, o novo nó se torna o primeiro
-        if (anterior == null) {
-            novoNo.proximo = primeiro;
-            novoNo.anterior = ultimo;
-            primeiro.anterior = novoNo;
-            ultimo.proximo = novoNo;
-            primeiro = novoNo;
-        }
-        // Se o elemento for menor que o primeiro elemento atual, o novo nó também se torna o primeiro
-        else if (atual == primeiro && elemento.compareTo(atual.elemento) < 0) {
-            novoNo.proximo = primeiro;
-            novoNo.anterior = ultimo;
-            primeiro.anterior = novoNo;
-            ultimo.proximo = novoNo;
-            primeiro = novoNo;
-        }
-        // Se o elemento for maior que o último elemento atual, o novo nó se torna o último
-        else if (atual == ultimo && elemento.compareTo(atual.elemento) > 0) {
+        if (elemento.compareTo(atual.elemento) <= 0) {
+            novoNo.proximo = atual;
+            novoNo.anterior = atual.anterior;
+            atual.anterior.proximo = novoNo;
+            atual.anterior = novoNo;
+            if (atual == primeiro) {
+                primeiro = novoNo;
+            }
+        } else {
             novoNo.proximo = primeiro;
             novoNo.anterior = ultimo;
             primeiro.anterior = novoNo;
             ultimo.proximo = novoNo;
             ultimo = novoNo;
         }
-        // Caso contrário, insere o novo nó entre o nó anterior e o nó atual
-        else {
-            novoNo.proximo = atual;
-            novoNo.anterior = anterior;
-            atual.anterior = novoNo;
-            anterior.proximo = novoNo;
-        }
         tamanho++;
     }
+
 
     public X get(int indice) {
         if (indice < 0 || indice >= tamanho) throw new IndexOutOfBoundsException("Posição inválida.");

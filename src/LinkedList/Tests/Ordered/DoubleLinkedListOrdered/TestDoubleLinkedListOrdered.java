@@ -49,12 +49,12 @@ public class TestDoubleLinkedListOrdered {
 
     public static void main(String[] args) {
         DoubleLinkedListOrdered<Integer> int_list = new DoubleLinkedListOrdered<>();
-        int_list.add(5);
-        int_list.add(3);
-        int_list.add(4);
         int_list.add(0);
         int_list.add(1);
         int_list.add(2);
+        int_list.add(3);
+        int_list.add(4);
+        int_list.add(5);
 
         // Verificação do encadeamento de todos os nós
         boolean isDuplamenteLigada = verificaDuplamenteLigada(int_list);
