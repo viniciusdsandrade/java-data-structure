@@ -67,9 +67,9 @@ public class TestEqualsAndHashCode {
         queue_long.enqueue(4L);
         queue_long.enqueue(5L);
 
-
-        System.out.println("queue_byte.hashCode()" + queue_byte.hashCode());
-        System.out.println("");
-
+        System.out.println("queue_byte.hashCode():  " + queue_byte.hashCode());
+        System.out.println("queue_short.hashCode(): " + queue_short.hashCode());
+        System.out.println("queue_int.hashCode():   " + queue_int.hashCode());
+        System.out.println("queue_long.hashCode():  " + queue_long.hashCode());
     }
 }
