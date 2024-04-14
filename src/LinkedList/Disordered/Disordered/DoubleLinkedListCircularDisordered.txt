@@ -1,0 +1,65 @@
+public class DoubleLinkedListCircularDisordered<X> implements Cloneable {
+
+    public class Node implements Cloneable {
+        public X elemento;
+        public Node proximo;
+        public Node anterior;
+
+        public Node() {}
+        public Node(X elemento) {}
+        public X getElemento() {}
+        public Node getProximo() {}
+        public Node getAnterior() {}
+        public Node(Node modelo) {}
+
+        @Override
+        public Object clone() {}
+
+        @Override
+        @SuppressWarnings("unchecked")
+        public boolean equals(Object obj) {}
+
+        @Override
+        public int hashCode() {}
+
+        @Override
+        public String toString() {}
+    }
+
+    public Node primeiro;
+    public Node ultimo;
+    public int tamanho;
+
+    public DoubleLinkedListCircularDisordered() {}
+    public Node getPrimeiro() {}
+    public Node getUltimo() {}
+    public int getTamanho() {}
+    public void addLast(X elemento) {}
+    public void addFirst(X elemento) {}
+    public void addAt(X elemento, int indice) {}
+    public X get(int indice) {}
+    public X getFirst() {}
+    public X getLast() {}
+    public void removeFirst() {}
+    public void removeLast() {}
+    public void removeAt(int indice) {}
+    public boolean contains(X elemento) {}
+    public int indexOf(X elemento) {}
+    public boolean isEmpty() {}
+    public void clear() {}
+    public void reverse() {}
+    public void rotate(int passos) {}
+    public DoubleLinkedListCircularDisordered(DoubleLinkedListCircularDisordered<X> modelo) {}
+
+    @Override
+    public Object clone() {}
+
+    @Override
+    public boolean equals(Object obj) {}
+
+    @Override
+    public int hashCode() {}
+
+    @Override
+    public String toString() {}
+}

@@ -1,0 +1,66 @@
+public class LinkedListDisordered<X> implements Cloneable {
+    
+   public class Node implements Cloneable {
+        public X elemento;
+        public Node proximo;
+
+        public Node() {}
+        public Node(X elemento) {}
+        public X getElemento() {}
+        public Node getProximo() {}
+        public Node(Node modelo)  {}
+
+        @Override
+        public Object clone() {}
+
+        @Override
+        public boolean equals(Object obj) {}
+
+        @Override
+        public int hashCode() {}
+
+        @Override
+        public String toString() {}
+    }
+
+    public Node primeiro;
+    public int tamanho;
+
+    public LinkedListDisordered() {}
+    public Node getPrimeiro() {}
+    public int getTamanho() {}
+    public void addFirst(X elemento) {}
+    public void addLast(X elemento) {}
+    public void addAt(X elemento, int indice) {}
+    public X get(int indice) {}
+    public X getFirst() {}
+    public X getLast() {}
+    public void removeFirst() {}
+    public void removeLast() {}
+    public void removeAt(int indice) {}
+    public int indexOf(X elemento) {}
+    public int lastIndexOf(X elemento) {}
+    public int firstIndexOf(X elemento) {}
+    public boolean contains(X elemento) {}
+    public boolean isEmpty() {}
+    public void clear() {}
+    public void reverse() {}
+    public void sort(Comparator<X> comparador) {}
+    public void sort() {}
+    public void shuffle() {}
+    public Object[] toArray() {}
+    public LinkedListDisordered<X> subList(int inicio, int fim) {}
+    public LinkedListDisordered(LinkedListDisordered<X> modelo) {}
+
+    @Override
+    public Object clone() {}
+
+    @Override
+    public boolean equals(Object obj) {}
+
+    @Override
+    public int hashCode() {}
+
+    @Override
+    public String toString() {}
+}

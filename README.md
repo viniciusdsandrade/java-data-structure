@@ -14,10 +14,6 @@ Entender estruturas de dados é fundamental para escrever programas eficientes e
 
 Aqui estão alguns dos tipos mais comuns de estruturas de dados em Java:
 
-### Arrays
-
-- Uma coleção de elementos do mesmo tipo, organizados sequencialmente.
-
 ### ArrayList
 
 - Uma lista dinâmica que cresce conforme necessário.

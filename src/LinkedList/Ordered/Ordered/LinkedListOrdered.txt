@@ -1,0 +1,57 @@
+public class LinkedListOrdered<X extends Comparable<X>> implements Cloneable {
+
+    public class Node implements Cloneable {
+        public X elemento;
+        public Node proximo;
+
+        public Node() {}
+        public Node(X elemento) {}
+        public X getElemento() {}
+        public Node getProximo() {}
+        public Node(Node modelo) {}
+
+        @Override
+        public Object clone() {}
+
+        @Override
+        @SuppressWarnings("unchecked")
+        public boolean equals(Object obj) {}
+
+        @Override
+        public int hashCode() {}
+
+        @Override
+        public String toString() {}
+    }
+
+    public Node primeiro;
+    public int tamanho;
+
+    public LinkedListOrdered() {}
+    public Node getPrimeiro() {}
+    public int getTamanho() {}
+    public void add(X elemento) {}
+    public X get(int indice) {}
+    public X getFirst() {}
+    public X getLast() {}
+    public void deleteFirst() {}
+    public void deleteLast() {}
+    public void deleteAt(int indice) {}
+    public boolean contains(X elemento) {}
+    public int indexOf(X elemento) {}
+    public boolean isEmpty() {}
+    public LinkedListOrdered(LinkedListOrdered<X> modelo) {}
+
+    @Override
+    public Object clone() {}
+
+    @Override
+    @SuppressWarnings("unchecked")
+    public boolean equals(Object obj) {}
+
+    @Override
+    public int hashCode() {}
+
+    @Override
+    public String toString() {}
+}

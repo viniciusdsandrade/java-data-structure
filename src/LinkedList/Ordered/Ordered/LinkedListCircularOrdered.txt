@@ -1,0 +1,59 @@
+public class LinkedListCircularOrdered<X extends Comparable<X>> implements Cloneable {
+
+    public class Node implements Cloneable {
+        public X elemento;
+        public Node proximo;
+
+        public Node() {}
+        public Node(X elemento) {}
+        public X getElemento() {}
+        public Node getProximo() {}
+
+        public Node(Node modelo)  {}
+
+        @Override
+        public Object clone() {}
+
+        @Override
+        public boolean equals(Object obj) {}
+
+        @Override
+        public int hashCode() {}
+
+        @Override
+        public String toString() {}
+    }
+
+    public Node primeiro;
+    public Node ultimo;
+    public int tamanho;
+
+    public LinkedListCircularOrdered() {}
+    public Node getPrimeiro() {}
+    public Node getUltimo() {}
+    public int getTamanho() {}
+    public void add(X elemento) {}
+    public X get(int posicao) {}
+    public X getFirst() {}
+    public X getLast() {}
+    public void removeFirst() {}
+    public void removeLast() {}
+    public void removeAt(int posicao) {}
+    public boolean contains(X elemento) {}
+    public int indexOf(X elemento) {}
+    public boolean isEmpty() {}
+    public void clear() {}
+    public LinkedListCircularOrdered(LinkedListCircularOrdered<X> modelo)  {}
+
+    @Override
+    public Object clone() {}
+
+    @Override
+    public boolean equals(Object obj) {}
+
+    @Override
+    public int hashCode() {}
+
+    @Override
+    public String toString() {}
+}
