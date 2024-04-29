@@ -17,8 +17,9 @@ public class ShallowOrDeepCopy {
      *         Otherwise, the original {@code data}.
      */
     public static Object verifyAndCopy(Object data) {
-        if (data instanceof Cloneable) return deepCopy(data);
-        else return data;
+        if (data instanceof Cloneable)
+            return deepCopy(data);
+        return data;
     }
 
     /**
@@ -35,7 +36,7 @@ public class ShallowOrDeepCopy {
         } catch (InvocationTargetException |
                  NoSuchMethodException |
                  IllegalAccessException ignored) {
+            return data;
         }
-        return null;
     }
 }
