@@ -33,12 +33,11 @@ public class Node<X> implements Cloneable {
     }
 
     @SuppressWarnings("unchecked")
-    public Node(Node<X> no) {
+    public Node(Node<X> modelo) {
+        if (modelo == null) throw new IllegalArgumentException("Nó não pode ser nulo");
 
-        if (no == null) throw new IllegalArgumentException("Nó não pode ser nulo");
-
-        this.elemento = (X) verifyAndCopy(no.elemento);
-        this.proximo = (Node<X>)verifyAndCopy(no.proximo);
+        this.elemento = (X) verifyAndCopy(modelo.elemento);
+        this.proximo = (Node<X>)verifyAndCopy(modelo.proximo);
     }
 
     @Override
@@ -49,6 +48,19 @@ public class Node<X> implements Cloneable {
         } catch (Exception ignored) {
         }
         return clone;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+
+        if (this == obj) return true;
+        if (obj == null) return false;
+        if (this.getClass() != obj.getClass()) return false;
+
+        Node<?> that = (Node<?>) (obj);
+
+        return Objects.equals(this.elemento, that.elemento) &&
+                Objects.equals(this.proximo, that.proximo);
     }
 
     @Override
@@ -64,18 +76,6 @@ public class Node<X> implements Cloneable {
         return hash;
     }
 
-    @Override
-    public boolean equals(Object obj) {
-
-        if (this == obj) return true;
-        if (obj == null) return false;
-        if (this.getClass() != obj.getClass()) return false;
-
-        Node<?> no = (Node<?>) (obj);
-
-        return Objects.equals(this.elemento, no.elemento) &&
-                Objects.equals(this.proximo, no.proximo);
-    }
 
     @Override
     public String toString() {
