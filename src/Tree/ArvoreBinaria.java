@@ -31,6 +31,68 @@ public class ArvoreBinaria<T extends Comparable<T>> implements Cloneable {
         return noAtual;
     }
 
+    public boolean estaBalanceada() {
+        return estaBalanceada(raiz);
+    }
+
+    private boolean estaBalanceada(No<T> no) {
+        if (no == null) return true;
+        int alturaEsquerda = altura(no.getEsquerda());
+        int alturaDireita = altura(no.getDireita());
+        return Math.abs(alturaEsquerda - alturaDireita) <= 1 &&
+                estaBalanceada(no.getEsquerda()) &&
+                estaBalanceada(no.getDireita());
+    }
+
+    private No<T> rotacaoEsquerda(No<T> no) {
+        No<T> novaRaiz = no.getDireita();
+        no.setDireita(novaRaiz.getEsquerda());
+        novaRaiz.setEsquerda(no);
+        return novaRaiz;
+    }
+
+    private No<T> rotacaoDireita(No<T> no) {
+        No<T> novaRaiz = no.getEsquerda();
+        no.setEsquerda(novaRaiz.getDireita());
+        novaRaiz.setDireita(no);
+        return novaRaiz;
+    }
+
+    private No<T> balancear(No<T> no) {
+        if (no == null) return null;
+
+        if (altura(no.getEsquerda()) - altura(no.getDireita()) > 1) {
+            if (altura(no.getEsquerda().getEsquerda()) < altura(no.getEsquerda().getDireita())) {
+                no.setEsquerda(rotacaoEsquerda(no.getEsquerda()));
+            }
+            no = rotacaoDireita(no);
+        } else if (altura(no.getDireita()) - altura(no.getEsquerda()) > 1) {
+            if (altura(no.getDireita().getDireita()) < altura(no.getDireita().getEsquerda())) {
+                no.setDireita(rotacaoDireita(no.getDireita()));
+            }
+            no = rotacaoEsquerda(no);
+        }
+
+        return no;
+    }
+
+    public void balancearArvore() {
+        raiz = balancear(raiz);
+    }
+
+    public void espelhar() {
+        espelhar(raiz);
+    }
+
+    private void espelhar(No<T> no) {
+        if (no == null) return;
+        No<T> temp = no.getEsquerda();
+        no.setEsquerda(no.getDireita());
+        no.setDireita(temp);
+        espelhar(no.getEsquerda());
+        espelhar(no.getDireita());
+    }
+
     public boolean contem(T valor) {
         if (valor == null) throw new IllegalArgumentException("Valor nulo");
         return contem(raiz, valor);

@@ -11,14 +11,12 @@ public class No<X extends Comparable<X>> implements Cloneable, Comparable<No<X>>
 
     public No() {
     }
-
     public No(X valor) {
         if (valor == null) throw new IllegalArgumentException("Valor nulo");
         this.valor = valor;
         esquerda = null;
         direita = null;
     }
-
     public No(No<X> esquerda, X valor, No<X> direita) {
         this.valor = valor;
         this.esquerda = esquerda;
@@ -51,15 +49,37 @@ public class No<X extends Comparable<X>> implements Cloneable, Comparable<No<X>>
         this.direita = direita;
     }
 
-    public boolean isFolha() {  // isLeaf() -> isFolha()
+    public No<X> buscarNo(X valor) {
+        if (valor == null) return null;
+        int comparacao = valor.compareTo(this.valor);
+        if (comparacao == 0) return this;
+        if (comparacao < 0 && this.esquerda != null) return this.esquerda.buscarNo(valor);
+        if (comparacao > 0 && this.direita != null) return this.direita.buscarNo(valor);
+        return null;
+    }
+    public X buscarMinimo() {
+        if (this.esquerda == null)
+            return this.valor;
+        else
+            return this.esquerda.buscarMinimo();
+    }
+
+    public X buscarMaximo() {
+        if (this.direita == null)
+            return this.valor;
+        else
+            return this.direita.buscarMaximo();
+    }
+
+    public boolean isFolha() {
         return esquerda == null && direita == null;
     }
 
-    public boolean temAmbosFilhos() {  // hasBothChildren() -> temAmbosFilhos()
+    public boolean temAmbosFilhos() {
         return esquerda != null && direita != null;
     }
 
-    public boolean temUmFilho() {  // hasOneChild() -> temUmFilho()
+    public boolean temUmFilho() {
         return (esquerda != null && direita == null) || (esquerda == null && direita != null);
     }
 
@@ -69,12 +89,12 @@ public class No<X extends Comparable<X>> implements Cloneable, Comparable<No<X>>
         this.valor = (X) verifyAndCopy(modelo.getValor());
 
         if (modelo.esquerda != null)
-            this.esquerda = new No<>(modelo.esquerda); // Recursive deep copy
+            this.esquerda = new No<>(modelo.esquerda);
         else
             this.esquerda = null;
 
         if (modelo.direita != null)
-            this.direita = new No<>(modelo.direita); // Recursive deep copy
+            this.direita = new No<>(modelo.direita);
         else
             this.direita = null;
     }
