@@ -77,6 +77,7 @@ public class ArvoreBinaria<T extends Comparable<T>> implements Cloneable {
         if (this.getClass() != obj.getClass()) return false;
 
         ArvoreBinaria<?> that = (ArvoreBinaria<?>) obj;
+
         return equals(this.raiz, that.raiz);
     }
 
@@ -93,7 +94,9 @@ public class ArvoreBinaria<T extends Comparable<T>> implements Cloneable {
     public int hashCode() {
         final int prime = 31;
         int hash = 1;
+
         hash *= prime + hashCode(raiz, prime);
+
         if (hash < 0) hash = -hash;
 
         return hash;
@@ -113,18 +116,27 @@ public class ArvoreBinaria<T extends Comparable<T>> implements Cloneable {
     @Override
     public String toString() {
         if (raiz == null) return "{ }";
-        return getClass().getName() + "@" + size() + "..." + toString(1, raiz, "Root: ");
+        return "\n" + toString(0, raiz, "", true, new StringBuilder());
     }
 
-    private String toString(int level, No<T> current, String Prefix) {
+    private String toString(int level, No<T> no, String prefixo, boolean isUltimoFilho, StringBuilder sb) {
+        sb.append(prefixo);
 
-        StringBuilder spacer = new StringBuilder();
-        spacer.append(" ".repeat(Math.max(0, level * 2)));
+        if (level == 0) // Condição para a raiz
+            sb.append("[");
+        else
+            sb.append(isUltimoFilho ? "└─" : "├─").append("[");
 
-        if (current == null) return "\n" + spacer + Prefix + "[ ]";
+        sb.append(no.getValor()).append("]").append("\n");
 
-        return "\n" + spacer + Prefix + "[" + current.getValor() + "]" +
-                toString(level + 1, current.getEsquerda(), "Left: ") +
-                toString(level + 1, current.getDireita(), "Right: ");
+        String prefixoFilho = prefixo + (isUltimoFilho ? "  " : "│   ");
+
+        if (no.getEsquerda() != null)
+            toString(level + 1, no.getEsquerda(), prefixoFilho, false, sb);
+
+        if (no.getDireita() != null)
+            toString(level + 1, no.getDireita(), prefixoFilho, true, sb);
+
+        return sb.toString();
     }
 }

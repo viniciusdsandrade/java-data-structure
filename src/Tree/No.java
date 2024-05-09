@@ -11,14 +11,12 @@ public class No<X extends Comparable<X>> implements Cloneable, Comparable<X> {
 
     public No() {
     }
-
     public No(X valor) {
         if (valor == null) throw new IllegalArgumentException("Valor nulo");
         this.valor = valor;
         esquerda = null;
         direita = null;
     }
-
     public No(No<X> esquerda, X valor, No<X> direita) {
         this.valor = valor;
         this.esquerda = esquerda;
@@ -97,7 +95,17 @@ public class No<X extends Comparable<X>> implements Cloneable, Comparable<X> {
 
     @Override
     public String toString() {
-        return String.format("{ %s } L { %s } R { %s }", this.esquerda, this.valor, this.direita);
+        StringBuilder sb = new StringBuilder();
+
+        sb.append("{ ");
+        if (this.esquerda != null) sb.append(this.esquerda);
+        sb.append(" } L { ");
+        if (this.valor != null) sb.append(this.valor);
+        sb.append(" } R { ");
+        if (this.direita != null) sb.append(this.direita);
+        sb.append(" }");
+
+        return sb.toString();
     }
 
     @Override
