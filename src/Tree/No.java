@@ -39,8 +39,8 @@ public class No<X extends Comparable<X>> implements Cloneable, Comparable<No<X>>
      * @param direita  O nó direito.
      */
     public No(No<X> esquerda, X valor, No<X> direita) {
-        this.valor = valor;
         this.esquerda = esquerda;
+        this.valor = valor;
         this.direita = direita;
     }
 
