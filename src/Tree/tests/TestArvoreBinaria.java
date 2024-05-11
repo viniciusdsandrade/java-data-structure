@@ -7,79 +7,74 @@ public class TestArvoreBinaria {
     public static void main(String[] args) {
         ArvoreBinaria<Integer> arvore = new ArvoreBinaria<>();
 
+        System.out.println("### Testes da Árvore Binária de Busca ###");
+
+        // Testando inserção e impressão da árvore
+        System.out.println("\n1. Inserindo elementos na árvore:");
+        arvore.inserir(50);
         arvore.inserir(30);
         arvore.inserir(70);
         arvore.inserir(20);
-        arvore.inserir(50);
         arvore.inserir(40);
         arvore.inserir(60);
         arvore.inserir(80);
-        // Valores adicionados anteriormente
-//        arvore.inserir(15);
-//        arvore.inserir(35);
-//        arvore.inserir(65);
-//        arvore.inserir(85);
-//        arvore.inserir(10);
-//        arvore.inserir(45);
-//        arvore.inserir(75);
-//        arvore.inserir(90);
-//        // Novos valores adicionados abaixo
-//        arvore.inserir(5);
-//        arvore.inserir(25);
-//        arvore.inserir(55);
-//        arvore.inserir(95);
-//        arvore.inserir(17);
-//        arvore.inserir(37);
-//        arvore.inserir(67);
-//        arvore.inserir(87);
+        System.out.println("Árvore inicial:\n" + arvore);
 
-        // Inserindo números ímpares até 100
-        // for (int i = 1; i <= 100; i += 2) arvore.inserir(i);
+        // Testando método contem
+        System.out.println("\n2. Testando método contem():");
+        System.out.println("Contém 50? " + arvore.contem(50));
+        System.out.println("Contém 25? " + arvore.contem(25));
 
+        // Testando método achar
+        System.out.println("\n3. Testando método achar():");
+        System.out.println("Nó 70: " + arvore.achar(70));
+        System.out.println("Nó 25: " + arvore.achar(25)); // Deve retornar null
+
+        // Testando métodos de verificação de balanceamento
+        System.out.println("\n4. Testando balanceamento:");
+        System.out.println("  4.1. Árvore está balanceada? " + arvore.estaBalanceada());
+        arvore.inserir(10);
+        arvore.inserir(5);
+        System.out.println("  4.2. Árvore está balanceada após inserções? " + arvore.estaBalanceada());
+        System.out.println("  4.3. Árvore desbalanceada:\n" + arvore);
+
+        // Testando balanceamento da árvore
+        System.out.println("\n  4.4. Balanceando a árvore:");
+        arvore.balancearArvore();
+        System.out.println("  4.5. Árvore balanceada:\n" + arvore);
+        System.out.println("  4.6. Árvore está balanceada após balanceamento? " + arvore.estaBalanceada());
+
+        // Testando espelhamento da árvore
+        System.out.println("\n5. Espelhando a árvore:");
+        arvore.espelhar();
+        System.out.println("  5.1. Árvore espelhada:\n" + arvore);
+
+        // Testando métodos de cópia
+        System.out.println("\n6. Testando métodos de cópia:");
         ArvoreBinaria<Integer> copia = new ArvoreBinaria<>(arvore);
         @SuppressWarnings("unchecked")
         ArvoreBinaria<Integer> clone = (ArvoreBinaria<Integer>) arvore.clone();
+        System.out.println("  6.1. hashCode da árvore: " + arvore.hashCode());
+        System.out.println("  6.2. hashCode da cópia:  " + copia.hashCode());
+        System.out.println("  6.3. hashCode do clone:  " + clone.hashCode());
+        System.out.println("  6.4. arvore.equals(copia): " + arvore.equals(copia));
+        System.out.println("  6.5. arvore.equals(clone): " + arvore.equals(clone));
 
+        // Testando altura e profundidade
+        System.out.println("\n7. Testando altura e profundidade:");
+        System.out.println("  7.1. Altura da árvore: " + arvore.altura());
+        System.out.println("  7.2. Profundidade do nó 80: " + arvore.profundidade(new No<>(80)));
+        System.out.println("  7.3. Profundidade do nó 5: " + arvore.profundidade(new No<>(5)));
 
-        System.out.println("Arvore balanceada está balanceada? " + arvore.estaBalanceada());
-        System.out.println("Arvore: " + arvore);
-        arvore.balancearArvore();
-        System.out.println("Arvore balanceada: " + arvore);
-        System.out.println("Arvore balanceada está balanceada? " + arvore.estaBalanceada());
+        // Testando tamanho da árvore
+        System.out.println("\n8. Testando tamanho da árvore:");
+        System.out.println("  8.1. Tamanho da árvore: " + arvore.tamanho());
 
-        System.out.println();
-        System.out.println("hashCode da árvore: " + arvore.hashCode());
-        System.out.println("hashCode do copia:  " + copia.hashCode());
-        System.out.println("hashCode do copia:  " + clone.hashCode());
-
-        System.out.println("arvore.equals(copia): " + arvore.equals(copia));
-        System.out.println("arvore.equals(clone): " + arvore.equals(clone));
-
-        System.out.println("Árvore: " + arvore);
-        System.out.println("Cópia:  " + copia);
-        System.out.println("Clone:  " + clone);
-
-        System.out.println("A árvore está balanceada? " + arvore.estaBalanceada());
-
-        // Verificar Altura
-        System.out.println("Altura da árvore: " + arvore.altura());
-
-        // Verificar Profundidade
-        System.out.println("Profundidade do nó 80: " + arvore.profundidade(new No<>(80)));
-
-        // Verificar o tamanho da árvore
-        System.out.println("Tamanho da árvore: " + arvore.tamanho());
-
-        // Imprimir a árvore
-        System.out.println("Árvore: " + arvore);
-
-        // Verificar se a árvore está vazia
-        System.out.println("Árvore está vazia? " + arvore.estaVazio());
-
-        // Limpar a árvore
+        // Testando método limpar
+        System.out.println("\n9. Testando método limpar:");
+        System.out.println("  9.1. Árvore está vazia? " + arvore.estaVazio());
         arvore.limpar();
-
-        // Verificar se a árvore está vazia novamente
-        System.out.println("Árvore está vazia? " + arvore.estaVazio());
+        System.out.println("  9.2. Árvore está vazia após limpar? " + arvore.estaVazio());
+        System.out.println("  9.3. Árvore após limpar:\n" + arvore);
     }
 }
