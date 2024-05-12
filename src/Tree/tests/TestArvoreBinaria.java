@@ -1,12 +1,13 @@
 package Tree.tests;
 
+import LinkedList.Disordered.LinkedListDisordered;
+import LinkedList.Ordered.LinkedListOrdered;
 import Tree.ArvoreBinaria;
 import Tree.No;
 
 public class TestArvoreBinaria {
     public static void main(String[] args) {
         ArvoreBinaria<Integer> arvore = new ArvoreBinaria<>();
-
         System.out.println("### Testes da Árvore Binária de Busca ###");
 
         // Testando inserção e impressão da árvore
@@ -76,5 +77,18 @@ public class TestArvoreBinaria {
         arvore.limpar();
         System.out.println("  9.2. Árvore está vazia após limpar? " + arvore.estaVazio());
         System.out.println("  9.3. Árvore após limpar:\n" + arvore);
+
+        // Testando método toLinkedList
+        System.out.println("\n10. Testando método toLinkedList():");
+        arvore.inserir(50);
+        arvore.inserir(30);
+        arvore.inserir(70);
+        arvore.inserir(20);
+        arvore.inserir(40);
+        arvore.inserir(60);
+        arvore.inserir(80);
+        System.out.println("  10.1. Árvore:\n" + arvore);
+        LinkedListOrdered<Integer> linkedList = arvore.toLinkedList();
+        System.out.println("  10.2. LinkedList: " + linkedList);
     }
 }

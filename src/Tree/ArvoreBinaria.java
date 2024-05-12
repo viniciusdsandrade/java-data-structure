@@ -1,5 +1,7 @@
 package Tree;
 
+import LinkedList.Ordered.LinkedListOrdered;
+
 import static ShallowOrDeepCopy.ShallowOrDeepCopy.verifyAndCopy;
 
 /**
@@ -143,6 +145,31 @@ public class ArvoreBinaria<T extends Comparable<T>> implements Cloneable {
      */
     public void balancearArvore() {
         raiz = balancear(raiz);
+    }
+
+    /**
+     * Transforma a árvore binária em um LinkedList usando um percurso em ordem.
+     *
+     * @return O LinkedList contendo os valores da árvore em ordem.
+     */
+    public LinkedListOrdered<T> toLinkedList() {
+        LinkedListOrdered<T> lista = new LinkedListOrdered<>();
+        toLinkedList(raiz, lista);
+        return lista;
+    }
+
+    /**
+     * Método recursivo privado para realizar o percurso em ordem e adicionar os valores ao LinkedList.
+     *
+     * @param no    O nó atual da recursão.
+     * @param lista O LinkedList que irá armazenar os valores da árvore.
+     */
+    private void toLinkedList(No<T> no, LinkedListOrdered<T> lista) {
+        if (no != null) {
+            toLinkedList(no.getEsquerda(), lista);
+            lista.add(no.getValor());
+            toLinkedList(no.getDireita(), lista);
+        }
     }
 
     /**
