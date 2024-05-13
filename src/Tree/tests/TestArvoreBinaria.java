@@ -1,12 +1,11 @@
 package Tree.tests;
 
-import LinkedList.Disordered.LinkedListDisordered;
 import LinkedList.Ordered.LinkedListOrdered;
 import Tree.ArvoreBinaria;
 import Tree.No;
 
 public class TestArvoreBinaria {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         ArvoreBinaria<Integer> arvore = new ArvoreBinaria<>();
         System.out.println("### Testes da Árvore Binária de Busca ###");
 
@@ -21,10 +20,28 @@ public class TestArvoreBinaria {
         arvore.inserir(80);
         System.out.println("Árvore inicial:\n" + arvore);
 
+        arvore.remova(50);
+        arvore.balancearArvore();
+        System.out.println("Árvore após remoção de 50:\n" + arvore);
+
+        System.out.println("getMenor(): " + arvore.getMenor());
+        System.out.println("getMaior(): " + arvore.getMaior());
+
+
+        System.out.println("getRaiz(): " + arvore.getRaiz());
+
         // Testando método contem
         System.out.println("\n2. Testando método contem():");
-        System.out.println("Contém 50? " + arvore.contem(50));
+
         System.out.println("Contém 25? " + arvore.contem(25));
+        System.out.println("Contém 40? " + arvore.contem(40));
+        System.out.println("Contém 50? " + arvore.contem(50));
+        System.out.println("Contém 60? " + arvore.contem(60));
+        System.out.println("Contém 70? " + arvore.contem(70));
+        System.out.println("Contém 75? " + arvore.contem(75));
+        System.out.println("Contém 80? " + arvore.contem(80));
+        System.out.println("Contém 90? " + arvore.contem(90));
+
 
         // Testando método achar
         System.out.println("\n3. Testando método achar():");

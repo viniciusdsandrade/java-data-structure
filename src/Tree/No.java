@@ -14,19 +14,19 @@ import static ShallowOrDeepCopy.ShallowOrDeepCopy.verifyAndCopy;
 public class No<X extends Comparable<X>> implements Cloneable, Comparable<No<X>> {
 
     /**
-     * O valor armazenado no nó.
-     */
-    private X valor;
-
-    /**
      * A referência para o filho esquerdo do nó.
      */
-    private No<X> esquerda;
+    private No<X> esq;
+
+    /**
+     * O valor armazenado no nó.
+     */
+    private X info;
 
     /**
      * A referência para o filho direito do nó.
      */
-    private No<X> direita;
+    private No<X> dir;
 
     /**
      * Construtor padrão que cria um nó vazio.
@@ -37,27 +37,41 @@ public class No<X extends Comparable<X>> implements Cloneable, Comparable<No<X>>
     /**
      * Construtor que cria um nó com o valor especificado.
      *
-     * @param valor O valor a ser armazenado no nó, não pode ser nulo.
+     * @param info O valor a ser armazenado no nó, não pode ser nulo.
      * @throws IllegalArgumentException Se o valor fornecido for nulo.
      */
-    public No(X valor) {
-        if (valor == null) throw new IllegalArgumentException("Valor nulo");
-        this.valor = valor;
-        esquerda = null;
-        direita = null;
+    public No(X info) {
+        if (info == null) throw new IllegalArgumentException("Valor nulo");
+        this.esq = null;
+        this.info = info;
+        this.dir = null;
+    }
+
+    public No(No<X> esq, X info) {
+        if (info == null) throw new IllegalArgumentException("Valor nulo");
+        this.esq = esq;
+        this.info = info;
+        this.dir = null;
+    }
+
+    public No(X info, No<X> dir) {
+        if (info == null) throw new IllegalArgumentException("Valor nulo");
+        this.esq = null;
+        this.info = info;
+        this.dir = dir;
     }
 
     /**
      * Construtor que cria um nó com o valor especificado e referências para os filhos esquerdo e direito.
      *
-     * @param esquerda A referência para o filho esquerdo do nó.
-     * @param valor    O valor a ser armazenado no nó.
-     * @param direita  A referência para o filho direito do nó.
+     * @param esq A referência para o filho esquerdo do nó.
+     * @param info    O valor a ser armazenado no nó.
+     * @param dir  A referência para o filho direito do nó.
      */
-    public No(No<X> esquerda, X valor, No<X> direita) {
-        this.esquerda = esquerda;
-        this.valor = valor;
-        this.direita = direita;
+    public No(No<X> esq, X info, No<X> dir) {
+        this.esq = esq;
+        this.info = info;
+        this.dir = dir;
     }
 
     /**
@@ -67,7 +81,7 @@ public class No<X extends Comparable<X>> implements Cloneable, Comparable<No<X>>
      */
     @SuppressWarnings("unchecked")
     public X getValor() {
-        return (X) verifyAndCopy(valor);
+        return (X) verifyAndCopy(info);
     }
 
     /**
@@ -76,7 +90,7 @@ public class No<X extends Comparable<X>> implements Cloneable, Comparable<No<X>>
      * @return A referência para o filho esquerdo do nó.
      */
     public No<X> getEsquerda() {
-        return esquerda;
+        return esq;
     }
 
     /**
@@ -85,7 +99,7 @@ public class No<X extends Comparable<X>> implements Cloneable, Comparable<No<X>>
      * @return A referência para o filho direito do nó.
      */
     public No<X> getDireita() {
-        return direita;
+        return dir;
     }
 
     /**
@@ -96,7 +110,7 @@ public class No<X extends Comparable<X>> implements Cloneable, Comparable<No<X>>
      */
     public void setValor(X valor) {
         if (valor == null) throw new IllegalArgumentException("Valor nulo");
-        this.valor = valor;
+        this.info = valor;
     }
 
     /**
@@ -105,7 +119,7 @@ public class No<X extends Comparable<X>> implements Cloneable, Comparable<No<X>>
      * @param esquerda A nova referência para o filho esquerdo do nó.
      */
     public void setEsquerda(No<X> esquerda) {
-        this.esquerda = esquerda;
+        this.esq = esquerda;
     }
 
     /**
@@ -114,7 +128,7 @@ public class No<X extends Comparable<X>> implements Cloneable, Comparable<No<X>>
      * @param direita A nova referência para o filho direito do nó.
      */
     public void setDireita(No<X> direita) {
-        this.direita = direita;
+        this.dir = direita;
     }
 
     /**
@@ -125,10 +139,10 @@ public class No<X extends Comparable<X>> implements Cloneable, Comparable<No<X>>
      */
     public No<X> buscarNo(X valor) {
         if (valor == null) return null;
-        int comparacao = valor.compareTo(this.valor);
+        int comparacao = valor.compareTo(this.info);
         if (comparacao == 0) return this;
-        if (comparacao < 0 && this.esquerda != null) return this.esquerda.buscarNo(valor);
-        if (comparacao > 0 && this.direita != null) return this.direita.buscarNo(valor);
+        if (comparacao < 0 && this.esq != null) return this.esq.buscarNo(valor);
+        if (comparacao > 0 && this.dir != null) return this.dir.buscarNo(valor);
         return null;
     }
 
@@ -138,10 +152,10 @@ public class No<X extends Comparable<X>> implements Cloneable, Comparable<No<X>>
      * @return O valor mínimo na subárvore.
      */
     public X buscarMinimo() {
-        if (this.esquerda == null)
-            return this.valor;
+        if (this.esq == null)
+            return this.info;
         else
-            return this.esquerda.buscarMinimo();
+            return this.esq.buscarMinimo();
     }
 
     /**
@@ -150,10 +164,10 @@ public class No<X extends Comparable<X>> implements Cloneable, Comparable<No<X>>
      * @return O valor máximo na subárvore.
      */
     public X buscarMaximo() {
-        if (this.direita == null)
-            return this.valor;
+        if (this.dir == null)
+            return this.info;
         else
-            return this.direita.buscarMaximo();
+            return this.dir.buscarMaximo();
     }
 
     /**
@@ -162,7 +176,7 @@ public class No<X extends Comparable<X>> implements Cloneable, Comparable<No<X>>
      * @return True se o nó for uma folha, False caso contrário.
      */
     public boolean isFolha() {
-        return esquerda == null && direita == null;
+        return esq == null && dir == null;
     }
 
     /**
@@ -171,7 +185,7 @@ public class No<X extends Comparable<X>> implements Cloneable, Comparable<No<X>>
      * @return True se o nó possuir ambos os filhos, False caso contrário.
      */
     public boolean temAmbosFilhos() {
-        return esquerda != null && direita != null;
+        return esq != null && dir != null;
     }
 
     /**
@@ -180,7 +194,7 @@ public class No<X extends Comparable<X>> implements Cloneable, Comparable<No<X>>
      * @return True se o nó possuir apenas um filho, False caso contrário.
      */
     public boolean temUmFilho() {
-        return (esquerda != null && direita == null) || (esquerda == null && direita != null);
+        return (esq != null && dir == null) || (esq == null && dir != null);
     }
 
     /**
@@ -193,17 +207,17 @@ public class No<X extends Comparable<X>> implements Cloneable, Comparable<No<X>>
     public No(No<X> modelo) {
         if (modelo == null) throw new IllegalArgumentException("Modelo nulo");
 
-        this.valor = (X) verifyAndCopy(modelo.getValor());
+        this.info = (X) verifyAndCopy(modelo.getValor());
 
-        if (modelo.esquerda != null)
-            this.esquerda = new No<>(modelo.esquerda);
+        if (modelo.esq != null)
+            this.esq = new No<>(modelo.esq);
         else
-            this.esquerda = null;
+            this.esq = null;
 
-        if (modelo.direita != null)
-            this.direita = new No<>(modelo.direita);
+        if (modelo.dir != null)
+            this.dir = new No<>(modelo.dir);
         else
-            this.direita = null;
+            this.dir = null;
     }
 
     /**
@@ -232,9 +246,9 @@ public class No<X extends Comparable<X>> implements Cloneable, Comparable<No<X>>
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         No<?> that = (No<?>) o;
-        return Objects.equals(this.valor, that.valor) &&
-                equals(this.esquerda, that.esquerda) &&
-                equals(this.direita, that.direita);
+        return Objects.equals(this.info, that.info) &&
+                equals(this.esq, that.esq) &&
+                equals(this.dir, that.dir);
     }
 
     /**
@@ -247,9 +261,9 @@ public class No<X extends Comparable<X>> implements Cloneable, Comparable<No<X>>
     private boolean equals(No<X> no1, No<?> no2) {
         if (no1 == no2) return true;
         if (no1 == null || no2 == null) return false;
-        if (!no1.valor.equals(no2.valor)) return false;
-        return equals(no1.esquerda, no2.esquerda) &&
-                equals(no1.direita, no2.direita);
+        if (!no1.info.equals(no2.info)) return false;
+        return equals(no1.esq, no2.esq) &&
+                equals(no1.dir, no2.dir);
     }
 
     /**
@@ -272,9 +286,9 @@ public class No<X extends Comparable<X>> implements Cloneable, Comparable<No<X>>
         final int prime = 31;
         int hash = 1;
         if (no == null) return 0;
-        hash *= prime + ((no.valor == null) ? 0 : no.valor.hashCode());
-        hash *= prime + hashCode(no.esquerda);
-        hash *= prime + hashCode(no.direita);
+        hash *= prime + ((no.info == null) ? 0 : no.info.hashCode());
+        hash *= prime + hashCode(no.esq);
+        hash *= prime + hashCode(no.dir);
         if (hash < 0) hash = -hash;
         return hash;
     }
@@ -288,11 +302,11 @@ public class No<X extends Comparable<X>> implements Cloneable, Comparable<No<X>>
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("{ ");
-        if (this.esquerda != null) sb.append(this.esquerda);
+        if (this.esq != null) sb.append(this.esq);
         sb.append(" } L { ");
-        if (this.valor != null) sb.append(this.valor);
+        if (this.info != null) sb.append(this.info);
         sb.append(" } R { ");
-        if (this.direita != null) sb.append(this.direita);
+        if (this.dir != null) sb.append(this.dir);
         sb.append(" }");
         return sb.toString();
     }
@@ -308,6 +322,6 @@ public class No<X extends Comparable<X>> implements Cloneable, Comparable<No<X>>
     @Override
     public int compareTo(No<X> other) {
         if (other == null) throw new NullPointerException("Cannot compare with null node");
-        return this.valor.compareTo(other.valor);
+        return this.info.compareTo(other.info);
     }
 }
