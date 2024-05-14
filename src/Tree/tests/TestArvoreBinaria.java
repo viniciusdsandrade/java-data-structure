@@ -11,22 +11,24 @@ public class TestArvoreBinaria {
 
         // Testando inserção e impressão da árvore
         System.out.println("\n1. Inserindo elementos na árvore:");
-        arvore.inserir(50);
         arvore.inserir(30);
         arvore.inserir(70);
         arvore.inserir(20);
         arvore.inserir(40);
         arvore.inserir(60);
         arvore.inserir(80);
+        arvore.inserir(50);
         System.out.println("Árvore inicial:\n" + arvore);
-
-        arvore.remova(50);
         arvore.balancearArvore();
+        System.out.println("Árvore após balanceamento:\n" + arvore);
+        arvore.remova(50);
         System.out.println("Árvore após remoção de 50:\n" + arvore);
+        arvore.balancearArvore();
+
+
 
         System.out.println("getMenor(): " + arvore.getMenor());
         System.out.println("getMaior(): " + arvore.getMaior());
-
 
         System.out.println("getRaiz(): " + arvore.getRaiz());
 

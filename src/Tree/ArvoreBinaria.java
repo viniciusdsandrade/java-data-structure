@@ -6,7 +6,7 @@ import static ShallowOrDeepCopy.ShallowOrDeepCopy.verifyAndCopy;
 
 /**
  * A classe 'ArvoreBinaria’ representa uma árvore binária de busca genérica, onde o tipo de dado armazenado nos nós
- * devemos implementar a interface’Comparable’.
+ * deve implementar a interface ’Comparable’.
  *
  * @param <T> O tipo de dado armazenado na árvore, que deve implementar a interface `Comparable`.
  */
@@ -32,6 +32,11 @@ public class ArvoreBinaria<T extends Comparable<T>> implements Cloneable {
         this.raiz = new No<>(raiz);
     }
 
+    /**
+     * Retorna o nó raiz da árvore binária.
+     *
+     * @return O nó raiz da árvore binária.
+     */
     public No<T> getRaiz() {
         return raiz;
     }
@@ -46,6 +51,7 @@ public class ArvoreBinaria<T extends Comparable<T>> implements Cloneable {
     public void inserir(T valor) {
         if (valor == null) throw new IllegalArgumentException("Valor nulo");
         if (contem(valor)) throw new IllegalArgumentException("Valor repetido"); // Verifica se já existe
+
         No<T> novoNo = (No<T>) verifyAndCopy(new No<>(valor));
         raiz = inserir(raiz, novoNo);
     }
@@ -72,44 +78,30 @@ public class ArvoreBinaria<T extends Comparable<T>> implements Cloneable {
         return noAtual; // Se valor é igual, não faz nada (evita duplicatas)
     }
 
-    /*
-     se a info não for encontrada na árvore, dê uma exceção
-
-     se a info for encontrada numa folha, desloque a folha da árvore,
-     fazendo o ponteiro que aponta para ela dentro do seu nó pai,
-     tornar-se null
-
-     se info for encontrada num nó N, que não é folha, sendo que N
-     só tem filho à esquerda, e sendo N filho esquerdo de um certo
-     pai P, faça o ponteiro esquerdo de P, passar a apontar para
-     esse filho que ha na esquerda de N
-
-     se info for encontrada num nó N, que não é folha, sendo que N
-     só tem filho à esquerda, e sendo N filho direito de um certo
-     pai P, faça o ponteiro direito de P, passar a apontar para
-     esse filho que ha na esquerda de N
-
-     se info for encontrada num nó N, que não é folha, sendo que N
-     só tem filho à direita, e sendo N filho esquerdo de um certo
-     pai P, faça o ponteiro esquerdo de P, passar a apontar para
-     esse filho que ha na direita de N
-
-     se info for encontrada num nó N, que não é folha, sendo que N
-     só tem filho à direita, e sendo N filho direita de um certo
-     pai P, faça o ponteiro direito de P, passar a apontar para
-     esse filho que ha na direita de N
-
-     se info for encontrada num nó N, que não é folha e tem 2 filhos,
-     encontre a informação info que existe à extrema-esquerda da
-     subárvore direita de N ou à extrema-direita da subárvore esquerda
-     de N; remova o nó que contém info e substitua dentro do nó N,
-     a informação que ali se encontra por info
+    /**
+     * Remove um valor da árvore binária.
+     *
+     * @param valor O valor a ser removido.
+     * @throws Exception Se o valor não for encontrado na árvore.
      */
     public void remova(T valor) throws Exception {
         if (valor == null) throw new Exception("Informação ausente");
         raiz = remova(raiz, valor);
     }
 
+    /**
+     * Método recursivo privado para remover um valor da árvore.
+     * Este método implementa a lógica de remoção de um nó de uma árvore binária de busca,
+     * considerando os diferentes casos:
+     * <p>- Caso 1: Nó folha (sem filhos).</p>
+     * <p>- Caso 2: Nó com apenas um filho.</p>
+     * <p>- Caso 3: Nó com dois filhos.</p>
+     *
+     * @param noAtual O nó atual a ser verificado.
+     * @param valor   O valor a ser removido.
+     * @return O nó atual após a remoção do valor.
+     * @throws Exception Se o valor não for encontrado na árvore.
+     */
     private No<T> remova(No<T> noAtual, T valor) throws Exception {
         if (noAtual == null) throw new Exception("Valor não encontrado na árvore.");
 
@@ -119,8 +111,9 @@ public class ArvoreBinaria<T extends Comparable<T>> implements Cloneable {
             noAtual.setDireita(remova(noAtual.getDireita(), valor));
         } else {
             // Valor encontrado
+
             // Caso 1: Nó folha
-            if (noAtual.getEsquerda() == null && noAtual.getDireita() == null){
+            if (noAtual.getEsquerda() == null && noAtual.getDireita() == null) {
                 return null;
             }
             // Caso 2: Nó com apenas um filho
@@ -128,8 +121,8 @@ public class ArvoreBinaria<T extends Comparable<T>> implements Cloneable {
                 return noAtual.getDireita();
             else if (noAtual.getDireita() == null)
                 return noAtual.getEsquerda();
-            else {
                 // Caso 3: Nó com dois filhos: encontra o sucessor (menor valor na subárvore direita)
+            else {
                 T sucessor = getMenor(noAtual.getDireita());
                 noAtual.setValor(sucessor);
                 noAtual.setDireita(remova(noAtual.getDireita(), sucessor));
@@ -158,39 +151,59 @@ public class ArvoreBinaria<T extends Comparable<T>> implements Cloneable {
     private boolean contem(No<T> noAtual, T valor) {
         if (noAtual == null)
             return false;
-
         if (valor.compareTo(noAtual.getValor()) == 0)
             return true;
-
         if (valor.compareTo(noAtual.getValor()) < 0)
             return contem(noAtual.getEsquerda(), valor);
         else
             return contem(noAtual.getDireita(), valor);
     }
 
+    /**
+     * Retorna o menor valor presente na árvore.
+     *
+     * @return O menor valor presente na árvore.
+     * @throws Exception Se a árvore estiver vazia.
+     */
     public T getMenor() throws Exception {
-        if (raiz == null) throw new Exception("");
+        if (raiz == null) throw new Exception("A árvore está vazia.");
         return getMenor(raiz);
     }
 
+    /**
+     * Método recursivo privado para encontrar o menor valor na subárvore a partir de um determinado nó.
+     *
+     * @param no O nó atual da recursão.
+     * @return O menor valor presente na subárvore.
+     */
     @SuppressWarnings("unchecked")
     private T getMenor(No<T> no) {
         if (no.getEsquerda() == null)
             return (T) verifyAndCopy(no.getValor());
-
         return getMenor(no.getEsquerda());
     }
 
+    /**
+     * Retorna o maior valor presente na árvore.
+     *
+     * @return O maior valor presente na árvore.
+     * @throws Exception Se a árvore estiver vazia.
+     */
     public T getMaior() throws Exception {
-        if (raiz == null) throw new Exception("");
+        if (raiz == null) throw new Exception("A árvore está vazia.");
         return getMaior(raiz);
     }
 
+    /**
+     * Método recursivo privado para encontrar o maior valor na subárvore a partir de um determinado nó.
+     *
+     * @param no O nó atual da recursão.
+     * @return O maior valor presente na subárvore.
+     */
     @SuppressWarnings("unchecked")
     private T getMaior(No<T> no) {
         if (no.getDireita() == null)
             return (T) verifyAndCopy(no.getValor());
-
         return getMaior(no.getDireita());
     }
 
@@ -212,8 +225,10 @@ public class ArvoreBinaria<T extends Comparable<T>> implements Cloneable {
      */
     private boolean estaBalanceada(No<T> no) {
         if (no == null) return true;
+
         int alturaEsquerda = altura(no.getEsquerda());
         int alturaDireita = altura(no.getDireita());
+
         return Math.abs(alturaEsquerda - alturaDireita) <= 1 &&
                 estaBalanceada(no.getEsquerda()) &&
                 estaBalanceada(no.getDireita());
@@ -317,9 +332,11 @@ public class ArvoreBinaria<T extends Comparable<T>> implements Cloneable {
      */
     private void espelhar(No<T> no) {
         if (no == null) return;
+
         No<T> temp = no.getEsquerda();
         no.setEsquerda(no.getDireita());
         no.setDireita(temp);
+
         espelhar(no.getEsquerda());
         espelhar(no.getDireita());
     }
@@ -344,8 +361,8 @@ public class ArvoreBinaria<T extends Comparable<T>> implements Cloneable {
      * @return O nó que contém o valor, ou ’null` se o valor não estiver presente na subárvore.
      */
     private No<T> achar(No<T> noAtual, T valor) {
-
         if (noAtual == null) return null;
+
         if (valor.compareTo(noAtual.getValor()) == 0) return noAtual;
 
         if (valor.compareTo(noAtual.getValor()) < 0)
@@ -394,8 +411,10 @@ public class ArvoreBinaria<T extends Comparable<T>> implements Cloneable {
      */
     private int profundidade(No<T> noAtual, No<T> noProcurado, int profundidadeAtual) {
         if (noAtual == null || noAtual == noProcurado) return profundidadeAtual;
+
         int profundidadeEsquerda = profundidade(noAtual.getEsquerda(), noProcurado, profundidadeAtual + 1);
         if (profundidadeEsquerda != -1) return profundidadeEsquerda;
+
         return profundidade(noAtual.getDireita(), noProcurado, profundidadeAtual + 1);
     }
 
@@ -478,6 +497,7 @@ public class ArvoreBinaria<T extends Comparable<T>> implements Cloneable {
         if (this == obj) return true;
         if (obj == null) return false;
         if (this.getClass() != obj.getClass()) return false;
+
         ArvoreBinaria<?> that = (ArvoreBinaria<?>) obj;
         return equals(this.raiz, that.raiz);
     }
@@ -492,7 +512,9 @@ public class ArvoreBinaria<T extends Comparable<T>> implements Cloneable {
     private boolean equals(No<T> no1, No<?> no2) {
         if (no1 == no2) return true;
         if (no1 == null || no2 == null) return false;
+
         if (!no1.getValor().equals(no2.getValor())) return false;
+
         return equals(no1.getEsquerda(), no2.getEsquerda()) &&
                 equals(no1.getDireita(), no2.getDireita());
     }
@@ -520,11 +542,10 @@ public class ArvoreBinaria<T extends Comparable<T>> implements Cloneable {
      */
     private int hashCode(No<T> raiz, int prime) {
         if (raiz == null) return 0;
-        if (raiz.getEsquerda() == null && raiz.getDireita() == null) return prime * raiz.getValor().hashCode();
 
+        if (raiz.getEsquerda() == null && raiz.getDireita() == null) return prime * raiz.getValor().hashCode();
         if (raiz.getEsquerda() == null && raiz.getDireita() != null)
             return prime * raiz.getValor().hashCode() + hashCode(raiz.getDireita(), prime);
-
         if (raiz.getEsquerda() != null && raiz.getDireita() == null)
             return prime * raiz.getValor().hashCode() + hashCode(raiz.getEsquerda(), prime);
 
@@ -558,12 +579,17 @@ public class ArvoreBinaria<T extends Comparable<T>> implements Cloneable {
             sb.append("[");
         else
             sb.append(isUltimoFilho ? "└─" : "├─").append("[");
+
         sb.append(no.getValor()).append("]").append("\n");
+
         String prefixoFilho = prefixo + (isUltimoFilho ? "  " : "│   ");
+
         if (no.getEsquerda() != null)
             toString(level + 1, no.getEsquerda(), prefixoFilho, false, sb);
+
         if (no.getDireita() != null)
             toString(level + 1, no.getDireita(), prefixoFilho, true, sb);
+
         return sb.toString();
     }
 }
