@@ -51,7 +51,6 @@ public class ArvoreBinaria<T extends Comparable<T>> implements Cloneable {
     public void inserir(T valor) {
         if (valor == null) throw new IllegalArgumentException("Valor nulo");
         if (contem(valor)) throw new IllegalArgumentException("Valor repetido"); // Verifica se já existe
-
         No<T> novoNo = (No<T>) verifyAndCopy(new No<>(valor));
         raiz = inserir(raiz, novoNo);
     }
@@ -69,12 +68,10 @@ public class ArvoreBinaria<T extends Comparable<T>> implements Cloneable {
      */
     private No<T> inserir(No<T> noAtual, No<T> novoNo) {
         if (noAtual == null) return novoNo; // Se árvore vazia, retorna o novo nó
-
         if (novoNo.getValor().compareTo(noAtual.getValor()) < 0)
             noAtual.setEsquerda(inserir(noAtual.getEsquerda(), novoNo));
         else if (novoNo.getValor().compareTo(noAtual.getValor()) > 0)
             noAtual.setDireita(inserir(noAtual.getDireita(), novoNo));
-
         return noAtual; // Se valor é igual, não faz nada (evita duplicatas)
     }
 
@@ -106,28 +103,27 @@ public class ArvoreBinaria<T extends Comparable<T>> implements Cloneable {
         if (noAtual == null) throw new Exception("Valor não encontrado na árvore.");
 
         if (valor.compareTo(noAtual.getValor()) < 0) {
+            // Caso 1: Valor menor que o nó atual - pesquisa na subárvore esquerda
             noAtual.setEsquerda(remova(noAtual.getEsquerda(), valor));
         } else if (valor.compareTo(noAtual.getValor()) > 0) {
+            // Caso 2: Valor maior que o nó atual - pesquisa na subárvore direita
             noAtual.setDireita(remova(noAtual.getDireita(), valor));
-        } else {
-            // Valor encontrado
-
-            // Caso 1: Nó folha
-            if (noAtual.getEsquerda() == null && noAtual.getDireita() == null) {
-                return null;
-            }
-            // Caso 2: Nó com apenas um filho
-            else if (noAtual.getEsquerda() == null)
-                return noAtual.getDireita();
-            else if (noAtual.getDireita() == null)
-                return noAtual.getEsquerda();
-                // Caso 3: Nó com dois filhos: encontra o sucessor (menor valor na subárvore direita)
-            else {
-                T sucessor = getMenor(noAtual.getDireita());
-                noAtual.setValor(sucessor);
-                noAtual.setDireita(remova(noAtual.getDireita(), sucessor));
-            }
+            return noAtual; // Retorna o nó atual - o valor a ser removido não está na subárvore esquerda
         }
+        // Caso 3: Valor encontrado no nó atual
+        // Caso 3.1: Nó folha (sem filhos) - remove o nó
+        if (noAtual.getEsquerda() == null && noAtual.getDireita() == null) return null;
+            // Caso 3.2: Nó com apenas um filho - substitui o nó pelo seu único filho
+        else if (noAtual.getEsquerda() == null) return noAtual.getDireita();
+        else if (noAtual.getDireita() == null) return noAtual.getEsquerda();
+        else {
+            // Caso 3.3: Nó com dois filhos - encontra o sucessor (menor valor na subárvore direita)
+            T sucessor = getMenor(noAtual.getDireita()); // Substitui o valor do nó atual pelo sucessor
+            noAtual.setValor(sucessor);// Remove o sucessor da subárvore direita
+            noAtual.setDireita(remova(noAtual.getDireita(), sucessor));
+        }
+
+        // Retorna o nó atual - o nó foi removido ou atualizado
         return noAtual;
     }
 
@@ -149,14 +145,10 @@ public class ArvoreBinaria<T extends Comparable<T>> implements Cloneable {
      * @return true se o valor estiver presente na árvore, false caso contrário.
      */
     private boolean contem(No<T> noAtual, T valor) {
-        if (noAtual == null)
-            return false;
-        if (valor.compareTo(noAtual.getValor()) == 0)
-            return true;
-        if (valor.compareTo(noAtual.getValor()) < 0)
-            return contem(noAtual.getEsquerda(), valor);
-        else
-            return contem(noAtual.getDireita(), valor);
+        if (noAtual == null) return false;
+        if (valor.compareTo(noAtual.getValor()) == 0) return true;
+        if (valor.compareTo(noAtual.getValor()) < 0) return contem(noAtual.getEsquerda(), valor);
+        else return contem(noAtual.getDireita(), valor);
     }
 
     /**
@@ -214,11 +206,13 @@ public class ArvoreBinaria<T extends Comparable<T>> implements Cloneable {
      * @return `true` se a árvore estiver balanceada, `false` caso contrário.
      */
     public boolean estaBalanceada() {
-        return estaBalanceada(raiz);
+        return estaBalanceada(raiz); // Inicia a verificação a partir da raiz da árvore.
     }
 
     /**
      * Método recursivo privado para verificar se um nó está balanceado.
+     * Este método calcula a altura das subárvores esquerda e direita e verifica se a diferença
+     * entre elas é menor ou igual a 1. A verificação é realizada recursivamente para todos os nós da árvore.
      *
      * @param no O nó a ser verificado.
      * @return `true` se o nó estiver balanceado, `false` caso contrário.
@@ -236,32 +230,49 @@ public class ArvoreBinaria<T extends Comparable<T>> implements Cloneable {
 
     /**
      * Realiza uma rotação à esquerda em um determinado nó.
+     * A rotação à esquerda é uma operação que muda a estrutura da árvore
+     * movendo o filho direito do nó para cima e o nó atual para baixo e para a esquerda.
      *
      * @param no O nó a ser rotacionado.
      * @return O novo nó raiz após a rotação.
      */
     private No<T> rotacaoEsquerda(No<T> no) {
-        No<T> novaRaiz = no.getDireita();
-        no.setDireita(novaRaiz.getEsquerda());
-        novaRaiz.setEsquerda(no);
+        No<T> novaRaiz = no.getDireita();       // 1. O filho direito do nó se torna a nova raiz da subárvore.
+        no.setDireita(novaRaiz.getEsquerda());  // 2. O filho esquerdo da nova raiz se torna o filho direito do nó antigo.
+        novaRaiz.setEsquerda(no);               // 3. O nó antigo se torna o filho esquerdo da nova raiz.
         return novaRaiz;
     }
 
     /**
      * Realiza uma rotação à direita em um determinado nó.
+     * A rotação à direita é uma operação que muda a estrutura da árvore
+     * movendo o filho esquerdo do nó para cima e o nó atual para baixo e para a direita.
      *
      * @param no O nó a ser rotacionado.
      * @return O novo nó raiz após a rotação.
      */
     private No<T> rotacaoDireita(No<T> no) {
-        No<T> novaRaiz = no.getEsquerda();
-        no.setEsquerda(novaRaiz.getDireita());
-        novaRaiz.setDireita(no);
+        No<T> novaRaiz = no.getEsquerda();      // 1. O filho esquerdo do nó se torna a nova raiz da subárvore.
+        no.setEsquerda(novaRaiz.getDireita());  // 2. O filho direito da nova raiz se torna o filho esquerdo do nó antigo.
+        novaRaiz.setDireita(no);                // 3. O nó antigo se torna o filho direito da nova raiz.
         return novaRaiz;
     }
 
     /**
+     * Balanceia a árvore binária utilizando o método ’balancear’.
+     * Este método percorre a árvore recursivamente e realiza rotações
+     * para garantir que a árvore esteja balanceada, ou seja, que a diferença
+     * de altura entre as subárvores esquerda e direita de cada nó seja no máximo 1.
+     */
+    public void balancear() {
+        raiz = balancear(raiz);
+    }
+
+    /**
      * Balanceia a subárvore a partir de um determinado nó usando rotações.
+     * Este método utiliza as rotações à esquerda e à direita para balancear a árvore.
+     * Ele verifica a diferença de altura entre as subárvores esquerda e direita e
+     * realiza as rotações necessárias para garantir o balanceamento.
      *
      * @param no O nó a partir do qual a subárvore será balanceada.
      * @return O novo nó raiz da subárvore balanceada.
@@ -269,29 +280,35 @@ public class ArvoreBinaria<T extends Comparable<T>> implements Cloneable {
     private No<T> balancear(No<T> no) {
         if (no == null) return null;
 
-        // Balanceia recursivamente as subárvores esquerda e direita
+        // Balanceia as subárvores esquerda e direita.
         no.setEsquerda(balancear(no.getEsquerda()));
         no.setDireita(balancear(no.getDireita()));
 
-        if (altura(no.getEsquerda()) - altura(no.getDireita()) > 1) {
-            if (altura(no.getEsquerda().getEsquerda()) < altura(no.getEsquerda().getDireita()))
+        // Calcula o fator de balanceamento do nó atual.
+        int fatorBalanceamento = altura(no.getEsquerda()) - altura(no.getDireita());
+
+        // Se a subárvore esquerda é mais alta que a direita por mais de 1 nível.
+        if (fatorBalanceamento > 1) {
+            // Verifica se é necessário uma rotação dupla à direita (LR).
+            if (altura(no.getEsquerda().getDireita()) > altura(no.getEsquerda().getEsquerda())) {
                 no.setEsquerda(rotacaoEsquerda(no.getEsquerda()));
+            }
+            // Realiza a rotação à direita.
             no = rotacaoDireita(no);
-        } else if (altura(no.getDireita()) - altura(no.getEsquerda()) > 1) {
-            if (altura(no.getDireita().getDireita()) < altura(no.getDireita().getEsquerda()))
+        }
+        // Se a subárvore direita é mais alta que a esquerda por mais de 1 nível.
+        else if (fatorBalanceamento < -1) {
+            // Verifica se é necessário uma rotação dupla à esquerda (RL).
+            if (altura(no.getDireita().getEsquerda()) > altura(no.getDireita().getDireita())) {
                 no.setDireita(rotacaoDireita(no.getDireita()));
+            }
+            // Realiza a rotação à esquerda.
             no = rotacaoEsquerda(no);
         }
 
-        return no;
+        return no; // Retorna o nó balanceado.
     }
 
-    /**
-     * Balanceia a árvore binária utilizando o método ’balancear’.
-     */
-    public void balancearArvore() {
-        raiz = balancear(raiz);
-    }
 
     /**
      * Transforma a árvore binária em um LinkedList usando um percurso em ordem.
@@ -334,6 +351,7 @@ public class ArvoreBinaria<T extends Comparable<T>> implements Cloneable {
         if (no == null) return;
 
         No<T> temp = no.getEsquerda();
+
         no.setEsquerda(no.getDireita());
         no.setDireita(temp);
 
@@ -362,13 +380,9 @@ public class ArvoreBinaria<T extends Comparable<T>> implements Cloneable {
      */
     private No<T> achar(No<T> noAtual, T valor) {
         if (noAtual == null) return null;
-
         if (valor.compareTo(noAtual.getValor()) == 0) return noAtual;
-
-        if (valor.compareTo(noAtual.getValor()) < 0)
-            return achar(noAtual.getEsquerda(), valor);
-        else
-            return achar(noAtual.getDireita(), valor);
+        if (valor.compareTo(noAtual.getValor()) < 0) return achar(noAtual.getEsquerda(), valor);
+        else return achar(noAtual.getDireita(), valor);
     }
 
     /**
@@ -544,12 +558,16 @@ public class ArvoreBinaria<T extends Comparable<T>> implements Cloneable {
         if (raiz == null) return 0;
 
         if (raiz.getEsquerda() == null && raiz.getDireita() == null) return prime * raiz.getValor().hashCode();
+
         if (raiz.getEsquerda() == null && raiz.getDireita() != null)
             return prime * raiz.getValor().hashCode() + hashCode(raiz.getDireita(), prime);
+
         if (raiz.getEsquerda() != null && raiz.getDireita() == null)
             return prime * raiz.getValor().hashCode() + hashCode(raiz.getEsquerda(), prime);
 
-        return prime * raiz.getValor().hashCode() + hashCode(raiz.getEsquerda(), prime) + hashCode(raiz.getDireita(), prime);
+        return prime * raiz.getValor().hashCode() +
+                hashCode(raiz.getEsquerda(), prime) +
+                hashCode(raiz.getDireita(), prime);
     }
 
     /**

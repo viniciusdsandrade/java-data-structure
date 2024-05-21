@@ -294,23 +294,57 @@ public class No<X extends Comparable<X>> implements Cloneable, Comparable<No<X>>
     }
 
     /**
-     * Retorna uma representação em string deste nó.
+     * Retorna uma representação em string deste nó, com uma visualização hierárquica da árvore.
      *
      * @return Uma representação em string deste nó.
      */
     @Override
     public String toString() {
+        return toString(0);
+    }
+
+    /**
+     * Método auxiliar recursivo para construir a representação em string da árvore.
+     *
+     * @param nivel O nível atual na árvore (usado para gerar a indentação).
+     * @return A representação em string da subárvore com raiz neste nó.
+     */
+    private String toString(int nivel) {
         StringBuilder sb = new StringBuilder();
-        sb.append("{ ");
-        if (this.esq != null) sb.append(this.esq);
-        sb.append(" } L { ");
-        if (this.info != null) sb.append(this.info);
-        sb.append(" } R { ");
-        if (this.dir != null) sb.append(this.dir);
-        sb.append(" }");
+        sb.append("  ".repeat(Math.max(0, nivel))); // Indentação para representar a hierarquia
+
+        sb.append("|- ");
+        sb.append(info);
+        sb.append("\n");
+
+        if (esq != null)
+            sb.append(esq.toString(nivel + 1));
+        else
+            sb.append(gerarStringFilhoNulo(nivel + 1, "Esq"));
+
+        if (dir != null)
+            sb.append(dir.toString(nivel + 1));
+        else
+            sb.append(gerarStringFilhoNulo(nivel + 1, "Dir"));
+
         return sb.toString();
     }
 
+    /**
+     * Gera a representação em string para um filho nulo.
+     *
+     * @param nivel O nível do filho nulo.
+     * @param tipo  O tipo do filho ("Esq" para esquerdo ou "Dir" para direito).
+     * @return A representação em string do filho nulo.
+     */
+    private String gerarStringFilhoNulo(int nivel, String tipo) {
+        StringBuilder sb = new StringBuilder();
+        sb.append("  ".repeat(Math.max(0, nivel)));
+        sb.append("|- ");
+        sb.append(tipo);
+        sb.append(": Nulo\n");
+        return sb.toString();
+    }
     /**
      * Compara este nó com outro nó.
      *
