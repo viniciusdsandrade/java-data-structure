@@ -289,7 +289,7 @@ public class ArvoreBinaria<T extends Comparable<T>> implements Cloneable {
 
         // Se a subárvore esquerda é mais alta que a direita por mais de 1 nível.
         if (fatorBalanceamento > 1) {
-            // Verifica se é necessário uma rotação dupla à direita (LR).
+            // Verifica se é necessária uma rotação dupla à direita (LR).
             if (altura(no.getEsquerda().getDireita()) > altura(no.getEsquerda().getEsquerda())) {
                 no.setEsquerda(rotacaoEsquerda(no.getEsquerda()));
             }
@@ -298,7 +298,7 @@ public class ArvoreBinaria<T extends Comparable<T>> implements Cloneable {
         }
         // Se a subárvore direita é mais alta que a esquerda por mais de 1 nível.
         else if (fatorBalanceamento < -1) {
-            // Verifica se é necessário uma rotação dupla à esquerda (RL).
+            // Verifica se é necessária uma rotação dupla à esquerda (RL).
             if (altura(no.getDireita().getEsquerda()) > altura(no.getDireita().getDireita())) {
                 no.setDireita(rotacaoDireita(no.getDireita()));
             }
@@ -333,6 +333,17 @@ public class ArvoreBinaria<T extends Comparable<T>> implements Cloneable {
             lista.add(no.getValor());
             toLinkedList(no.getDireita(), lista);
         }
+    }
+
+    //Quero fazer uma metodo para comparar se uma árvore é espelho de outra árvore passada como parâmetro
+    public boolean estaEspelhado(ArvoreBinaria<T> arvore) {
+        return estaEspelhado(raiz, arvore.raiz);
+    }
+
+    private boolean estaEspelhado(No<T> no1, No<T> no2) {
+        if (no1 == null && no2 == null) return true;
+        if (no1 == null || no2 == null) return false;
+        return no1.getValor().equals(no2.getValor()) && estaEspelhado(no1.getEsquerda(), no2.getDireita()) && estaEspelhado(no1.getDireita(), no2.getEsquerda());
     }
 
     /**
