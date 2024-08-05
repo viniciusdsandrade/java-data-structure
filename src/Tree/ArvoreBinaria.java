@@ -2,6 +2,10 @@ package Tree;
 
 import LinkedList.Ordered.LinkedListOrdered;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.LinkedList;
+
 import static ShallowOrDeepCopy.ShallowOrDeepCopy.verifyAndCopy;
 
 /**
@@ -128,6 +132,239 @@ public class ArvoreBinaria<T extends Comparable<T>> implements Cloneable {
     }
 
     /**
+     * Inicia a travessia in-order na árvore binária.
+     *
+     * @return Uma string contendo os valores da travessia in-order.
+     */
+    public String inOrderTraverse() {
+        StringBuilder resultado = new StringBuilder();
+        inOrderTraverse(raiz, resultado);
+        return resultado.toString().trim();
+    }
+
+    /**
+     * Realiza a travessia in-order na árvore binária.
+     * Nesta travessia, os 'nós' são visitados na seguinte ordem: esquerda, raiz, direita.
+     *
+     * @param no        O nó atual da recursão.
+     * @param resultado O StringBuilder onde o resultado da travessia será armazenado.
+     */
+    private void inOrderTraverse(No<T> no, StringBuilder resultado) {
+        if (no != null) {
+            inOrderTraverse(no.getEsquerda(), resultado);
+            resultado.append(no.getValor()).append(" ");
+            inOrderTraverse(no.getDireita(), resultado);
+        }
+    }
+
+    /**
+     * Inicia a travessia pre-order na árvore binária.
+     *
+     * @return Uma string contendo os valores da travessia pre-order.
+     */
+    public String preOrderTraverse() {
+        StringBuilder resultado = new StringBuilder();
+        preOrderTraverse(raiz, resultado);
+        return resultado.toString().trim();
+    }
+
+    /**
+     * Realiza a travessia pre-order na árvore binária.
+     * Nesta travessia, os 'nós' são visitados na seguinte ordem: raiz, esquerda, direita.
+     *
+     * @param no        O nó atual da recursão.
+     * @param resultado O StringBuilder onde o resultado da travessia será armazenado.
+     */
+    private void preOrderTraverse(No<T> no, StringBuilder resultado) {
+        if (no != null) {
+            resultado.append(no.getValor()).append(" ");
+            preOrderTraverse(no.getEsquerda(), resultado);
+            preOrderTraverse(no.getDireita(), resultado);
+        }
+    }
+
+    /**
+     * Inicia a travessia post-order na árvore binária.
+     *
+     * @return Uma string contendo os valores da travessia post-order.
+     */
+    public String postOrderTraverse() {
+        StringBuilder resultado = new StringBuilder();
+        postOrderTraverse(raiz, resultado);
+        return resultado.toString().trim();
+    }
+
+    /**
+     * Realiza a travessia post-order na árvore binária.
+     * Nesta travessia, os 'nós' são visitados na seguinte ordem: esquerda, direita, raiz.
+     *
+     * @param no        O nó atual da recursão.
+     * @param resultado O StringBuilder onde o resultado da travessia será armazenado.
+     */
+    private void postOrderTraverse(No<T> no, StringBuilder resultado) {
+        if (no != null) {
+            postOrderTraverse(no.getEsquerda(), resultado);
+            postOrderTraverse(no.getDireita(), resultado);
+            resultado.append(no.getValor()).append(" ");
+        }
+    }
+//-------------------------------------------------------------------------
+    /**
+     * Inicia a travessia in-order na árvore binária e retorna o resultado como uma LinkedList.
+     *
+     * @return Uma LinkedList contendo os valores da travessia in-order.
+     */
+    public LinkedList<T> inOrderToList() {
+        LinkedList<T> lista = new LinkedList<>();
+        inOrderToList(raiz, lista);
+        return lista;
+    }
+
+    /**
+     * Realiza a travessia in-order na árvore binária e armazena o resultado em uma LinkedList.
+     *
+     * @param no    O nó atual da recursão.
+     * @param lista A LinkedList onde o resultado da travessia será armazenado.
+     */
+    private void inOrderToList(No<T> no, LinkedList<T> lista) {
+        if (no != null) {
+            inOrderToList(no.getEsquerda(), lista);
+            lista.add(no.getValor());
+            inOrderToList(no.getDireita(), lista);
+        }
+    }
+
+    /**
+     * Inicia a travessia pre-order na árvore binária e retorna o resultado como uma LinkedList.
+     *
+     * @return Uma LinkedList contendo os valores da travessia pre-order.
+     */
+    public LinkedList<T> preOrderToList() {
+        LinkedList<T> lista = new LinkedList<>();
+        preOrderToList(raiz, lista);
+        return lista;
+    }
+
+    /**
+     * Realiza a travessia pre-order na árvore binária e armazena o resultado em uma LinkedList.
+     *
+     * @param no    O nó atual da recursão.
+     * @param lista A LinkedList onde o resultado da travessia será armazenado.
+     */
+    private void preOrderToList(No<T> no, LinkedList<T> lista) {
+        if (no != null) {
+            lista.add(no.getValor());
+            preOrderToList(no.getEsquerda(), lista);
+            preOrderToList(no.getDireita(), lista);
+        }
+    }
+
+    /**
+     * Inicia a travessia post-order na árvore binária e retorna o resultado como uma LinkedList.
+     *
+     * @return Uma LinkedList contendo os valores da travessia post-order.
+     */
+    public LinkedList<T> postOrderToList() {
+        LinkedList<T> lista = new LinkedList<>();
+        postOrderToList(raiz, lista);
+        return lista;
+    }
+
+    /**
+     * Realiza a travessia post-order na árvore binária e armazena o resultado em uma LinkedList.
+     *
+     * @param no    O nó atual da recursão.
+     * @param lista A LinkedList onde o resultado da travessia será armazenado.
+     */
+    private void postOrderToList(No<T> no, LinkedList<T> lista) {
+        if (no != null) {
+            postOrderToList(no.getEsquerda(), lista);
+            postOrderToList(no.getDireita(), lista);
+            lista.add(no.getValor());
+        }
+    }
+
+//------------------------------------------------------------------------------------
+
+    /**
+     * Inicia a travessia in-order na árvore binária e retorna o resultado como um array.
+     *
+     * @return Um array contendo os valores da travessia in-order.
+     */
+    @SuppressWarnings("unchecked")
+    public T[] inOrderToArray() {
+        ArrayList<T> lista = new ArrayList<>();
+        inOrderToArray(raiz, lista);
+        return lista.toArray((T[]) Array.newInstance(lista.getFirst().getClass(), lista.size()));
+    }
+
+    /**
+     * Realiza a travessia in-order na árvore binária e armazena o resultado em um ArrayList.
+     *
+     * @param no    O nó atual da recursão.
+     * @param lista O ArrayList onde o resultado da travessia será armazenado.
+     */
+    private void inOrderToArray(No<T> no, ArrayList<T> lista) {
+        if (no != null) {
+            inOrderToArray(no.getEsquerda(), lista);
+            lista.add(no.getValor());
+            inOrderToArray(no.getDireita(), lista);
+        }
+    }
+
+    /**
+     * Inicia a travessia pre-order na árvore binária e retorna o resultado como um array.
+     *
+     * @return Um array contendo os valores da travessia pre-order.
+     */
+    @SuppressWarnings("unchecked")
+    public T[] preOrderToArray() {
+        ArrayList<T> lista = new ArrayList<>();
+        preOrderToArray(raiz, lista);
+        return lista.toArray((T[]) Array.newInstance(lista.getFirst().getClass(), lista.size()));
+    }
+
+    /**
+     * Realiza a travessia pre-order na árvore binária e armazena o resultado em um ArrayList.
+     *
+     * @param no    O nó atual da recursão.
+     * @param lista O ArrayList onde o resultado da travessia será armazenado.
+     */
+    private void preOrderToArray(No<T> no, ArrayList<T> lista) {
+        if (no != null) {
+            lista.add(no.getValor());
+            preOrderToArray(no.getEsquerda(), lista);
+            preOrderToArray(no.getDireita(), lista);
+        }
+    }
+
+    /**
+     * Inicia a travessia post-order na árvore binária e retorna o resultado como um array.
+     *
+     * @return Um array contendo os valores da travessia post-order.
+     */
+    @SuppressWarnings("unchecked")
+    public T[] postOrderToArray() {
+        ArrayList<T> lista = new ArrayList<>();
+        postOrderToArray(raiz, lista);
+        return lista.toArray((T[]) Array.newInstance(lista.getFirst().getClass(), lista.size()));
+    }
+
+    /**
+     * Realiza a travessia post-order na árvore binária e armazena o resultado em um ArrayList.
+     *
+     * @param no    O nó atual da recursão.
+     * @param lista O ArrayList onde o resultado da travessia será armazenado.
+     */
+    private void postOrderToArray(No<T> no, ArrayList<T> lista) {
+        if (no != null) {
+            postOrderToArray(no.getEsquerda(), lista);
+            postOrderToArray(no.getDireita(), lista);
+            lista.add(no.getValor());
+        }
+    }
+
+    /**
      * Verifica se a árvore contém um determinado valor.
      *
      * @param valor O valor a ser procurado.
@@ -210,8 +447,8 @@ public class ArvoreBinaria<T extends Comparable<T>> implements Cloneable {
     }
 
     /**
-     * Método recursivo privado para verificar se um nó está balanceado.
-     * Este método calcula a altura das subárvores esquerda e direita e verifica se a diferença
+     * Metodo recursivo privado para verificar se um nó está balanceado.
+     * Este metodo calcula a altura das subárvores esquerda e direita e verifica se a diferença
      * entre elas é menor ou igual a 1. A verificação é realizada recursivamente para todos os nós da árvore.
      *
      * @param no O nó a ser verificado.
@@ -259,8 +496,8 @@ public class ArvoreBinaria<T extends Comparable<T>> implements Cloneable {
     }
 
     /**
-     * Balanceia a árvore binária utilizando o método ’balancear’.
-     * Este método percorre a árvore recursivamente e realiza rotações
+     * Balanceia a árvore binária utilizando o metodo ’balancear’.
+     * Este metodo percorre a árvore recursivamente e realiza rotações
      * para garantir que a árvore esteja balanceada, ou seja, que a diferença
      * de altura entre as subárvores esquerda e direita de cada nó seja no máximo 1.
      */
@@ -270,7 +507,7 @@ public class ArvoreBinaria<T extends Comparable<T>> implements Cloneable {
 
     /**
      * Balanceia a subárvore a partir de um determinado nó usando rotações.
-     * Este método utiliza as rotações à esquerda e à direita para balancear a árvore.
+     * Este metodo utiliza as rotações à esquerda e à direita para balancear a árvore.
      * Ele verifica a diferença de altura entre as subárvores esquerda e direita e
      * realiza as rotações necessárias para garantir o balanceamento.
      *
@@ -335,7 +572,7 @@ public class ArvoreBinaria<T extends Comparable<T>> implements Cloneable {
         }
     }
 
-    //Quero fazer uma metodo para comparar se uma árvore é espelho de outra árvore passada como parâmetro
+    // Quero fazer uma metodo para comparar se uma árvore é espelho de outra árvore passada como parâmetro
     public boolean estaEspelhado(ArvoreBinaria<T> arvore) {
         return estaEspelhado(raiz, arvore.raiz);
     }
@@ -343,7 +580,9 @@ public class ArvoreBinaria<T extends Comparable<T>> implements Cloneable {
     private boolean estaEspelhado(No<T> no1, No<T> no2) {
         if (no1 == null && no2 == null) return true;
         if (no1 == null || no2 == null) return false;
-        return no1.getValor().equals(no2.getValor()) && estaEspelhado(no1.getEsquerda(), no2.getDireita()) && estaEspelhado(no1.getDireita(), no2.getEsquerda());
+        return no1.getValor().equals(no2.getValor()) &&
+                estaEspelhado(no1.getEsquerda(), no2.getDireita()) &&
+                estaEspelhado(no1.getDireita(), no2.getEsquerda());
     }
 
     /**
@@ -413,7 +652,11 @@ public class ArvoreBinaria<T extends Comparable<T>> implements Cloneable {
      */
     private int altura(No<T> no) {
         if (no == null) return -1;
-        return 1 + Math.max(altura(no.getEsquerda()), altura(no.getDireita()));
+
+        int alturaEsquerda = altura(no.getEsquerda());
+        int alturaDireita = altura(no.getDireita());
+
+        return 1 + Math.max(alturaEsquerda, alturaDireita);
     }
 
     /**
@@ -544,41 +787,19 @@ public class ArvoreBinaria<T extends Comparable<T>> implements Cloneable {
                 equals(no1.getDireita(), no2.getDireita());
     }
 
-    /**
-     * Calcula o código hash da árvore binária.
-     *
-     * @return O código hash da árvore binária.
-     */
     @Override
     public int hashCode() {
         final int prime = 31;
-        int hash = 1;
-        hash *= prime + hashCode(raiz, prime);
-        if (hash < 0) hash = -hash;
-        return hash;
+        return hashCode(raiz, prime);
     }
 
-    /**
-     * Método recursivo privado para calcular o código hash da subárvore a partir de um determinado nó.
-     *
-     * @param raiz  O nó a partir do qual o código hash será calculado.
-     * @param prime Um número primo usado no cálculo do hash.
-     * @return O código hash da subárvore.
-     */
     private int hashCode(No<T> raiz, int prime) {
         if (raiz == null) return 0;
 
-        if (raiz.getEsquerda() == null && raiz.getDireita() == null) return prime * raiz.getValor().hashCode();
-
-        if (raiz.getEsquerda() == null && raiz.getDireita() != null)
-            return prime * raiz.getValor().hashCode() + hashCode(raiz.getDireita(), prime);
-
-        if (raiz.getEsquerda() != null && raiz.getDireita() == null)
-            return prime * raiz.getValor().hashCode() + hashCode(raiz.getEsquerda(), prime);
-
-        return prime * raiz.getValor().hashCode() +
-                hashCode(raiz.getEsquerda(), prime) +
-                hashCode(raiz.getDireita(), prime);
+        int result = raiz.getValor().hashCode();
+        result *= prime + hashCode(raiz.getEsquerda(), prime);
+        result *= prime + hashCode(raiz.getDireita(), prime);
+        return result;
     }
 
     /**
