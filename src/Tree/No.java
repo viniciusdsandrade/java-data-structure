@@ -13,19 +13,8 @@ import static ShallowOrDeepCopy.ShallowOrDeepCopy.verifyAndCopy;
  */
 public class No<X extends Comparable<X>> implements Cloneable, Comparable<No<X>> {
 
-    /**
-     * A referência para o filho esquerdo do nó.
-     */
     private No<X> esq;
-
-    /**
-     * O valor armazenado no nó.
-     */
     private X info;
-
-    /**
-     * A referência para o filho direito do nó.
-     */
     private No<X> dir;
 
     /**

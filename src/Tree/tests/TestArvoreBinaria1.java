@@ -17,6 +17,20 @@ public class TestArvoreBinaria1 {
         arvore.inserir(80);
         arvore.inserir(50);
 
+        ArvoreBinaria<Integer> arvoreClone = new ArvoreBinaria<>(arvore);
+        @SuppressWarnings("unchecked")
+        ArvoreBinaria<Integer> arvoreClone2 = (ArvoreBinaria<Integer>) arvore.clone();
+
+        int elementosEmComumArvoreEArvoreClone = arvore.elementosEmComum(arvoreClone);
+        int elementosEmComumArvoreEArvoreClone2 = arvore.elementosEmComum(arvoreClone2);
+
+        System.out.println("Árvore: " + arvore);
+        System.out.println("arvoreCopia: " + arvoreClone);
+        System.out.println("arvoreClone: " + arvoreClone2);
+
+        System.out.println("Elementos em comum entre arvore e arvoreCopia: " + elementosEmComumArvoreEArvoreClone);
+        System.out.println("Elementos em comum entre arvore e arvoreClone: " + elementosEmComumArvoreEArvoreClone2);
+
         System.out.println("Árvore inicial: " + arvore);
         System.out.println("isBalanceada:   " + arvore.estaBalanceada());
         System.out.println("Altura:         " + arvore.altura());

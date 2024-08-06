@@ -209,6 +209,7 @@ public class ArvoreBinaria<T extends Comparable<T>> implements Cloneable {
         }
     }
 //-------------------------------------------------------------------------
+
     /**
      * Inicia a travessia in-order na árvore binária e retorna o resultado como uma LinkedList.
      *
@@ -285,6 +286,7 @@ public class ArvoreBinaria<T extends Comparable<T>> implements Cloneable {
     }
 
 //------------------------------------------------------------------------------------
+
     /**
      * Inicia a travessia in-order na árvore binária e retorna o resultado como um array.
      *
@@ -630,6 +632,40 @@ public class ArvoreBinaria<T extends Comparable<T>> implements Cloneable {
         if (valor.compareTo(noAtual.getValor()) == 0) return noAtual;
         if (valor.compareTo(noAtual.getValor()) < 0) return achar(noAtual.getEsquerda(), valor);
         else return achar(noAtual.getDireita(), valor);
+    }
+
+    /**
+     * Conta o número de elementos em comum entre esta árvore binária e outra árvore binária
+     * fornecida como parâmetro, utilizando os métodos `contem` e `compareTo`.
+     *
+     * @param arvore A árvore binária a ser comparada com esta árvore.
+     * @return O número de elementos em comum entre as duas árvores binárias.
+     */
+    public int elementosEmComum(ArvoreBinaria<T> arvore) {
+        return contarElementosEmComum(arvore, this.raiz);
+    }
+
+    /**
+     * Método recursivo auxiliar que percorre os nós da árvore e verifica se os valores estão
+     * contidos na outra árvore.
+     *
+     * @param no     O nó atual da árvore que está sendo percorrida.
+     * @param arvore A árvore na qual os valores serão procurados.
+     * @return O número de elementos em comum encontrados.
+     */
+    private int contarElementosEmComum(ArvoreBinaria<T> arvore, No<T> no) {
+        if (no == null) return 0;
+
+        int emComum = 0;
+
+        // Verifica se o valor do nó atual está contido na outra árvore
+        if (arvore.contem(no.getValor())) emComum++;
+
+        // Recursão para os filhos esquerdo e direito
+        emComum += contarElementosEmComum(arvore, no.getEsquerda());
+        emComum += contarElementosEmComum(arvore, no.getDireita());
+
+        return emComum;
     }
 
     /**
