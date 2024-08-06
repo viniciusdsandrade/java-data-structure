@@ -285,7 +285,6 @@ public class ArvoreBinaria<T extends Comparable<T>> implements Cloneable {
     }
 
 //------------------------------------------------------------------------------------
-
     /**
      * Inicia a travessia in-order na árvore binária e retorna o resultado como um array.
      *
@@ -546,7 +545,6 @@ public class ArvoreBinaria<T extends Comparable<T>> implements Cloneable {
         return no; // Retorna o nó balanceado.
     }
 
-
     /**
      * Transforma a árvore binária em um LinkedList usando um percurso em ordem.
      *
@@ -572,7 +570,6 @@ public class ArvoreBinaria<T extends Comparable<T>> implements Cloneable {
         }
     }
 
-    // Quero fazer uma metodo para comparar se uma árvore é espelho de outra árvore passada como parâmetro
     public boolean estaEspelhado(ArvoreBinaria<T> arvore) {
         return estaEspelhado(raiz, arvore.raiz);
     }
@@ -777,7 +774,7 @@ public class ArvoreBinaria<T extends Comparable<T>> implements Cloneable {
      * @param no2 O segundo nó a ser comparado.
      * @return ’true’ se os nós forem iguais, ’false` caso contrário.
      */
-    private boolean equals(No<T> no1, No<?> no2) {
+    private boolean equals(No<?> no1, No<?> no2) {
         if (no1 == no2) return true;
         if (no1 == null || no2 == null) return false;
 
@@ -802,11 +799,6 @@ public class ArvoreBinaria<T extends Comparable<T>> implements Cloneable {
         return result;
     }
 
-    /**
-     * Retorna uma representação textual da árvore binária.
-     *
-     * @return Uma representação textual da árvore binária.
-     */
     @Override
     public String toString() {
         if (raiz == null) return "{ }";

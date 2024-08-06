@@ -47,6 +47,13 @@ public class No<X extends Comparable<X>> implements Cloneable, Comparable<No<X>>
         this.dir = null;
     }
 
+    /**
+     * Construtor que cria um nó com uma referência para o filho esquerdo e o valor especificado.
+     *
+     * @param esq A referência para o filho esquerdo do nó.
+     * @param info O valor a ser armazenado no nó, não pode ser nulo.
+     * @throws IllegalArgumentException Se o valor fornecido for nulo.
+     */
     public No(No<X> esq, X info) {
         if (info == null) throw new IllegalArgumentException("Valor nulo");
         this.esq = esq;
@@ -54,6 +61,13 @@ public class No<X extends Comparable<X>> implements Cloneable, Comparable<No<X>>
         this.dir = null;
     }
 
+    /**
+     * Construtor que cria um nó com o valor especificado e uma referência para o filho direito.
+     *
+     * @param info O valor a ser armazenado no nó, não pode ser nulo.
+     * @param dir A referência para o filho direito do nó.
+     * @throws IllegalArgumentException Se o valor fornecido for nulo.
+     */
     public No(X info, No<X> dir) {
         if (info == null) throw new IllegalArgumentException("Valor nulo");
         this.esq = null;
@@ -65,8 +79,8 @@ public class No<X extends Comparable<X>> implements Cloneable, Comparable<No<X>>
      * Construtor que cria um nó com o valor especificado e referências para os filhos esquerdo e direito.
      *
      * @param esq A referência para o filho esquerdo do nó.
-     * @param info    O valor a ser armazenado no nó.
-     * @param dir  A referência para o filho direito do nó.
+     * @param info O valor a ser armazenado no nó.
+     * @param dir A referência para o filho direito do nó.
      */
     public No(No<X> esq, X info, No<X> dir) {
         this.esq = esq;
@@ -345,6 +359,7 @@ public class No<X extends Comparable<X>> implements Cloneable, Comparable<No<X>>
         sb.append(": Nulo\n");
         return sb.toString();
     }
+
     /**
      * Compara este nó com outro nó.
      *

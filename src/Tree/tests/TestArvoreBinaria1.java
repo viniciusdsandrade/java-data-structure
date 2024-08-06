@@ -4,7 +4,7 @@ import Tree.ArvoreBinaria;
 
 import java.util.Arrays;
 
-public class TestArvoreBinaria {
+public class TestArvoreBinaria1 {
     public static void main(String[] args) throws Exception {
         ArvoreBinaria<Integer> arvore = new ArvoreBinaria<>();
         System.out.println("### Testes da Árvore Binária de Busca ###");
@@ -20,19 +20,20 @@ public class TestArvoreBinaria {
         System.out.println("Árvore inicial: " + arvore);
         System.out.println("isBalanceada:   " + arvore.estaBalanceada());
         System.out.println("Altura:         " + arvore.altura());
+        System.out.println("Maior elemento: " + arvore.getMaior());
+        System.out.println("Menor elemento: " + arvore.getMenor());
 
-
-        // Testes de travessia em String
+        System.out.println("Testes de travessia em String");
         System.out.println("Travessia   in-order (String):      " + arvore.inOrderTraverse());
         System.out.println("Travessia  pre-order (String):      " + arvore.preOrderTraverse());
         System.out.println("Travessia post-order (String):      " + arvore.postOrderTraverse());
 
-        // Testes de travessia em LinkedList
+        System.out.println("Testes de travessia em LinkedList");
         System.out.println("Travessia   in-order (LinkedList):  " + arvore.inOrderToList());
         System.out.println("Travessia  pre-order (LinkedList):  " + arvore.preOrderToList());
         System.out.println("Travessia post-order (LinkedList):  " + arvore.postOrderToList());
 
-        // Testes de travessia em array
+        System.out.println("Testes de travessia em array");
         System.out.println("Travessia   in-order (Array):       " + Arrays.toString(arvore.inOrderToArray()));
         System.out.println("Travessia  pre-order (Array):       " + Arrays.toString(arvore.preOrderToArray()));
         System.out.println("Travessia post-order (Array):       " + Arrays.toString(arvore.postOrderToArray()));
@@ -41,17 +42,17 @@ public class TestArvoreBinaria {
         arvore.balancear(); // Chamada única para balancear
         System.out.println("Árvore balanceada:  " + arvore);
         System.out.println("isBalanceada:       " + arvore.estaBalanceada()); // Verifica após balancear
-        // Testes de travessia em String
+        System.out.println("Testes de travessia em String");
         System.out.println("Travessia   in-order (String):      " + arvore.inOrderTraverse());
         System.out.println("Travessia  pre-order (String):      " + arvore.preOrderTraverse());
         System.out.println("Travessia post-order (String):      " + arvore.postOrderTraverse());
 
-        // Testes de travessia em LinkedList
+        System.out.println("Testes de travessia em LinkedList");
         System.out.println("Travessia   in-order (LinkedList):  " + arvore.inOrderToList());
         System.out.println("Travessia  pre-order (LinkedList):  " + arvore.preOrderToList());
         System.out.println("Travessia post-order (LinkedList):  " + arvore.postOrderToList());
 
-        // Testes de travessia em array
+        System.out.println("Testes de travessia em array");
         System.out.println("Travessia   in-order (Array):       " + Arrays.toString(arvore.inOrderToArray()));
         System.out.println("Travessia  pre-order (Array):       " + Arrays.toString(arvore.preOrderToArray()));
         System.out.println("Travessia post-order (Array):       " + Arrays.toString(arvore.postOrderToArray()));
@@ -95,7 +96,6 @@ public class TestArvoreBinaria {
         System.out.println("isBalanceada: " + arvore.estaBalanceada()); // Verifica após balancear
 
         System.out.println("----------------------------------------------------------------");
-
         ArvoreBinaria<Integer> arvore2 = new ArvoreBinaria<>();
         System.out.println("\n1. Inserindo elementos na árvore:");
         arvore2.inserir(5);

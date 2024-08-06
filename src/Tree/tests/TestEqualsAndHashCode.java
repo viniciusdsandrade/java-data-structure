@@ -5,7 +5,6 @@ import Tree.ArvoreBinaria;
 public class TestEqualsAndHashCode {
 
     public static void main(String[] args) {
-        // Testando o equals
         System.out.println("### Testes da Árvore Binária de Busca ###");
         System.out.println("\n1. Inserindo elementos na árvore:");
         ArvoreBinaria<Integer> arvore1 = new ArvoreBinaria<>();
