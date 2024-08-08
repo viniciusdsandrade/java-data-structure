@@ -48,8 +48,7 @@ public class Ex1 {
      * @return Um array de números inteiros aleatórios ordenados em ordem decrescente.
      */
     public static int[] generateDescendingRandom(int size, int min, int max) {
-        int[] arr = generateRandom(size, min, max);
-        Arrays.sort(arr);
+        int[] arr = generateAscendingRandom(size, min, max);
         // Inverte o array para ordem decrescente
         for (int i = 0; i < arr.length / 2; i++) {
             int temp = arr[i];
@@ -399,27 +398,32 @@ public class Ex1 {
         if (low < high) {
             int pi = partition(arr, low, high);
 
-            quickSort(arr, low, pi - 1);  // Before pi
-            quickSort(arr, pi + 1, high); // After pi
+            // Certifique-se de que os índices estão corretos
+            if (pi > low) {
+                quickSort(arr, low, pi - 1);  // Antes do pivô
+            }
+            if (pi < high) {
+                quickSort(arr, pi + 1, high); // Depois do pivô
+            }
         }
     }
 
     private static int partition(int[] arr, int low, int high) {
         int pivot = arr[high];
-        int i = (low - 1); // Index of smaller element
+        int i = (low - 1); // Índice do elemento menor
 
         for (int j = low; j < high; j++) {
             if (arr[j] <= pivot) {
                 i++;
 
-                // Swap arr[i] and arr[j]
+                // Troca arr[i] e arr[j]
                 int temp = arr[i];
                 arr[i] = arr[j];
                 arr[j] = temp;
             }
         }
 
-        // Swap arr[i+1] and arr[high] (or pivot)
+        // Troca arr[i + 1] e arr[high] (ou pivô)
         int temp = arr[i + 1];
         arr[i + 1] = arr[high];
         arr[high] = temp;
@@ -471,17 +475,17 @@ public class Ex1 {
     }
 
     public static void main(String[] args) {
-        // test_vetor_10_decrescente(100);
-        // test_vetor_100_decrescente(100);
-        // test_vetor_1000_decrescente(100);
-        // test_vetor_1000000_decrescente();
-        // test_vetor_1000000000_decrescente();
+        test_vetor_10_aleatorio(100);
+        test_vetor_100_aleatorio(100);
+        test_vetor_1_000_aleatorio(100);
+        test_vetor_100_000_aleatorio(100);
+        test_vetor_250_000_aleatorio(1);
 
-        // test_vetor_10_aleatorio(100);
-        // test_vetor_100_aleatorio(100);
-        test_vetor_1000_aleatorio(100);
-        // test_vetor_1000000_aleatorio();
-        // test_vetor_1000000000_aleatorio();
+        test_vetor_10_decrescente(100);
+        test_vetor_100_decrescente(100);
+        test_vetor_1_000_decrescente(100);
+        test_vetor_10_000_decrescente(100);
+        test_vetor_50_000_decrescente(10);
     }
 
     public static void test_vetor_10_aleatorio(int ciclos) {
@@ -688,7 +692,7 @@ public class Ex1 {
         System.out.printf("Média do tempo de execução do método dualPivotQuickSort:  %d ns%n", avgRuntime11);
     }
 
-    public static void test_vetor_1000_aleatorio(int ciclos) {
+    public static void test_vetor_1_000_aleatorio(int ciclos) {
         long totalRuntime1 = 0, totalRuntime2 = 0, totalRuntime3 = 0, totalRuntime4 = 0, totalRuntime5 = 0;
         long totalRuntime6 = 0, totalRuntime7 = 0, totalRuntime8 = 0, totalRuntime9 = 0, totalRuntime10 = 0, totalRuntime11 = 0;
 
@@ -790,12 +794,12 @@ public class Ex1 {
         System.out.printf("Média do tempo de execução do método dualPivotQuickSort:  %d ns%n", avgRuntime11);
     }
 
-    public static void test_vetor_1000000_aleatorio(int ciclos) {
+    public static void test_vetor_100_000_aleatorio(int ciclos) {
         long totalRuntime1 = 0, totalRuntime2 = 0, totalRuntime3 = 0, totalRuntime4 = 0, totalRuntime5 = 0;
         long totalRuntime6 = 0, totalRuntime7 = 0, totalRuntime8 = 0, totalRuntime9 = 0, totalRuntime10 = 0, totalRuntime11 = 0;
 
         for (int i = 0; i < ciclos; i++) {
-            int[] arrOriginal = generateRandom(1_000_000, 0, 1_000_000);
+            int[] arrOriginal = generateRandom(10_000, 0, 10_000);
 
             int[] arrCopy1 = Arrays.copyOf(arrOriginal, arrOriginal.length);
             int[] arrCopy2 = Arrays.copyOf(arrOriginal, arrOriginal.length);
@@ -830,11 +834,11 @@ public class Ex1 {
             long end5 = System.nanoTime();
 
             long start6 = System.nanoTime();
-            countingSort(arrCopy6, 1_000_000);
+            countingSort(arrCopy6, 10_000);
             long end6 = System.nanoTime();
 
             long start7 = System.nanoTime();
-            radixSort(arrCopy7, 1_000_000);
+            radixSort(arrCopy7, 10_000);
             long end7 = System.nanoTime();
 
             long start8 = System.nanoTime();
@@ -878,7 +882,7 @@ public class Ex1 {
         long avgRuntime10 = totalRuntime10 / ciclos;
         long avgRuntime11 = totalRuntime11 / ciclos;
 
-        System.out.println("test_vetor_1000000_aleatorio");
+        System.out.println("test_vetor_100_000_aleatorio");
         System.out.printf("Média do tempo de execução do método selectionSort:       %d ns%n", avgRuntime1);
         System.out.printf("Média do tempo de execução do método bubbleSort:          %d ns%n", avgRuntime2);
         System.out.printf("Média do tempo de execução do método mergeSort:           %d ns%n", avgRuntime3);
@@ -892,12 +896,12 @@ public class Ex1 {
         System.out.printf("Média do tempo de execução do método dualPivotQuickSort:  %d ns%n", avgRuntime11);
     }
 
-    public static void test_vetor_1000000000_aleatorio(int ciclos) {
+    public static void test_vetor_250_000_aleatorio(int ciclos) {
         long totalRuntime1 = 0, totalRuntime2 = 0, totalRuntime3 = 0, totalRuntime4 = 0, totalRuntime5 = 0;
         long totalRuntime6 = 0, totalRuntime7 = 0, totalRuntime8 = 0, totalRuntime9 = 0, totalRuntime10 = 0, totalRuntime11 = 0;
 
         for (int i = 0; i < ciclos; i++) {
-            int[] arrOriginal = generateRandom(1_000_000_000, 0, 1_000_000_000);
+            int[] arrOriginal = generateRandom(200_000, 0, 200_000);
 
             int[] arrCopy1 = Arrays.copyOf(arrOriginal, arrOriginal.length);
             int[] arrCopy2 = Arrays.copyOf(arrOriginal, arrOriginal.length);
@@ -932,11 +936,11 @@ public class Ex1 {
             long end5 = System.nanoTime();
 
             long start6 = System.nanoTime();
-            countingSort(arrCopy6, 1_000_000_000);
+            countingSort(arrCopy6, 200_000);
             long end6 = System.nanoTime();
 
             long start7 = System.nanoTime();
-            radixSort(arrCopy7, 1_000_000_000);
+            radixSort(arrCopy7, 200_000);
             long end7 = System.nanoTime();
 
             long start8 = System.nanoTime();
@@ -980,7 +984,7 @@ public class Ex1 {
         long avgRuntime10 = totalRuntime10 / ciclos;
         long avgRuntime11 = totalRuntime11 / ciclos;
 
-        System.out.println("test_vetor_1000000000_aleatorio");
+        System.out.println("test_vetor_250_000_aleatorio");
         System.out.printf("Média do tempo de execução do método selectionSort:       %d ns%n", avgRuntime1);
         System.out.printf("Média do tempo de execução do método bubbleSort:          %d ns%n", avgRuntime2);
         System.out.printf("Média do tempo de execução do método mergeSort:           %d ns%n", avgRuntime3);
@@ -1198,7 +1202,7 @@ public class Ex1 {
         System.out.printf("Média do tempo de execução do método dualPivotQuickSort:  %d ns%n", avgRuntime11);
     }
 
-    public static void test_vetor_1000_decrescente(int ciclos) {
+    public static void test_vetor_1_000_decrescente(int ciclos) {
         long totalRuntime1 = 0, totalRuntime2 = 0, totalRuntime3 = 0, totalRuntime4 = 0, totalRuntime5 = 0;
         long totalRuntime6 = 0, totalRuntime7 = 0, totalRuntime8 = 0, totalRuntime9 = 0, totalRuntime10 = 0, totalRuntime11 = 0;
 
@@ -1286,7 +1290,7 @@ public class Ex1 {
         long avgRuntime10 = totalRuntime10 / ciclos;
         long avgRuntime11 = totalRuntime11 / ciclos;
 
-        System.out.println("test_vetor_1000_decrescente");
+        System.out.println("test_vetor_1_000_decrescente");
         System.out.printf("Média do tempo de execução do método selectionSort:       %d ns%n", avgRuntime1);
         System.out.printf("Média do tempo de execução do método bubbleSort:          %d ns%n", avgRuntime2);
         System.out.printf("Média do tempo de execução do método mergeSort:           %d ns%n", avgRuntime3);
@@ -1300,12 +1304,12 @@ public class Ex1 {
         System.out.printf("Média do tempo de execução do método dualPivotQuickSort:  %d ns%n", avgRuntime11);
     }
 
-    public static void test_vetor_1000000_decrescente(int ciclos) {
+    public static void test_vetor_10_000_decrescente(int ciclos) {
         long totalRuntime1 = 0, totalRuntime2 = 0, totalRuntime3 = 0, totalRuntime4 = 0, totalRuntime5 = 0;
         long totalRuntime6 = 0, totalRuntime7 = 0, totalRuntime8 = 0, totalRuntime9 = 0, totalRuntime10 = 0, totalRuntime11 = 0;
 
         for (int i = 0; i < ciclos; i++) {
-            int[] arrOriginal = generateDescendingRandom(1_000_000, 0, 1_000_000);
+            int[] arrOriginal = generateDescendingRandom(10_000, 0, 10_000);
 
             int[] arrCopy1 = Arrays.copyOf(arrOriginal, arrOriginal.length);
             int[] arrCopy2 = Arrays.copyOf(arrOriginal, arrOriginal.length);
@@ -1340,11 +1344,11 @@ public class Ex1 {
             long end5 = System.nanoTime();
 
             long start6 = System.nanoTime();
-            countingSort(arrCopy6, 1_000_000);
+            countingSort(arrCopy6, 10_000);
             long end6 = System.nanoTime();
 
             long start7 = System.nanoTime();
-            radixSort(arrCopy7, 1_000_000);
+            radixSort(arrCopy7, 10_000);
             long end7 = System.nanoTime();
 
             long start8 = System.nanoTime();
@@ -1388,7 +1392,7 @@ public class Ex1 {
         long avgRuntime10 = totalRuntime10 / ciclos;
         long avgRuntime11 = totalRuntime11 / ciclos;
 
-        System.out.println("test_vetor_1000000_decrescente");
+        System.out.println("test_vetor_10_000_decrescente");
         System.out.printf("Média do tempo de execução do método selectionSort:       %d ns%n", avgRuntime1);
         System.out.printf("Média do tempo de execução do método bubbleSort:          %d ns%n", avgRuntime2);
         System.out.printf("Média do tempo de execução do método mergeSort:           %d ns%n", avgRuntime3);
@@ -1402,6 +1406,105 @@ public class Ex1 {
         System.out.printf("Média do tempo de execução do método dualPivotQuickSort:  %d ns%n", avgRuntime11);
     }
 
-    public static void test_vetor_1000000000_decrescente() {
+    public static void test_vetor_50_000_decrescente(int ciclos) {
+        long totalRuntime1 = 0, totalRuntime2 = 0, totalRuntime3 = 0, totalRuntime4 = 0, totalRuntime5 = 0;
+        long totalRuntime6 = 0, totalRuntime7 = 0, totalRuntime8 = 0, totalRuntime9 = 0, totalRuntime10 = 0, totalRuntime11 = 0;
+
+        for (int i = 0; i < ciclos; i++) {
+            int[] arrOriginal = generateDescendingRandom(20_000, 0, 20_000);
+
+            int[] arrCopy1 = Arrays.copyOf(arrOriginal, arrOriginal.length);
+            int[] arrCopy2 = Arrays.copyOf(arrOriginal, arrOriginal.length);
+            int[] arrCopy3 = Arrays.copyOf(arrOriginal, arrOriginal.length);
+            int[] arrCopy4 = Arrays.copyOf(arrOriginal, arrOriginal.length);
+            int[] arrCopy5 = Arrays.copyOf(arrOriginal, arrOriginal.length);
+            int[] arrCopy6 = Arrays.copyOf(arrOriginal, arrOriginal.length);
+            int[] arrCopy7 = Arrays.copyOf(arrOriginal, arrOriginal.length);
+            int[] arrCopy8 = Arrays.copyOf(arrOriginal, arrOriginal.length);
+            int[] arrCopy9 = Arrays.copyOf(arrOriginal, arrOriginal.length);
+            int[] arrCopy10 = Arrays.copyOf(arrOriginal, arrOriginal.length);
+            int[] arrCopy11 = Arrays.copyOf(arrOriginal, arrOriginal.length);
+
+            long start1 = System.nanoTime();
+            selectionSort(arrCopy1);
+            long end1 = System.nanoTime();
+
+            long start2 = System.nanoTime();
+            bubbleSort(arrCopy2);
+            long end2 = System.nanoTime();
+
+            long start3 = System.nanoTime();
+            mergeSort(arrCopy3);
+            long end3 = System.nanoTime();
+
+            long start4 = System.nanoTime();
+            heapSort(arrCopy4);
+            long end4 = System.nanoTime();
+
+            long start5 = System.nanoTime();
+            insertionSort(arrCopy5);
+            long end5 = System.nanoTime();
+
+            long start6 = System.nanoTime();
+            countingSort(arrCopy6, 20_000);
+            long end6 = System.nanoTime();
+
+            long start7 = System.nanoTime();
+            radixSort(arrCopy7, 20_000);
+            long end7 = System.nanoTime();
+
+            long start8 = System.nanoTime();
+            bucketSort(arrCopy8, 10);
+            long end8 = System.nanoTime();
+
+            long start9 = System.nanoTime();
+            quickSort(arrCopy9, 0, arrCopy9.length - 1);
+            long end9 = System.nanoTime();
+
+            long start10 = System.nanoTime();
+            shellSort(arrCopy10);
+            long end10 = System.nanoTime();
+
+            long start11 = System.nanoTime();
+            dualPivotQuickSort(arrCopy11);
+            long end11 = System.nanoTime();
+
+            totalRuntime1 += (end1 - start1);
+            totalRuntime2 += (end2 - start2);
+            totalRuntime3 += (end3 - start3);
+            totalRuntime4 += (end4 - start4);
+            totalRuntime5 += (end5 - start5);
+            totalRuntime6 += (end6 - start6);
+            totalRuntime7 += (end7 - start7);
+            totalRuntime8 += (end8 - start8);
+            totalRuntime9 += (end9 - start9);
+            totalRuntime10 += (end10 - start10);
+            totalRuntime11 += (end11 - start11);
+        }
+
+        long avgRuntime1 = totalRuntime1 / ciclos;
+        long avgRuntime2 = totalRuntime2 / ciclos;
+        long avgRuntime3 = totalRuntime3 / ciclos;
+        long avgRuntime4 = totalRuntime4 / ciclos;
+        long avgRuntime5 = totalRuntime5 / ciclos;
+        long avgRuntime6 = totalRuntime6 / ciclos;
+        long avgRuntime7 = totalRuntime7 / ciclos;
+        long avgRuntime8 = totalRuntime8 / ciclos;
+        long avgRuntime9 = totalRuntime9 / ciclos;
+        long avgRuntime10 = totalRuntime10 / ciclos;
+        long avgRuntime11 = totalRuntime11 / ciclos;
+
+        System.out.println("test_vetor_50_000_decrescente");
+        System.out.printf("Média do tempo de execução do método selectionSort:       %d ns%n", avgRuntime1);
+        System.out.printf("Média do tempo de execução do método bubbleSort:          %d ns%n", avgRuntime2);
+        System.out.printf("Média do tempo de execução do método mergeSort:           %d ns%n", avgRuntime3);
+        System.out.printf("Média do tempo de execução do método heapSort:            %d ns%n", avgRuntime4);
+        System.out.printf("Média do tempo de execução do método insertionSort:       %d ns%n", avgRuntime5);
+        System.out.printf("Média do tempo de execução do método countingSort:        %d ns%n", avgRuntime6);
+        System.out.printf("Média do tempo de execução do método radixSort:           %d ns%n", avgRuntime7);
+        System.out.printf("Média do tempo de execução do método bucketSort:          %d ns%n", avgRuntime8);
+        System.out.printf("Média do tempo de execução do método quickSort:           %d ns%n", avgRuntime9);
+        System.out.printf("Média do tempo de execução do método shellSort:           %d ns%n", avgRuntime10);
+        System.out.printf("Média do tempo de execução do método dualPivotQuickSort:  %d ns%n", avgRuntime11);
     }
 }
