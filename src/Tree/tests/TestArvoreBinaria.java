@@ -4,7 +4,7 @@ import Tree.ArvoreBinaria;
 
 import java.util.Arrays;
 
-public class TestArvoreBinaria1 {
+public class TestArvoreBinaria {
     public static void main(String[] args) throws Exception {
         ArvoreBinaria<Integer> arvore = new ArvoreBinaria<>();
         System.out.println("### Testes da Árvore Binária de Busca ###");
