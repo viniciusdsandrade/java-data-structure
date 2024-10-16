@@ -32,6 +32,7 @@ public class LinkedListOrdered<X extends Comparable<X>> implements Cloneable {
         }
 
         @Override
+        @SuppressWarnings("MethodDoesntCallSuperMethod")
         public Object clone() {
             Node clone = null;
             try {
@@ -262,6 +263,7 @@ public class LinkedListOrdered<X extends Comparable<X>> implements Cloneable {
     }
 
     @Override
+    @SuppressWarnings("MethodDoesntCallSuperMethod")
     public Object clone() {
         LinkedListOrdered<X> clone = null;
         try {

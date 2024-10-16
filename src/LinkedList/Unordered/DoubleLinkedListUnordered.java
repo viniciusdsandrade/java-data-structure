@@ -38,6 +38,7 @@ public class DoubleLinkedListUnordered<X> implements Cloneable {
         }
 
         @Override
+        @SuppressWarnings("MethodDoesntCallSuperMethod")
         public Object clone() {
             Node clone = null;
             try {
@@ -314,6 +315,7 @@ public class DoubleLinkedListUnordered<X> implements Cloneable {
     }
 
     @Override
+    @SuppressWarnings("MethodDoesntCallSuperMethod")
     public Object clone() {
         DoubleLinkedListUnordered<X> clone = null;
         try {

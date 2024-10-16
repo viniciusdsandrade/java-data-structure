@@ -42,6 +42,7 @@ public class DoubleLinkedListCircularOrdered<X extends Comparable<X>> implements
         }
 
         @Override
+        @SuppressWarnings("MethodDoesntCallSuperMethod")
         public Object clone() {
             Node clone = null;
             try {
@@ -299,6 +300,7 @@ public class DoubleLinkedListCircularOrdered<X extends Comparable<X>> implements
     }
 
     @Override
+    @SuppressWarnings("MethodDoesntCallSuperMethod")
     public Object clone() {
         DoubleLinkedListCircularOrdered<X> clone = null;
         try {

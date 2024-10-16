@@ -35,6 +35,7 @@ public class LinkedListUnordered<X> implements Cloneable {
         }
 
         @Override
+        @SuppressWarnings("MethodDoesntCallSuperMethod")
         public Object clone() {
             Node clone = null;
             try {
@@ -496,6 +497,7 @@ public class LinkedListUnordered<X> implements Cloneable {
     }
 
     @Override
+    @SuppressWarnings("MethodDoesntCallSuperMethod")
     public Object clone() {
         LinkedListUnordered<X> clone = null;
         try {

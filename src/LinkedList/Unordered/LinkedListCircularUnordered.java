@@ -32,6 +32,7 @@ public class LinkedListCircularUnordered<X> implements Cloneable {
         }
 
         @Override
+        @SuppressWarnings("MethodDoesntCallSuperMethod")
         public Object clone() {
             Node clone = null;
             try {
@@ -317,6 +318,7 @@ public class LinkedListCircularUnordered<X> implements Cloneable {
     }
 
     @Override
+    @SuppressWarnings("MethodDoesntCallSuperMethod")
     public Object clone() {
         LinkedListCircularUnordered<X> clone = null;
         try {

@@ -38,6 +38,7 @@ public class DoubleLinkedListOrdered<X extends Comparable<X>> implements Cloneab
         }
 
         @Override
+        @SuppressWarnings("MethodDoesntCallSuperMethod")
         public Object clone() {
             Node clone = null;
             try {
@@ -279,6 +280,7 @@ public class DoubleLinkedListOrdered<X extends Comparable<X>> implements Cloneab
     }
 
     @Override
+    @SuppressWarnings("MethodDoesntCallSuperMethod")
     public Object clone() {
         DoubleLinkedListOrdered<X> clone = null;
         try {
