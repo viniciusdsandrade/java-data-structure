@@ -777,6 +777,7 @@ public class ArvoreBinaria<T extends Comparable<T>> implements Cloneable {
      * @return Uma cópia profunda da árvore binária.
      */
     @Override
+    @SuppressWarnings("MethodDoesntCallSuperMethod")
     public Object clone() {
         ArvoreBinaria<T> clone = null;
         try {

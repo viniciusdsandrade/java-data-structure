@@ -229,6 +229,7 @@ public class No<X extends Comparable<X>> implements Cloneable, Comparable<No<X>>
      * @return Um clone deste nó.
      */
     @Override
+    @SuppressWarnings("MethodDoesntCallSuperMethod")
     public Object clone() {
         No<X> clone = null;
         try {
@@ -250,8 +251,8 @@ public class No<X extends Comparable<X>> implements Cloneable, Comparable<No<X>>
         if (o == null || getClass() != o.getClass()) return false;
         No<?> that = (No<?>) o;
         return Objects.equals(this.info, that.info) &&
-                equals(this.esq, that.esq) &&
-                equals(this.dir, that.dir);
+               equals(this.esq, that.esq) &&
+               equals(this.dir, that.dir);
     }
 
     /**
