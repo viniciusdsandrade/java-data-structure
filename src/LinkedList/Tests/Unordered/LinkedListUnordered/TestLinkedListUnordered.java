@@ -8,7 +8,7 @@ import java.util.List;
 
 public class TestLinkedListUnordered {
 
-    // Método para verificar se a lista é simplesmente encadeada
+    // metodo para verificar se a lista é simplesmente encadeada
     public static <X> boolean verificaSimplesmenteEncadeada(LinkedListUnordered<X> lista) {
         // Verifica se a lista está vazia ou contém apenas um elemento
         if (lista.primeiro == null || lista.primeiro.proximo == null) return true;
@@ -27,7 +27,7 @@ public class TestLinkedListUnordered {
         return true;
     }
 
-    // Método auxiliar para contar as referências para o próximo nó de um determinado nó
+    // metodo auxiliar para contar as referências para o próximo nó de um determinado nó
     private static <X> int countReferencesToNext(LinkedListUnordered<X>.Node node) {
         int count = 0;
         LinkedListUnordered<X>.Node current = node;
@@ -233,7 +233,7 @@ public class TestLinkedListUnordered {
         name.addLast("Santos");
         System.out.println(name);
 
-        //quero testar o método reverse
+        //quero testar o metodo reverse
         name.reverse();
         System.out.println(name);
         name.reverse();

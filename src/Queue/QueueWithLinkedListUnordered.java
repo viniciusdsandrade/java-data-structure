@@ -41,7 +41,7 @@ public class QueueWithLinkedListUnordered<X> implements Cloneable {
     public X enqueue(X item) {
         if (this.tamanho == this.capacidade) throw new StackOverflowError("Fila cheia");
 
-        // Adiciona no final da fila (utilizando o método addLast da LinkedListDisordered)
+        // Adiciona no final da fila (utilizando o metodo addLast da LinkedListDisordered)
         this.elemento.addLast(item);
         this.tamanho++;
         return item;
@@ -50,14 +50,14 @@ public class QueueWithLinkedListUnordered<X> implements Cloneable {
     public X peek() {
         if (isEmpty()) throw new EmptyStackException();
 
-        // Retorna o primeiro elemento da fila (utilizando o método getFirst da LinkedListDisordered)
+        // Retorna o primeiro elemento da fila (utilizando o metodo getFirst da LinkedListDisordered)
         return this.elemento.getFirst();
     }
 
     public X dequeue() {
         if (this.isEmpty()) throw new EmptyStackException();
 
-        // Remove o primeiro elemento da fila (utilizando o método removeFirst da LinkedListDisordered)
+        // Remove o primeiro elemento da fila (utilizando o metodo removeFirst da LinkedListDisordered)
         X item = this.elemento.getFirst();
         this.elemento.removeFirst();
         this.tamanho--;

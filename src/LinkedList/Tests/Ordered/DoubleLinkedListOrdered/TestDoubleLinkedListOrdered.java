@@ -4,7 +4,7 @@ import LinkedList.Ordered.DoubleLinkedListOrdered;
 
 public class TestDoubleLinkedListOrdered {
 
-    // Método para verificar se todos os nós estão corretamente duplamente ligados
+    // metodo para verificar se todos os nós estão corretamente duplamente ligados
     public static <X extends Comparable<X>> boolean verificaDuplamenteLigada(DoubleLinkedListOrdered<X> lista) {
         // Verifica se a lista está vazia
         if (lista.primeiro == null)
@@ -31,7 +31,7 @@ public class TestDoubleLinkedListOrdered {
         return true;
     }
 
-    // Método para verificar se a lista duplamente ligada está ordenada
+    // metodo para verificar se a lista duplamente ligada está ordenada
     public static <X extends Comparable<X>> boolean verificaOrdenacao(DoubleLinkedListOrdered<X> lista) {
         // Verifica se a lista está vazia ou contém apenas um elemento
         if (lista.primeiro == null || lista.primeiro.proximo == null) return true;

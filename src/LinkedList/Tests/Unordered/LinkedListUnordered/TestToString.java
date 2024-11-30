@@ -6,7 +6,7 @@ public class TestToString {
     public static void main(String[] args) {
 
         /*
-         * Testando o método toString
+         * Testando o metodo toString
          * Integer
          * String
          * Double

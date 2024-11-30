@@ -4,7 +4,7 @@ import LinkedList.Unordered.DoubleLinkedListCircularUnordered;
 
 public class TestDoubleLinkedListCircularUnordered {
 
-    // Método para verificar se a lista é duplamente ligada
+    // metodo para verificar se a lista é duplamente ligada
     public static <X> boolean verificaDuplamenteLigada(DoubleLinkedListCircularUnordered<X> lista) {
         // Se a lista estiver vazia ou tiver apenas um elemento, ela é considerada duplamente ligada
         if (lista.getPrimeiro() == null || lista.getPrimeiro() == lista.getUltimo()) return true;
@@ -26,7 +26,7 @@ public class TestDoubleLinkedListCircularUnordered {
         return lista.getPrimeiro().anterior == lista.getUltimo();
     }
 
-    // Método para verificar se a lista é circular
+    // metodo para verificar se a lista é circular
     public static <X> boolean verificaCircularidade(DoubleLinkedListCircularUnordered<X> lista) {
         // Se a lista estiver vazia, ela não é circular
         if (lista.getPrimeiro() == null || lista.getUltimo() == null) return false;

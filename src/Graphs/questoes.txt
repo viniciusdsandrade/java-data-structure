@@ -1,0 +1,74 @@
+HashMapLinkedListUnordered
+Questão Fácil:
+
+Implementação Básica de Inserção:
+Enunciado: Implemente o metodo put(K key, V value) para a classe HashMapLinkedListUnordered, que insere um novo par chave-valor na tabela hash. Certifique-se de lidar com colisões usando encadeamento separado com listas ligadas não ordenadas.
+Dicas:
+Calcule o índice usando a função hash da chave.
+Se o índice já contém elementos, adicione o novo nó à lista ligada correspondente.
+Atualize o tamanho (length) do HashMap após a inserção.
+Questões Médias:
+
+Redimensionamento Dinâmico da Tabela Hash:
+
+Enunciado: Implemente o método rehash() para a classe HashMapLinkedListUnordered, que redimensiona a tabela hash quando o fator de carga ultrapassa o maxLoadFactor. Explique como isso afeta o desempenho das operações de inserção, remoção e busca.
+Dicas:
+Crie uma nova tabela com o dobro da capacidade atual.
+Reinsira todos os elementos da tabela antiga na nova tabela.
+Considere como o redimensionamento impacta o tempo de execução.
+Implementação do Método get:
+
+Enunciado: Implemente o método get(K key) que retorna o valor associado a uma chave específica. Explique como a função hash e o tratamento de colisões influenciam a eficiência deste método.
+Dicas:
+Calcule o índice usando a função hash da chave.
+Percorra a lista ligada no índice para encontrar o nó com a chave correspondente.
+Retorne o valor se a chave for encontrada, ou null caso contrário.
+AdjacencyListGraph
+Questão Fácil:
+
+Adição de Vértices e Arestas:
+Enunciado: Implemente os métodos para adicionar um vértice ao grafo e para adicionar uma aresta entre dois vértices. Certifique-se de que não haja duplicação de vértices ou arestas.
+Dicas:
+Verifique se o vértice já existe antes de adicionar.
+Ao adicionar uma aresta, adicione cada vértice à lista de adjacências do outro (para grafos não direcionados).
+Questões Médias:
+
+Busca em Profundidade (DFS):
+
+Enunciado: Implemente o algoritmo de Busca em Profundidade (DFS) para o grafo AdjacencyListGraph. O método deve imprimir ou retornar os dados dos vértices na ordem em que foram visitados, começando por um vértice específico.
+Dicas:
+Utilize uma estrutura de dados como uma pilha ou recursão.
+Mantenha um conjunto de vértices visitados para evitar ciclos infinitos.
+Explique como a recursão funciona neste contexto.
+Detecção de Ciclos em Grafos Não Direcionados:
+
+Enunciado: Implemente um método que verifica se o grafo não direcionado possui ciclos. Explique a lógica utilizada e a complexidade do algoritmo.
+Dicas:
+Utilize DFS para percorrer o grafo.
+Mantenha registro do vértice pai para não considerar a aresta de retorno imediata como ciclo.
+Um ciclo é detectado se um vértice adjacente já foi visitado e não é o pai.
+ArvoreBinaria
+Questão Fácil:
+
+Inserção em Árvore Binária de Busca:
+Enunciado: Implemente o método inserir(T valor) na classe ArvoreBinaria que insere um novo elemento na árvore binária de busca mantendo as propriedades da árvore.
+Dicas:
+Compare o valor a ser inserido com o nó atual para decidir ir para a subárvore esquerda ou direita.
+Se o nó atual for null, insira o novo nó aqui.
+Não permita a inserção de elementos duplicados.
+Questões Médias:
+
+Percurso Em-Ordem Recursivo:
+
+Enunciado: Implemente um método que realiza o percurso em-ordem (in-order traversal) na árvore binária, retornando uma lista dos elementos em ordem crescente.
+Dicas:
+Visite recursivamente a subárvore esquerda, o nó atual e depois a subárvore direita.
+Utilize uma lista auxiliar para armazenar os valores.
+Explique por que o percurso em-ordem resulta em uma lista ordenada para árvores binárias de busca.
+Verificação de Balanceamento da Árvore:
+
+Enunciado: Implemente um método que verifica se a árvore binária está balanceada. Uma árvore é considerada balanceada se a diferença de altura entre as subárvores esquerda e direita de qualquer nó não for superior a 1.
+Dicas:
+Calcule a altura de cada subárvore.
+Verifique a condição de balanceamento em cada nó recursivamente.
+Explique a complexidade do algoritmo e possíveis otimizações.

@@ -60,7 +60,7 @@ public class ArvoreBinaria<T extends Comparable<T>> implements Cloneable {
     }
 
     /**
-     * Método recursivo privado para inserir um valor em um nó da árvore.
+     * metodo recursivo privado para inserir um valor em um nó da árvore.
      * Se o nó atual for nulo, um novo nó é criado com o valor fornecido.
      * Caso contrário, o valor é comparado com o valor do nó atual:
      * - Se o valor for menor, ele é inserido na subárvore esquerda.
@@ -91,8 +91,8 @@ public class ArvoreBinaria<T extends Comparable<T>> implements Cloneable {
     }
 
     /**
-     * Método recursivo privado para remover um valor da árvore.
-     * Este método implementa a lógica de remoção de um nó de uma árvore binária de busca,
+     * metodo recursivo privado para remover um valor da árvore.
+     * Este metodo implementa a lógica de remoção de um nó de uma árvore binária de busca,
      * considerando os diferentes casos:
      * <p>- Caso 1: Nó folha (sem filhos).</p>
      * <p>- Caso 2: Nó com apenas um filho.</p>
@@ -376,7 +376,7 @@ public class ArvoreBinaria<T extends Comparable<T>> implements Cloneable {
     }
 
     /**
-     * Método recursivo privado para verificar se um valor está presente em um nó da árvore.
+     * metodo recursivo privado para verificar se um valor está presente em um nó da árvore.
      *
      * @param noAtual O nó atual da recursão.
      * @param valor   O valor a ser procurado.
@@ -401,7 +401,7 @@ public class ArvoreBinaria<T extends Comparable<T>> implements Cloneable {
     }
 
     /**
-     * Método recursivo privado para encontrar o menor valor na subárvore a partir de um determinado nó.
+     * metodo recursivo privado para encontrar o menor valor na subárvore a partir de um determinado nó.
      *
      * @param no O nó atual da recursão.
      * @return O menor valor presente na subárvore.
@@ -425,7 +425,7 @@ public class ArvoreBinaria<T extends Comparable<T>> implements Cloneable {
     }
 
     /**
-     * Método recursivo privado para encontrar o maior valor na subárvore a partir de um determinado nó.
+     * metodo recursivo privado para encontrar o maior valor na subárvore a partir de um determinado nó.
      *
      * @param no O nó atual da recursão.
      * @return O maior valor presente na subárvore.
@@ -559,7 +559,7 @@ public class ArvoreBinaria<T extends Comparable<T>> implements Cloneable {
     }
 
     /**
-     * Método recursivo privado para realizar o percurso em ordem e adicionar os valores ao LinkedList.
+     * metodo recursivo privado para realizar o percurso em ordem e adicionar os valores ao LinkedList.
      *
      * @param no    O nó atual da recursão.
      * @param lista O LinkedList que irá armazenar os valores da árvore.
@@ -592,7 +592,7 @@ public class ArvoreBinaria<T extends Comparable<T>> implements Cloneable {
     }
 
     /**
-     * Método recursivo privado para espelhar a subárvore a partir de um determinado nó.
+     * metodo recursivo privado para espelhar a subárvore a partir de um determinado nó.
      *
      * @param no O nó a partir do qual a subárvore será espelhada.
      */
@@ -621,7 +621,7 @@ public class ArvoreBinaria<T extends Comparable<T>> implements Cloneable {
     }
 
     /**
-     * Método recursivo privado para encontrar o nó que contém um valor na subárvore a partir de um determinado nó.
+     * metodo recursivo privado para encontrar o nó que contém um valor na subárvore a partir de um determinado nó.
      *
      * @param noAtual O nó atual da recursão.
      * @param valor   O valor a ser procurado.
@@ -636,7 +636,7 @@ public class ArvoreBinaria<T extends Comparable<T>> implements Cloneable {
 
     /**
      * Conta o número de elementos em comum entre esta árvore binária e outra árvore binária
-     * fornecida como parâmetro, utilizando os métodos `contem` e `compareTo`.
+     * fornecida como parâmetro, utilizando os metodos `contem` e `compareTo`.
      *
      * @param arvore A árvore binária a ser comparada com esta árvore.
      * @return O número de elementos em comum entre as duas árvores binárias.
@@ -646,7 +646,7 @@ public class ArvoreBinaria<T extends Comparable<T>> implements Cloneable {
     }
 
     /**
-     * Método recursivo auxiliar que percorre os nós da árvore e verifica se os valores estão
+     * metodo recursivo auxiliar que percorre os nós da árvore e verifica se os valores estão
      * contidos na outra árvore.
      *
      * @param no     O nó atual da árvore que está sendo percorrida.
@@ -678,7 +678,7 @@ public class ArvoreBinaria<T extends Comparable<T>> implements Cloneable {
     }
 
     /**
-     * Método recursivo privado para calcular a altura da subárvore a partir de um determinado nó.
+     * metodo recursivo privado para calcular a altura da subárvore a partir de um determinado nó.
      *
      * @param no O nó a partir do qual a altura será calculada.
      * @return A altura da subárvore.
@@ -703,7 +703,7 @@ public class ArvoreBinaria<T extends Comparable<T>> implements Cloneable {
     }
 
     /**
-     * Método recursivo privado para calcular a profundidade de um nó na subárvore a partir de um determinado nó.
+     * metodo recursivo privado para calcular a profundidade de um nó na subárvore a partir de um determinado nó.
      *
      * @param noAtual           O nó atual da recursão.
      * @param noProcurado       O nó cuja profundidade será calculada.
@@ -746,7 +746,7 @@ public class ArvoreBinaria<T extends Comparable<T>> implements Cloneable {
     }
 
     /**
-     * Método recursivo privado para calcular o número de nós na subárvore a partir de um determinado nó.
+     * metodo recursivo privado para calcular o número de nós na subárvore a partir de um determinado nó.
      *
      * @param no O nó a partir do qual o número de nós será calculado.
      * @return O número de nós na subárvore.
@@ -805,7 +805,7 @@ public class ArvoreBinaria<T extends Comparable<T>> implements Cloneable {
     }
 
     /**
-     * Método recursivo privado para verificar se dois nós somos iguais, incluindo suas subárvores.
+     * metodo recursivo privado para verificar se dois nós somos iguais, incluindo suas subárvores.
      *
      * @param no1 O primeiro nó a ser comparado.
      * @param no2 O segundo nó a ser comparado.
@@ -843,7 +843,7 @@ public class ArvoreBinaria<T extends Comparable<T>> implements Cloneable {
     }
 
     /**
-     * Método recursivo privado para construir a representação textual da subárvore a partir de um determinado nó.
+     * metodo recursivo privado para construir a representação textual da subárvore a partir de um determinado nó.
      *
      * @param level         O nível atual da recursão, representando a profundidade do nó.
      * @param no            O nó atual da recursão.

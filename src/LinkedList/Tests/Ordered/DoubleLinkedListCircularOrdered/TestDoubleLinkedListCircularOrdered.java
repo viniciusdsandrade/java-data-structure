@@ -4,7 +4,7 @@ import LinkedList.Ordered.DoubleLinkedListCircularOrdered;
 
 public class TestDoubleLinkedListCircularOrdered {
 
-    // Método para verificar se todos os nós estão corretamente duplamente ligados
+    // metodo para verificar se todos os nós estão corretamente duplamente ligados
     public static <X extends Comparable<X>> boolean verificaDuplamenteLigada(DoubleLinkedListCircularOrdered<X> lista) {
         // Verifica se a lista está vazia ou contém apenas um elemento
         if (lista.primeiro == null || lista.primeiro == lista.ultimo) return true;
@@ -26,7 +26,7 @@ public class TestDoubleLinkedListCircularOrdered {
         return lista.primeiro.anterior == lista.ultimo;
     }
 
-    // Método para verificar se a lista é circular
+    // metodo para verificar se a lista é circular
     public static <X extends Comparable<X>> boolean verificaCircularidade(DoubleLinkedListCircularOrdered<X> lista) {
         // Verifica se a lista está vazia
         if (lista.primeiro == null || lista.ultimo == null) return false;
@@ -41,7 +41,7 @@ public class TestDoubleLinkedListCircularOrdered {
         return anteriorDoPrimeiroApontaUltimo && proximoDoUltimoApontaPrimeiro;
     }
 
-    // Método para verificar se a lista duplamente ligada circular está ordenada
+    // metodo para verificar se a lista duplamente ligada circular está ordenada
     public static <X extends Comparable<X>> boolean verificaOrdenacao(DoubleLinkedListCircularOrdered<X> lista) {
         // Verifica se a lista está vazia ou contém apenas um elemento
         if (lista.primeiro == null || lista.primeiro.proximo == null) return true;

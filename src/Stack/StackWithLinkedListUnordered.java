@@ -41,7 +41,7 @@ public class StackWithLinkedListUnordered<X> implements Cloneable {
     public X push(X item) {
         if (this.tamanho == this.capacidade) throw new StackOverflowError();
 
-        // Adiciona o item no início da lista(Utilizando o método addFirst da LinkedListDisordered)
+        // Adiciona o item no início da lista(Utilizando o metodo addFirst da LinkedListDisordered)
         this.elemento.addFirst(item);
         this.tamanho++;
 
@@ -51,14 +51,14 @@ public class StackWithLinkedListUnordered<X> implements Cloneable {
     public X peek() {
         if (isEmpty()) throw new EmptyStackException();
 
-        // Retorna o primeiro elemento da lista(Utilizando o método getFirst da LinkedListDisordered)
+        // Retorna o primeiro elemento da lista(Utilizando o metodo getFirst da LinkedListDisordered)
         return this.elemento.getFirst();
     }
 
     public X pop() {
         if (isEmpty()) throw new EmptyStackException();
 
-        // Remove o primeiro elemento da lista(Utilizando o método removeFirst da LinkedListDisordered)
+        // Remove o primeiro elemento da lista(Utilizando o metodo removeFirst da LinkedListDisordered)
         X elemento = this.elemento.getFirst();
         this.elemento.removeFirst();
         this.tamanho--;

@@ -68,7 +68,7 @@ public class TestToString {
         stack_WithLinkedListDisordered_byte.push((byte) 4);
         stack_WithLinkedListDisordered_byte.push((byte) 5);
 
-        System.out.println("Teste do método toString()");
+        System.out.println("Teste do metodo toString()");
         System.out.println("Stack<Integer>:     " + stack_WithLinkedListDisordered_int);
         System.out.println("Stack<String>:      " + stack_WithLinkedListDisordered_str);
         System.out.println("Stack<Character>:   " + stack_WithLinkedListDisordered_char);
@@ -79,7 +79,7 @@ public class TestToString {
         System.out.println("Stack<Short>:       " + stack_WithLinkedListDisordered_short);
         System.out.println("Stack<Byte>:        " + stack_WithLinkedListDisordered_byte);
         System.out.println();
-        System.out.println("Teste do método toArray()");
+        System.out.println("Teste do metodo toArray()");
         System.out.println("Stack<Integer>:     " + stack_WithLinkedListDisordered_int.toArray());
         System.out.println("Stack<String>:      " + stack_WithLinkedListDisordered_str.toArray());
         System.out.println("Stack<Character>:   " + stack_WithLinkedListDisordered_char.toArray());

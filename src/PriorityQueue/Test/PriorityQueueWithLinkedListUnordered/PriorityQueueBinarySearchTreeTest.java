@@ -21,7 +21,7 @@ public class PriorityQueueBinarySearchTreeTest {
         System.out.println("\nTodos os testes foram concluídos.");
     }
 
-    // Teste do método enqueue
+    // Teste do metodo enqueue
     private static void testEnqueue() {
         System.out.println("Teste: enqueue()");
         PriorityQueueBinarySearchTree<String> pq = new PriorityQueueBinarySearchTree<String>();
@@ -49,7 +49,7 @@ public class PriorityQueueBinarySearchTreeTest {
         System.out.println();
     }
 
-    // Teste do método dequeue
+    // Teste do metodo dequeue
     private static void testDequeue() {
         System.out.println("Teste: dequeue()");
         PriorityQueueBinarySearchTree<String> pq = new PriorityQueueBinarySearchTree<String>();
@@ -81,7 +81,7 @@ public class PriorityQueueBinarySearchTreeTest {
         System.out.println();
     }
 
-    // Teste do método peek
+    // Teste do metodo peek
     private static void testPeek() {
         System.out.println("Teste: peek()");
         PriorityQueueBinarySearchTree<String> pq = new PriorityQueueBinarySearchTree<String>();

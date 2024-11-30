@@ -15,7 +15,7 @@ public class TestCloneAndCopyConstructor {
         System.out.println("Teste de cópia vazia:");
         System.out.println("Lista original vazia:                           " + emptyList);
         System.out.println("Cópia da lista vazia com construtor de copia:   " + emptyListCopyConstructor);
-        System.out.println("Cópia da lista vazia usando método clone:       " + emptyListClone);
+        System.out.println("Cópia da lista vazia usando metodo clone:       " + emptyListClone);
         System.out.println();
 
         // Teste de hash code

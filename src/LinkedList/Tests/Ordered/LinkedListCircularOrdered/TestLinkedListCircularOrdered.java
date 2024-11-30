@@ -4,7 +4,7 @@ import LinkedList.Ordered.LinkedListCircularOrdered;
 
 public class TestLinkedListCircularOrdered {
 
-    // Método para verificar se a lista é circular
+    // metodo para verificar se a lista é circular
     public static <X extends Comparable<X>> boolean verificaCircularidade(LinkedListCircularOrdered<X> lista) {
         // Verifica se a lista está vazia
         if (lista.primeiro == null || lista.ultimo == null) return false;
@@ -13,7 +13,7 @@ public class TestLinkedListCircularOrdered {
         return lista.ultimo.proximo == lista.primeiro;
     }
 
-    // Método para verificar se a lista circular está ordenada
+    // metodo para verificar se a lista circular está ordenada
     public static <X extends Comparable<X>> boolean verificaOrdenacao(LinkedListCircularOrdered<X> lista) {
         // Verifica se a lista é circular
         if (!verificaCircularidade(lista)) return false;
@@ -32,7 +32,7 @@ public class TestLinkedListCircularOrdered {
         return true;
     }
 
-    // Método para verificar se a lista é simplesmente encadeada
+    // metodo para verificar se a lista é simplesmente encadeada
     public static <X extends Comparable<X>> boolean verificaSimplesmenteEncadeada(LinkedListCircularOrdered<X> lista) {
         // Verifica se a lista está vazia ou contém apenas um nó
         if (lista.primeiro == null || lista.primeiro.proximo == null) return true;

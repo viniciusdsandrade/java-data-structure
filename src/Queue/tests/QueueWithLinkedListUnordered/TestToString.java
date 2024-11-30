@@ -69,7 +69,7 @@ public class TestToString {
         queue_WithLinkedListDisordered_byte.enqueue((byte) 4);
         queue_WithLinkedListDisordered_byte.enqueue((byte) 5);
 
-        System.out.println("Test do método toString()");
+        System.out.println("Test do metodo toString()");
         System.out.println("Queue<Integer>:     " + queue_WithLinkedListDisordered_int);
         System.out.println("Queue<String>:      " + queue_WithLinkedListDisordered_str);
         System.out.println("Queue<Character>:   " + queue_WithLinkedListDisordered_char);
@@ -80,7 +80,7 @@ public class TestToString {
         System.out.println("Queue<Short>:       " + queue_WithLinkedListDisordered_short);
         System.out.println("Queue<Byte>:        " + queue_WithLinkedListDisordered_byte);
         System.out.println();
-        System.out.println("Test do método toArray()");
+        System.out.println("Test do metodo toArray()");
         System.out.println("Queue<Integer>:     " + queue_WithLinkedListDisordered_int.toArray());
         System.out.println("Queue<String>:      " + queue_WithLinkedListDisordered_str.toArray());
         System.out.println("Queue<Character>:   " + queue_WithLinkedListDisordered_char.toArray());

@@ -4,7 +4,7 @@ import LinkedList.Ordered.LinkedListOrdered;
 
 public class TestLinkedListOrdered {
 
-    // Método para verificar se a lista é simplesmente encadeada
+    // metodo para verificar se a lista é simplesmente encadeada
     public static <X extends Comparable<X>> boolean verificaSimplesmenteEncadeada(LinkedListOrdered<X> lista) {
         // Verifica se a lista está vazia ou contém apenas um elemento
         if (lista.primeiro == null || lista.primeiro.proximo == null) return true;
@@ -19,7 +19,7 @@ public class TestLinkedListOrdered {
         return true;
     }
 
-    // Método auxiliar para contar as referências para o próximo nó de um determinado nó
+    // metodo auxiliar para contar as referências para o próximo nó de um determinado nó
     private static <X extends Comparable<X>> int countReferencesToNext(LinkedListOrdered<X>.Node node) {
         int count = 0;
         LinkedListOrdered<X>.Node current = node;
@@ -30,7 +30,7 @@ public class TestLinkedListOrdered {
         return count;
     }
 
-    // Método para verificar se a lista está ordenada
+    // metodo para verificar se a lista está ordenada
     public static <X extends Comparable<X>> boolean verificaOrdenacao(LinkedListOrdered<X> lista) {
         // Verifica se a lista está vazia ou contém apenas um elemento
         if (lista.primeiro == null || lista.primeiro.proximo == null) return true;

@@ -21,7 +21,7 @@ public class TestCloneAndCopyConstructor {
         // Testando o metodo clone
         @SuppressWarnings("unchecked")
         ArvoreBinaria<Integer> arvore3 = (ArvoreBinaria<Integer>) arvore1.clone();
-        System.out.println("Árvore 1 com método clone: " + arvore3);
+        System.out.println("Árvore 1 com metodo clone: " + arvore3);
 
         // Agora vamos fazer alterações na árvore 1 e verificar se as alterações
         // Vamos Balançar a árvore 1

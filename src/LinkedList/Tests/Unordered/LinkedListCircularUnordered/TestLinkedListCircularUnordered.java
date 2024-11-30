@@ -4,7 +4,7 @@ import LinkedList.Unordered.LinkedListCircularUnordered;
 
 public class TestLinkedListCircularUnordered {
 
-    // Método para verificar se a lista é circular
+    // metodo para verificar se a lista é circular
     public static <X> boolean verificaCircular(LinkedListCircularUnordered<X> lista) {
         // Se a lista estiver vazia, ela não é circular
         if (lista.primeiro == null) return false;
@@ -25,7 +25,7 @@ public class TestLinkedListCircularUnordered {
         return false;
     }
 
-    // Método para verificar se a lista circular está ordenada
+    // metodo para verificar se a lista circular está ordenada
     public static <X> boolean verificaSimplesmenteEncadeada(LinkedListCircularUnordered<X> lista) {
         // Se a lista estiver vazia ou contiver apenas um nó, ela é simplesmente encadeada
         if (lista.primeiro == null || lista.primeiro.proximo == null) return true;

@@ -116,7 +116,7 @@ public class TestToString {
         list_linked_list_list_int.addLast(subList4);
         list_list_list_linked_list_list_int.addLast(list2);
 
-        // Testando o método toString()
+        // Testando o metodo toString()
         System.out.println("LinkedListCircularDisordered<LinkedListCircularDisordered<Integer>>:                    " + list_linked_list_int);
         System.out.println("LinkedListCircularDisordered<List<LinkedListCircularDisordered<Integer>>>:              " + list_list_linked_list_int);
         System.out.println("LinkedListCircularDisordered<LinkedListCircularDisordered<List<Integer>>>:              " + list_linked_list_list_int);

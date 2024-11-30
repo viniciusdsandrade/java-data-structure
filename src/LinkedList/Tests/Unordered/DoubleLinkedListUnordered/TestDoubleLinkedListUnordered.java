@@ -4,7 +4,7 @@ import LinkedList.Unordered.DoubleLinkedListUnordered;
 
 public class TestDoubleLinkedListUnordered {
 
-    // Método para verificar se a lista está duplamente ligada
+    // metodo para verificar se a lista está duplamente ligada
     public static <X> boolean verificaDuplamenteLigada(DoubleLinkedListUnordered<X> lista) {
         // Se a lista estiver vazia ou tiver apenas um elemento, ela é considerada duplamente ligada
         if (lista.primeiro == null || lista.tamanho <= 1) return true;
@@ -25,7 +25,7 @@ public class TestDoubleLinkedListUnordered {
         return true;
     }
 
-    // Método para verificar se a lista é circular
+    // metodo para verificar se a lista é circular
     public static <X> boolean verificaCircular(DoubleLinkedListUnordered<X> lista) {
         // Se a lista estiver vazia, ela não é circular
         if (lista.primeiro == null) return false;

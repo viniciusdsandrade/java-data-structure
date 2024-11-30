@@ -8,12 +8,12 @@ public class PriorityQueueLinkedListUnorderedTest {
     public static void main(String[] args) {
         System.out.println("===== Iniciando Testes da PriorityQueueLinkedListUnordered =====\n");
 
-        System.out.println("1. Teste do Construtor Padrão e Método isEmpty");
+        System.out.println("1. Teste do Construtor Padrão e metodo isEmpty");
         PriorityQueueLinkedListUnordered<String> pq = new PriorityQueueLinkedListUnordered<String>();
         System.out.println("Fila está vazia? " + (pq.isEmpty() ? "Sim (Passou)" : "Não (Falhou)"));
         System.out.println("Tamanho da fila: " + pq.size() + " (Esperado: 0)\n");
 
-        System.out.println("2. Teste do Método enqueue");
+        System.out.println("2. Teste do metodo enqueue");
         pq.enqueue("Task1", 2);
         pq.enqueue("Task2", 4);
         pq.enqueue("Task3", 4);
@@ -22,7 +22,7 @@ public class PriorityQueueLinkedListUnorderedTest {
         System.out.println("Fila está vazia? " + (pq.isEmpty() ? "Sim (Falhou)" : "Não (Passou)"));
         System.out.println("Tamanho da fila: " + pq.size() + " (Esperado: 4)\n");
 
-        System.out.println("3. Teste do Método peek");
+        System.out.println("3. Teste do metodo peek");
         try {
             String peeked = pq.peek();
             System.out.println("Elemento no topo (esperado: Task2 ou Task3): " + peeked);
@@ -31,7 +31,7 @@ public class PriorityQueueLinkedListUnorderedTest {
         }
         System.out.println();
 
-        System.out.println("4. Teste do Método dequeue e ordem de remoção");
+        System.out.println("4. Teste do metodo dequeue e ordem de remoção");
         try {
             String removed1 = pq.dequeue();
             System.out.println("Dequeue 1 (esperado: Task2): " + removed1);
@@ -58,11 +58,11 @@ public class PriorityQueueLinkedListUnorderedTest {
         }
         System.out.println();
 
-        System.out.println("5. Teste do Método isEmpty após dequeues");
+        System.out.println("5. Teste do metodo isEmpty após dequeues");
         System.out.println("Fila está vazia? " + (pq.isEmpty() ? "Sim (Passou)" : "Não (Falhou)"));
         System.out.println("Tamanho da fila: " + pq.size() + " (Esperado: 0)\n");
 
-        System.out.println("6. Teste do Método clear");
+        System.out.println("6. Teste do metodo clear");
         pq.enqueue("Task5", 5);
         pq.enqueue("Task6", 1);
         pq.enqueue("Task7", 3);
@@ -73,7 +73,7 @@ public class PriorityQueueLinkedListUnorderedTest {
         System.out.println("Fila está vazia? " + (pq.isEmpty() ? "Sim (Passou)" : "Não (Falhou)"));
         System.out.println("Tamanho da fila: " + pq.size() + " (Esperado: 0)\n");
 
-        System.out.println("7. Teste do Método clone");
+        System.out.println("7. Teste do metodo clone");
         PriorityQueueLinkedListUnordered<String> pq0 = new PriorityQueueLinkedListUnordered<String>();
         pq0.enqueue("A", 1);
         pq0.enqueue("B", 2);
@@ -94,7 +94,7 @@ public class PriorityQueueLinkedListUnorderedTest {
         System.out.println("Original PQ == Cloned PQ após modificação? " + (!pq0.equals(pqClone) ? "Sim (Passou)" : "Não (Falhou)"));
         System.out.println();
 
-        System.out.println("8. Teste do Método equals e hashCode");
+        System.out.println("8. Teste do metodo equals e hashCode");
         PriorityQueueLinkedListUnordered<String> pq1 = new PriorityQueueLinkedListUnordered<String>();
         pq1.enqueue("X", 10);
         pq1.enqueue("Y", 20);
@@ -116,7 +116,7 @@ public class PriorityQueueLinkedListUnorderedTest {
         System.out.println("PQ1.hashCode() == PQ2.hashCode()? " + (pq1.hashCode() == pq2.hashCode() ? "Sim (Falhou)" : "Não (Passou)"));
         System.out.println();
 
-        System.out.println("9. Teste dos Métodos toString");
+        System.out.println("9. Teste dos metodos toString");
         PriorityQueueLinkedListUnordered<String> pq3 = new PriorityQueueLinkedListUnordered<String>();
         pq3.enqueue("Alpha", 5);
         pq3.enqueue("Beta", 3);
@@ -154,7 +154,7 @@ public class PriorityQueueLinkedListUnorderedTest {
         System.out.println("Fila está vazia? " + (pq4.isEmpty() ? "Sim (Passou)" : "Não (Falhou)"));
         System.out.println();
 
-        System.out.println("12. Teste do Método size");
+        System.out.println("12. Teste do metodo size");
         PriorityQueueLinkedListUnordered<Integer> pq5 = new PriorityQueueLinkedListUnordered<Integer>();
         System.out.println("Tamanho inicial: " + pq5.size() + " (Esperado: 0)");
         pq5.enqueue(10, 1);

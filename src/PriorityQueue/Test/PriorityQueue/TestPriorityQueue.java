@@ -9,13 +9,13 @@ public class TestPriorityQueue {
         System.out.println("===== Iniciando Testes da PriorityQueue =====\n");
 
         // 1. Teste do Construtor Padrão e Metodo isEmpty
-        System.out.println("1. Teste do Construtor Padrão e Método isEmpty");
+        System.out.println("1. Teste do Construtor Padrão e metodo isEmpty");
         PriorityQueue<String> pq = new PriorityQueue<String>();
         System.out.println("Fila está vazia? " + (pq.isEmpty() ? "Sim (Passou)" : "Não (Falhou)"));
         System.out.println();
 
         // 2. Teste do Metodo enqueue
-        System.out.println("2. Teste do Método enqueue");
+        System.out.println("2. Teste do metodo enqueue");
         pq.enqueue("Task1", 2);
         pq.enqueue("Task2", 4);
         pq.enqueue("Task3", 4);
@@ -25,7 +25,7 @@ public class TestPriorityQueue {
         System.out.println();
 
         // 3. Teste do Metodo peek
-        System.out.println("3. Teste do Método peek");
+        System.out.println("3. Teste do metodo peek");
         try {
             String peeked = pq.peek();
             System.out.println("Elemento no topo (esperado: Task2 ou Task3): " + peeked);
@@ -35,7 +35,7 @@ public class TestPriorityQueue {
         System.out.println();
 
         // 4. Teste do Metodo dequeue e ordem de remoção
-        System.out.println("4. Teste do Método dequeue e ordem de remoção");
+        System.out.println("4. Teste do metodo dequeue e ordem de remoção");
         try {
             String removed1 = pq.dequeue();
             System.out.println("Dequeue 1 (esperado: Task2): " + removed1);
@@ -63,7 +63,7 @@ public class TestPriorityQueue {
         System.out.println();
 
         // 5. Teste do Metodo isEmpty após dequeues
-        System.out.println("5. Teste do Método isEmpty após dequeues");
+        System.out.println("5. Teste do metodo isEmpty após dequeues");
         System.out.println("Fila está vazia? " + (pq.isEmpty() ? "Sim (Passou)" : "Não (Falhou)"));
         System.out.println();
 
@@ -82,7 +82,7 @@ public class TestPriorityQueue {
         System.out.println();
 
         // 7. Teste do Metodo clone
-        System.out.println("7. Teste do Método clone");
+        System.out.println("7. Teste do metodo clone");
         PriorityQueue<String> originalPQ = new PriorityQueue<String>();
         originalPQ.enqueue("A", 1);
         originalPQ.enqueue("B", 2);
@@ -104,7 +104,7 @@ public class TestPriorityQueue {
         System.out.println();
 
         // 8. Teste do Metodo equals e hashCode
-        System.out.println("8. Teste do Método equals e hashCode");
+        System.out.println("8. Teste do metodo equals e hashCode");
         PriorityQueue<String> pq1 = new PriorityQueue<String>();
         pq1.enqueue("X", 10);
         pq1.enqueue("Y", 20);
@@ -128,7 +128,7 @@ public class TestPriorityQueue {
         System.out.println();
 
         // 9. Teste do Metodo toArray e toString
-        System.out.println("9. Teste do Método toArray e toString");
+        System.out.println("9. Teste do metodo toArray e toString");
         PriorityQueue<String> pq3 = new PriorityQueue<String>();
         pq3.enqueue("Alpha", 5);
         pq3.enqueue("Beta", 3);
