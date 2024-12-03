@@ -179,9 +179,8 @@ public class AdjacencyListGraph<E extends Comparable<E>> implements Cloneable {
             }
         }
 
-        if (vertexIndex == -1) {
-            return false; // Vértice não encontrado
-        }
+        // Vértice não encontrado
+        if (vertexIndex == -1) return false;
 
         // Remover todas as arestas que apontam para este vértice
         for (int i = 0; i < vertices.getTamanho(); i++) {
