@@ -109,6 +109,7 @@ public class Stack<X> implements Cloneable {
     }
 
     @Override
+    @SuppressWarnings("MethodDoesntCallSuperMethod")
     public Object clone() {
         Stack<X> clone = null;
         try {
